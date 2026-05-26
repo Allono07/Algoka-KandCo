@@ -364,6 +364,36 @@ export default function Page() {
       </section>
 
       <div style={{ visibility: sequenceComplete ? 'visible' : 'hidden' }} className="transition-opacity duration-500">
+      <section ref={stackWrapRef} id="about" className="stack-wrap relative px-5 pb-8 pt-2 sm:px-8 md:px-12 lg:px-16">
+        <div className="stack-pin container rounded-[2rem] border border-[#d7be92]/32 bg-[#fbf5ec]/96 p-6 shadow-[0_32px_104px_rgba(73,50,22,0.08)] backdrop-blur-xl md:p-8">
+          <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
+            <div>
+              <p className="text-[0.64rem] uppercase tracking-[0.4em] text-[#b68142]">About</p>
+              <h2 className="mt-4 font-display text-[clamp(2.2rem,4vw,4.6rem)] uppercase leading-[0.92] tracking-[-0.04em] text-[#1f160f]">
+                Clear digital work for brands that want a professional presence.
+              </h2>
+              <p className="mt-5 max-w-md text-sm leading-7 text-[#5a4631]">
+                KALP & CO works across digital marketing, social media, paid media, influencer partnerships, and film production. The focus is simple: keep the message clean, the presentation professional, and the delivery consistent.
+              </p>
+            </div>
+
+            <div className="stack-card-stage">
+              {[
+                'Understand the brief and define the right communication direction.',
+                'Build the visual and motion system with a consistent brand tone.',
+                'Deliver the campaign, website, or production work with practical clarity.',
+                'Refine the result so it stays usable, professional, and easy to extend.',
+              ].map((step, index) => (
+                <div key={step} data-stack-card className="stack-card card p-5 shadow-[0_18px_44px_rgba(68,47,20,0.08)]">
+                  <div className="text-[0.62rem] uppercase tracking-[0.34em] text-[#ad7639]">Stage {String(index + 1).padStart(2, '0')}</div>
+                  <p className="mt-3 font-display text-[clamp(1.35rem,1.8vw,1.85rem)] leading-[1.04] text-[#22160d]">{step}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section ref={heroRef} className="hero-stage relative overflow-hidden px-5 py-4 sm:px-8 md:px-12 lg:px-16">
         <div className="container">
           <div className="flex items-center justify-between gap-6 border-b border-[#d7bb8b]/35 pb-4">
@@ -432,36 +462,6 @@ export default function Page() {
                 <p className="mt-4 text-sm leading-7 text-[#5a4631]">{item.copy}</p>
               </article>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section ref={stackWrapRef} id="about" className="stack-wrap relative px-5 pb-8 pt-2 sm:px-8 md:px-12 lg:px-16">
-        <div className="stack-pin container rounded-[2rem] border border-[#d7be92]/32 bg-[#fbf5ec]/96 p-6 shadow-[0_32px_104px_rgba(73,50,22,0.08)] backdrop-blur-xl md:p-8">
-          <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
-            <div>
-              <p className="text-[0.64rem] uppercase tracking-[0.4em] text-[#b68142]">About</p>
-              <h2 className="mt-4 font-display text-[clamp(2.2rem,4vw,4.6rem)] uppercase leading-[0.92] tracking-[-0.04em] text-[#1f160f]">
-                Clear digital work for brands that want a professional presence.
-              </h2>
-              <p className="mt-5 max-w-md text-sm leading-7 text-[#5a4631]">
-                KALP & CO works across digital marketing, social media, paid media, influencer partnerships, and film production. The focus is simple: keep the message clean, the presentation professional, and the delivery consistent.
-              </p>
-            </div>
-
-            <div className="stack-card-stage">
-              {[
-                'Understand the brief and define the right communication direction.',
-                'Build the visual and motion system with a consistent brand tone.',
-                'Deliver the campaign, website, or production work with practical clarity.',
-                'Refine the result so it stays usable, professional, and easy to extend.',
-              ].map((step, index) => (
-                <div key={step} data-stack-card className="stack-card card p-5 shadow-[0_18px_44px_rgba(68,47,20,0.08)]">
-                  <div className="text-[0.62rem] uppercase tracking-[0.34em] text-[#ad7639]">Stage {String(index + 1).padStart(2, '0')}</div>
-                  <p className="mt-3 font-display text-[clamp(1.35rem,1.8vw,1.85rem)] leading-[1.04] text-[#22160d]">{step}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
