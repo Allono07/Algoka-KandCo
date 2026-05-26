@@ -22,7 +22,7 @@ export default function FooterReveal() {
           ease: 'power3.out',
           scrollTrigger: {
             trigger: footerRef.current,
-            start: 'top 94%',
+            start: 'top 82%',
           },
         }
       );
@@ -38,7 +38,7 @@ export default function FooterReveal() {
           stagger: 0.1,
           scrollTrigger: {
             trigger: footerRef.current,
-            start: 'top 86%',
+            start: 'top 78%',
           },
         }
       );

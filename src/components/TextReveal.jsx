@@ -8,13 +8,6 @@ const LINES = [
   ['with', 'us?'],
 ];
 
-const FOOTER_ITEMS = [
-  { label: 'Location', value: 'Chennai / Remote' },
-  { label: 'Phone', value: '+91 00000 00000' },
-  { label: 'Email', value: 'hello@algoka.studio' },
-  { label: 'Availability', value: 'New projects from Q3 2026' },
-];
-
 export default function TextReveal({ onNavTriggerReady }) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
@@ -22,18 +15,15 @@ export default function TextReveal({ onNavTriggerReady }) {
   const introRef = useRef(null);
   const wordRefs = useRef([]);
   const actionRefs = useRef([]);
-  const footerLineRef = useRef(null);
-  const footerItemRefs = useRef([]);
   const navigateWithTransition = useNavigateWithTransition();
   let wordPosition = 0;
 
   wordRefs.current = [];
   actionRefs.current = [];
-  footerItemRefs.current = [];
 
   useLayoutEffect(() => {
     const context = gsap.context(() => {
-      const introDelay = 2.26;
+      const introDelay = 0.56;
 
       gsap.set(wordRefs.current, {
         scale: 2.2,
@@ -44,16 +34,6 @@ export default function TextReveal({ onNavTriggerReady }) {
 
       gsap.set(actionRefs.current, {
         y: 40,
-        opacity: 0,
-      });
-
-      gsap.set(footerLineRef.current, {
-        scaleX: 0,
-        transformOrigin: 'left center',
-      });
-
-      gsap.set(footerItemRefs.current, {
-        y: 48,
         opacity: 0,
       });
 
@@ -80,8 +60,8 @@ export default function TextReveal({ onNavTriggerReady }) {
             y: 0,
             opacity: 1,
             ease: 'power3.out',
-            duration: 1.8,
-            stagger: 0.11,
+            duration: 2.2,
+            stagger: 0.12,
           },
           introDelay
         )
@@ -91,30 +71,10 @@ export default function TextReveal({ onNavTriggerReady }) {
             y: 0,
             opacity: 1,
             ease: 'power3.out',
-            duration: 0.55,
+            duration: 0.68,
             stagger: 0.15,
           },
-          introDelay + 1.12
-        )
-        .to(
-          footerLineRef.current,
-          {
-            scaleX: 1,
-            duration: 0.55,
-            ease: 'power3.out',
-          },
-          introDelay + 1.56
-        )
-        .to(
-          footerItemRefs.current,
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.7,
-            ease: 'power3.out',
-            stagger: 0.08,
-          },
-          introDelay + 1.62
+          introDelay + 1.34
         );
     }, sectionRef);
 
@@ -199,41 +159,6 @@ export default function TextReveal({ onNavTriggerReady }) {
               </button>
             </div>
           </div>
-
-          <footer className="site-footer site-footer--inline">
-            <div ref={footerLineRef} className="site-footer__line" aria-hidden="true" />
-
-            <div className="site-footer__grid">
-              {FOOTER_ITEMS.map((item, index) => (
-                <div
-                  key={item.label}
-                  ref={(element) => {
-                    if (element) {
-                      footerItemRefs.current[index] = element;
-                    }
-                  }}
-                  className="site-footer__item"
-                >
-                  <p className="site-footer__label">{item.label}</p>
-                  <p className="site-footer__value">{item.value}</p>
-                </div>
-              ))}
-            </div>
-
-            <div
-              ref={(element) => {
-                if (element) {
-                  footerItemRefs.current[FOOTER_ITEMS.length] = element;
-                }
-              }}
-              className="site-footer__bottom"
-            >
-              <p className="site-footer__copyright">© 2026 Algoka. All rights reserved.</p>
-              <p className="site-footer__note">
-                Built to move slowly where the brand needs to breathe.
-              </p>
-            </div>
-          </footer>
         </div>
       </div>
     </section>

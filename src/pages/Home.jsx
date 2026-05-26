@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Canvas from '../components/Canvas';
+import FooterReveal from '../components/FooterReveal';
 import HomeNav from '../components/HomeNav';
 import TextReveal from '../components/TextReveal';
 
@@ -11,6 +12,7 @@ export default function Home() {
       <HomeNav triggerElement={navTriggerElement} />
       <Canvas />
       <TextReveal onNavTriggerReady={setNavTriggerElement} />
+      <FooterReveal />
     </main>
   );
 }
