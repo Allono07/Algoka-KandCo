@@ -87,6 +87,29 @@ canvas {
   background: var(--bg);
 }
 
+.sequence-arrows {
+  pointer-events: none;
+  opacity: 0.7;
+  filter: drop-shadow(0 6px 18px rgba(60, 40, 18, 0.14));
+}
+
+.sequence-arrows span {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-right: 1.5px solid rgba(124, 90, 50, 0.78);
+  border-bottom: 1.5px solid rgba(124, 90, 50, 0.78);
+  transform: rotate(45deg);
+  animation: arrowFloat 1.7s ease-in-out infinite;
+}
+
+.sequence-arrows span:nth-child(2) {
+  animation-delay: 0.14s;
+}
+
+.sequence-arrows span:nth-child(3) {
+  animation-delay: 0.28s;
+}
+
 .word-rail {
   position: relative;
   overflow: hidden;
@@ -121,17 +144,17 @@ canvas {
 }
 
 .stack-wrap {
-  min-height: 220vh;
+  min-height: 175vh;
 }
 
 .stack-pin {
   position: relative;
-  min-height: 68vh;
+  min-height: 60vh;
 }
 
 .stack-card-stage {
   position: relative;
-  min-height: 340px;
+  min-height: 300px;
 }
 
 .stack-card {
@@ -208,6 +231,18 @@ canvas {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes arrowFloat {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0) rotate(45deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(5px) rotate(45deg);
   }
 }
 

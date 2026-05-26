@@ -141,10 +141,9 @@ export default function Page() {
     };
 
     const paintFrame = (frameIndex) => {
-      const nextIndex = Math.max(sequenceFrameRef.current, frameIndex);
-      const frame = sequenceImagesRef.current[nextIndex];
+      const frame = sequenceImagesRef.current[frameIndex];
       if (!frame) return;
-      sequenceFrameRef.current = nextIndex;
+      sequenceFrameRef.current = frameIndex;
       drawCover(frame);
     };
 
@@ -179,9 +178,8 @@ export default function Page() {
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const frameIndex = Math.floor(self.progress * (frames.length - 1));
-          if (frameIndex > sequenceFrameRef.current) {
-            paintFrame(frameIndex);
-          }
+          paintFrame(frameIndex);
+          setSequenceComplete(self.progress >= 0.995);
         },
         onLeave: () => {
           sequenceFrameRef.current = frames.length - 1;
@@ -189,9 +187,12 @@ export default function Page() {
           setSequenceComplete(true);
         },
         onEnterBack: () => {
-          sequenceFrameRef.current = frames.length - 1;
-          drawCover(frames[frames.length - 1]);
           setSequenceComplete(false);
+        },
+        onLeaveBack: () => {
+          setSequenceComplete(false);
+          sequenceFrameRef.current = 0;
+          drawCover(frames[0]);
         },
         onRefresh: () => {
           const frame = sequenceImagesRef.current[sequenceFrameRef.current] || frames[0];
@@ -296,6 +297,29 @@ export default function Page() {
         },
       });
 
+      const serviceArticles = gsap.utils.toArray('.service-article');
+      serviceArticles.forEach((article, index) => {
+        gsap.fromTo(
+          article,
+          { y: 36, scale: 0.97, rotateX: 6, autoAlpha: 0 },
+          {
+            y: 0,
+            scale: 1,
+            rotateX: 0,
+            autoAlpha: 1,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: article,
+              start: 'top 84%',
+              end: 'top 58%',
+              scrub: 0.6,
+            },
+            delay: index * 0.02,
+          }
+        );
+      });
+
       const lines = gsap.utils.toArray('[data-line]');
       lines.forEach((line) => {
         gsap.fromTo(
@@ -360,11 +384,16 @@ export default function Page() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_24%,rgba(203,147,73,0.14),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.16),rgba(248,243,234,0.3))]" />
           <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/70 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f3ebdf] to-transparent" />
+          <div className="sequence-arrows absolute inset-x-0 bottom-8 flex items-center justify-center gap-2" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
         </div>
       </section>
 
       <div style={{ visibility: sequenceComplete ? 'visible' : 'hidden' }} className="transition-opacity duration-500">
-      <section ref={stackWrapRef} id="about" className="stack-wrap relative px-5 pb-8 pt-2 sm:px-8 md:px-12 lg:px-16">
+      <section ref={stackWrapRef} id="about" className="stack-wrap relative px-5 pb-3 pt-2 sm:px-8 md:px-12 lg:px-16">
         <div className="stack-pin container rounded-[2rem] border border-[#d7be92]/32 bg-[#fbf5ec]/96 p-6 shadow-[0_32px_104px_rgba(73,50,22,0.08)] backdrop-blur-xl md:p-8">
           <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
             <div>
@@ -394,7 +423,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section ref={heroRef} className="hero-stage relative overflow-hidden px-5 py-4 sm:px-8 md:px-12 lg:px-16">
+      <section ref={heroRef} className="hero-stage relative overflow-hidden px-5 py-2 sm:px-8 md:px-12 lg:px-16">
         <div className="container">
           <div className="flex items-center justify-between gap-6 border-b border-[#d7bb8b]/35 pb-4">
             <div className="font-display text-lg font-semibold tracking-wide text-[#171717]">KALP & CO</div>
@@ -405,7 +434,7 @@ export default function Page() {
             </nav>
           </div>
 
-          <div className="grid gap-8 py-6 lg:grid-cols-[1.18fr_0.82fr] lg:items-end lg:py-10">
+          <div className="grid gap-8 py-4 lg:grid-cols-[1.18fr_0.82fr] lg:items-end lg:py-7">
             <div data-reveal className="relative">
               <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#d6b67f]/40 bg-[#fff9ef]/90 px-4 py-2 text-[0.62rem] uppercase tracking-[0.34em] text-[#8e6536]">
                 Full-spectrum digital marketing and creative agency in Bengaluru
@@ -449,10 +478,10 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="services" className="relative overflow-hidden px-5 py-4 sm:px-8 md:px-12 lg:px-16">
+      <section id="services" className="relative overflow-hidden px-5 py-2 sm:px-8 md:px-12 lg:px-16">
         <div className="container">
           <div data-line className="h-px w-full origin-left bg-gradient-to-r from-transparent via-[#c99658] to-transparent" />
-          <div className="mt-4 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-2 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {SERVICES.map((item) => (
               <article key={item.title} data-card className="service-article card p-6 shadow-[0_24px_72px_rgba(70,48,20,0.06)] backdrop-blur-xl">
                 <div className="text-[0.62rem] uppercase tracking-[0.42em] text-[#b68142]">{item.id}</div>
@@ -466,10 +495,10 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="contact" className="relative overflow-hidden px-5 py-4 sm:px-8 md:px-12 lg:px-16">
+      <section id="contact" className="relative overflow-hidden px-5 py-2 sm:px-8 md:px-12 lg:px-16">
         <div className="container">
           <div data-line className="h-px w-full origin-left bg-gradient-to-r from-transparent via-[#c99658] to-transparent" />
-          <div className="mt-4 grid gap-5 lg:grid-cols-[1.02fr_0.98fr]">
+          <div className="mt-2 grid gap-5 lg:grid-cols-[1.02fr_0.98fr]">
             <div data-reveal className="card p-6 shadow-[0_24px_72px_rgba(68,47,20,0.06)] backdrop-blur-xl md:p-7">
               <p className="text-[0.64rem] uppercase tracking-[0.4em] text-[#b68142]">Contact</p>
               <h2 className="mt-4 font-display text-[clamp(2.1rem,4vw,4.6rem)] uppercase leading-[0.92] tracking-[-0.04em] text-[#1f160f]">
@@ -502,7 +531,7 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="px-5 pb-6 pt-1 text-[0.64rem] uppercase tracking-[0.35em] text-[#7a5d3b] sm:px-8 md:px-12 lg:px-16">
+      <footer className="px-5 pb-5 pt-1 text-[0.64rem] uppercase tracking-[0.35em] text-[#7a5d3b] sm:px-8 md:px-12 lg:px-16">
         <div className="container flex flex-col gap-3 border-t border-[#d6b67f]/30 pt-5 md:flex-row md:items-center md:justify-between">
           <span>KALP & CO</span>
           <span>Bengaluru, India</span>
