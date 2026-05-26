@@ -9,13 +9,13 @@ const NAV_ITEMS = [
   { label: 'Contact', to: '/contact' },
 ];
 
-export default function HomeNav({ triggerRef }) {
+export default function HomeNav({ triggerElement }) {
   const navRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const navigateWithTransition = useNavigateWithTransition();
 
   useLayoutEffect(() => {
-    if (!navRef.current || !triggerRef?.current) {
+    if (!navRef.current) {
       return undefined;
     }
 
@@ -26,9 +26,13 @@ export default function HomeNav({ triggerRef }) {
         pointerEvents: 'none',
       });
 
+      if (!triggerElement) {
+        return;
+      }
+
       ScrollTrigger.create({
-        trigger: triggerRef.current,
-        start: 'top 88%',
+        trigger: triggerElement,
+        start: 'top+=120 top',
         end: 'bottom bottom',
         onEnter: () => {
           navRef.current.style.pointerEvents = 'auto';
@@ -67,7 +71,7 @@ export default function HomeNav({ triggerRef }) {
     return () => {
       context.revert();
     };
-  }, [triggerRef]);
+  }, [triggerElement]);
 
   function handleNavigate(to) {
     setIsOpen(false);

@@ -15,10 +15,11 @@ const FOOTER_ITEMS = [
   { label: 'Availability', value: 'New projects from Q3 2026' },
 ];
 
-export default function TextReveal({ navTriggerRef }) {
+export default function TextReveal({ onNavTriggerReady }) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const contentRef = useRef(null);
+  const introRef = useRef(null);
   const wordRefs = useRef([]);
   const actionRefs = useRef([]);
   const footerLineRef = useRef(null);
@@ -30,17 +31,9 @@ export default function TextReveal({ navTriggerRef }) {
   actionRefs.current = [];
   footerItemRefs.current = [];
 
-  function setSectionRef(element) {
-    sectionRef.current = element;
-
-    if (navTriggerRef) {
-      navTriggerRef.current = element;
-    }
-  }
-
   useLayoutEffect(() => {
     const context = gsap.context(() => {
-      const introDelay = 0.26;
+      const introDelay = 2.26;
 
       gsap.set(wordRefs.current, {
         scale: 2.2,
@@ -131,10 +124,24 @@ export default function TextReveal({ navTriggerRef }) {
   }, []);
 
   return (
-    <section ref={setSectionRef} className="text-reveal">
+    <section
+      ref={(element) => {
+        sectionRef.current = element;
+      }}
+      className="text-reveal"
+    >
       <div ref={trackRef} className="text-reveal__track">
         <div ref={contentRef} className="text-reveal__content">
-          <div className="text-reveal__intro">
+          <div
+            ref={(element) => {
+              introRef.current = element;
+
+              if (onNavTriggerReady) {
+                onNavTriggerReady(element);
+              }
+            }}
+            className="text-reveal__intro"
+          >
             <h2 className="text-reveal__heading">
               {LINES.map((line, lineIndex) => (
                 <span key={line.join('-')} className="text-reveal__line">

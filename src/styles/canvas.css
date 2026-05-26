@@ -101,9 +101,9 @@
   gap: 24px;
   min-height: 88px;
   padding: 14px 18px 14px 20px;
-  border: 1px solid rgba(5, 5, 5, 0.08);
+  border: 1px solid rgba(5, 5, 5, 0.1);
   border-radius: 28px;
-  background: rgba(251, 249, 246, 0.97);
+  background: rgba(255, 255, 255, 0.96);
   color: #050505;
   backdrop-filter: blur(16px);
 }
@@ -326,7 +326,7 @@
     padding: 0 18px;
     border: 1px solid rgba(5, 5, 5, 0.08);
     border-radius: 22px;
-    background: rgba(248, 244, 238, 0.96);
+    background: rgba(255, 255, 255, 0.96);
     color: #050505;
     font-size: 16px;
     letter-spacing: -0.02em;
