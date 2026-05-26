@@ -171,7 +171,7 @@ export default function Page() {
       scrubTrigger = ScrollTrigger.create({
         trigger: sequenceWrapRef.current,
         start: 'top top',
-        end: () => `+=${window.innerHeight * 8}`,
+        end: () => `+=${window.innerHeight * 12}`,
         pin: true,
         scrub: 0.85,
         anticipatePin: 1,

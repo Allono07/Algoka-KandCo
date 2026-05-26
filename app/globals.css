@@ -121,17 +121,17 @@ canvas {
 }
 
 .stack-wrap {
-  min-height: 290vh;
+  min-height: 220vh;
 }
 
 .stack-pin {
   position: relative;
-  min-height: 74vh;
+  min-height: 68vh;
 }
 
 .stack-card-stage {
   position: relative;
-  min-height: 400px;
+  min-height: 340px;
 }
 
 .stack-card {
