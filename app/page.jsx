@@ -171,7 +171,7 @@ export default function Page() {
       scrubTrigger = ScrollTrigger.create({
         trigger: sequenceWrapRef.current,
         start: 'top top',
-        end: () => `+=${window.innerHeight * 5.5}`,
+        end: () => `+=${window.innerHeight * 8}`,
         pin: true,
         scrub: 0.85,
         anticipatePin: 1,
@@ -360,7 +360,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section ref={heroRef} className="hero-stage relative overflow-hidden px-5 py-6 sm:px-8 md:px-12 lg:px-16">
+      <section ref={heroRef} className="hero-stage relative overflow-hidden px-5 py-4 sm:px-8 md:px-12 lg:px-16">
         <div className="container">
           <div className="flex items-center justify-between gap-6 border-b border-[#d7bb8b]/35 pb-4">
             <div className="font-display text-lg font-semibold tracking-wide text-[#171717]">KALP & CO</div>
@@ -371,7 +371,7 @@ export default function Page() {
             </nav>
           </div>
 
-          <div className="grid gap-8 py-8 lg:grid-cols-[1.18fr_0.82fr] lg:items-end lg:py-12">
+          <div className="grid gap-8 py-6 lg:grid-cols-[1.18fr_0.82fr] lg:items-end lg:py-10">
             <div data-reveal className="relative">
               <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#d6b67f]/40 bg-[#fff9ef]/90 px-4 py-2 text-[0.62rem] uppercase tracking-[0.34em] text-[#8e6536]">
                 Full-spectrum digital marketing and creative agency in Bengaluru
@@ -415,10 +415,10 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="services" className="relative overflow-hidden px-5 py-6 sm:px-8 md:px-12 lg:px-16">
+      <section id="services" className="relative overflow-hidden px-5 py-4 sm:px-8 md:px-12 lg:px-16">
         <div className="container">
           <div data-line className="h-px w-full origin-left bg-gradient-to-r from-transparent via-[#c99658] to-transparent" />
-          <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-4 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {SERVICES.map((item) => (
               <article key={item.title} data-card className="service-article card p-6 shadow-[0_24px_72px_rgba(70,48,20,0.06)] backdrop-blur-xl">
                 <div className="text-[0.62rem] uppercase tracking-[0.42em] text-[#b68142]">{item.id}</div>
@@ -432,7 +432,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section ref={stackWrapRef} id="about" className="stack-wrap relative px-5 pb-10 pt-4 sm:px-8 md:px-12 lg:px-16">
+      <section ref={stackWrapRef} id="about" className="stack-wrap relative px-5 pb-8 pt-2 sm:px-8 md:px-12 lg:px-16">
         <div className="stack-pin container rounded-[2rem] border border-[#d7be92]/32 bg-[#fbf5ec]/96 p-6 shadow-[0_32px_104px_rgba(73,50,22,0.08)] backdrop-blur-xl md:p-8">
           <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
             <div>
@@ -462,10 +462,10 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="contact" className="relative overflow-hidden px-5 py-6 sm:px-8 md:px-12 lg:px-16">
+      <section id="contact" className="relative overflow-hidden px-5 py-4 sm:px-8 md:px-12 lg:px-16">
         <div className="container">
           <div data-line className="h-px w-full origin-left bg-gradient-to-r from-transparent via-[#c99658] to-transparent" />
-          <div className="mt-5 grid gap-5 lg:grid-cols-[1.02fr_0.98fr]">
+          <div className="mt-4 grid gap-5 lg:grid-cols-[1.02fr_0.98fr]">
             <div data-reveal className="card p-6 shadow-[0_24px_72px_rgba(68,47,20,0.06)] backdrop-blur-xl md:p-7">
               <p className="text-[0.64rem] uppercase tracking-[0.4em] text-[#b68142]">Contact</p>
               <h2 className="mt-4 font-display text-[clamp(2.1rem,4vw,4.6rem)] uppercase leading-[0.92] tracking-[-0.04em] text-[#1f160f]">
@@ -498,7 +498,7 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="px-5 pb-8 pt-2 text-[0.64rem] uppercase tracking-[0.35em] text-[#7a5d3b] sm:px-8 md:px-12 lg:px-16">
+      <footer className="px-5 pb-6 pt-1 text-[0.64rem] uppercase tracking-[0.35em] text-[#7a5d3b] sm:px-8 md:px-12 lg:px-16">
         <div className="container flex flex-col gap-3 border-t border-[#d6b67f]/30 pt-5 md:flex-row md:items-center md:justify-between">
           <span>KALP & CO</span>
           <span>Bengaluru, India</span>
