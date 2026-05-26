@@ -77,6 +77,7 @@ function useViewportMode() {
 
 export default function Page() {
   const isMobile = useViewportMode();
+  const [sequenceComplete, setSequenceComplete] = useState(false);
 
   const sequenceWrapRef = useRef(null);
   const sequenceCanvasRef = useRef(null);
@@ -185,10 +186,12 @@ export default function Page() {
         onLeave: () => {
           sequenceFrameRef.current = frames.length - 1;
           drawCover(frames[frames.length - 1]);
+          setSequenceComplete(true);
         },
         onEnterBack: () => {
           sequenceFrameRef.current = frames.length - 1;
           drawCover(frames[frames.length - 1]);
+          setSequenceComplete(false);
         },
         onRefresh: () => {
           const frame = sequenceImagesRef.current[sequenceFrameRef.current] || frames[0];
@@ -360,6 +363,7 @@ export default function Page() {
         </div>
       </section>
 
+      <div style={{ visibility: sequenceComplete ? 'visible' : 'hidden' }} className="transition-opacity duration-500">
       <section ref={heroRef} className="hero-stage relative overflow-hidden px-5 py-4 sm:px-8 md:px-12 lg:px-16">
         <div className="container">
           <div className="flex items-center justify-between gap-6 border-b border-[#d7bb8b]/35 pb-4">
@@ -504,6 +508,7 @@ export default function Page() {
           <span>Bengaluru, India</span>
         </div>
       </footer>
+      </div>
     </main>
   );
 }
