@@ -349,8 +349,6 @@ export default function Page() {
     };
   }, []);
 
-  const activeFrameLabel = isMobile ? 'Mobile frame sequence' : 'Desktop frame sequence';
-
   return (
     <main className="site-shell relative min-h-screen bg-[#f6f1ea] text-[#171717]">
       <section ref={sequenceWrapRef} className="camera-sequence-shell relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-[#f3ebdf]">
@@ -359,13 +357,10 @@ export default function Page() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_24%,rgba(203,147,73,0.14),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.16),rgba(248,243,234,0.3))]" />
           <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/70 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f3ebdf] to-transparent" />
-          <div className="absolute left-5 top-5 rounded-full border border-[#d6b67f]/35 bg-white/75 px-4 py-2 text-[0.62rem] uppercase tracking-[0.4em] text-[#9a6a32] backdrop-blur-md sm:left-8 sm:top-8">
-            {activeFrameLabel}
-          </div>
         </div>
       </section>
 
-      <section ref={heroRef} className="hero-stage relative overflow-hidden px-5 py-8 sm:px-8 md:px-12 lg:px-16">
+      <section ref={heroRef} className="hero-stage relative overflow-hidden px-5 py-6 sm:px-8 md:px-12 lg:px-16">
         <div className="container">
           <div className="flex items-center justify-between gap-6 border-b border-[#d7bb8b]/35 pb-4">
             <div className="font-display text-lg font-semibold tracking-wide text-[#171717]">KALP & CO</div>
@@ -376,7 +371,7 @@ export default function Page() {
             </nav>
           </div>
 
-          <div className="grid gap-8 py-10 lg:grid-cols-[1.18fr_0.82fr] lg:items-end lg:py-14">
+          <div className="grid gap-8 py-8 lg:grid-cols-[1.18fr_0.82fr] lg:items-end lg:py-12">
             <div data-reveal className="relative">
               <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#d6b67f]/40 bg-[#fff9ef]/90 px-4 py-2 text-[0.62rem] uppercase tracking-[0.34em] text-[#8e6536]">
                 Full-spectrum digital marketing and creative agency in Bengaluru
@@ -414,16 +409,16 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="word-rail mt-1">
+      <section className="word-rail">
         <div className="word-rail-track">
           {Array.from({ length: 2 }).flatMap((_, loop) => WORD_RAIL.map((item) => <span key={`${item}-${loop}`}>{item}</span>))}
         </div>
       </section>
 
-      <section id="services" className="relative overflow-hidden px-5 py-10 sm:px-8 md:px-12 lg:px-16">
+      <section id="services" className="relative overflow-hidden px-5 py-6 sm:px-8 md:px-12 lg:px-16">
         <div className="container">
           <div data-line className="h-px w-full origin-left bg-gradient-to-r from-transparent via-[#c99658] to-transparent" />
-          <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {SERVICES.map((item) => (
               <article key={item.title} data-card className="service-article card p-6 shadow-[0_24px_72px_rgba(70,48,20,0.06)] backdrop-blur-xl">
                 <div className="text-[0.62rem] uppercase tracking-[0.42em] text-[#b68142]">{item.id}</div>
@@ -437,7 +432,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section ref={stackWrapRef} id="about" className="stack-wrap relative px-5 pb-12 pt-6 sm:px-8 md:px-12 lg:px-16">
+      <section ref={stackWrapRef} id="about" className="stack-wrap relative px-5 pb-10 pt-4 sm:px-8 md:px-12 lg:px-16">
         <div className="stack-pin container rounded-[2rem] border border-[#d7be92]/32 bg-[#fbf5ec]/96 p-6 shadow-[0_32px_104px_rgba(73,50,22,0.08)] backdrop-blur-xl md:p-8">
           <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
             <div>
@@ -467,10 +462,10 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="contact" className="relative overflow-hidden px-5 py-10 sm:px-8 md:px-12 lg:px-16">
+      <section id="contact" className="relative overflow-hidden px-5 py-6 sm:px-8 md:px-12 lg:px-16">
         <div className="container">
           <div data-line className="h-px w-full origin-left bg-gradient-to-r from-transparent via-[#c99658] to-transparent" />
-          <div className="mt-7 grid gap-5 lg:grid-cols-[1.02fr_0.98fr]">
+          <div className="mt-5 grid gap-5 lg:grid-cols-[1.02fr_0.98fr]">
             <div data-reveal className="card p-6 shadow-[0_24px_72px_rgba(68,47,20,0.06)] backdrop-blur-xl md:p-7">
               <p className="text-[0.64rem] uppercase tracking-[0.4em] text-[#b68142]">Contact</p>
               <h2 className="mt-4 font-display text-[clamp(2.1rem,4vw,4.6rem)] uppercase leading-[0.92] tracking-[-0.04em] text-[#1f160f]">
@@ -494,12 +489,16 @@ export default function Page() {
                   )}
                 </div>
               ))}
+
+              <a href="https://www.instagram.com/kalpandco?igsh=aWo1YTE0Z3BpMmx4&utm_source=qr" target="_blank" rel="noreferrer" className="btn-secondary w-fit">
+                Instagram @kalpandco
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="px-5 pb-8 pt-4 text-[0.64rem] uppercase tracking-[0.35em] text-[#7a5d3b] sm:px-8 md:px-12 lg:px-16">
+      <footer className="px-5 pb-8 pt-2 text-[0.64rem] uppercase tracking-[0.35em] text-[#7a5d3b] sm:px-8 md:px-12 lg:px-16">
         <div className="container flex flex-col gap-3 border-t border-[#d6b67f]/30 pt-5 md:flex-row md:items-center md:justify-between">
           <span>KALP & CO</span>
           <span>Bengaluru, India</span>
