@@ -171,7 +171,7 @@ export default function Page() {
       scrubTrigger = ScrollTrigger.create({
         trigger: sequenceWrapRef.current,
         start: 'top top',
-        end: () => `+=${window.innerHeight * 12}`,
+        end: () => `+=${window.innerHeight * 10}`,
         pin: true,
         scrub: 0.85,
         anticipatePin: 1,
@@ -301,21 +301,44 @@ export default function Page() {
       serviceArticles.forEach((article, index) => {
         gsap.fromTo(
           article,
-          { y: 36, scale: 0.97, rotateX: 6, autoAlpha: 0 },
+          { y: 44, scale: 0.96, rotateX: 10, rotateY: index % 2 === 0 ? -5 : 5, autoAlpha: 0 },
           {
             y: 0,
             scale: 1,
             rotateX: 0,
+            rotateY: 0,
             autoAlpha: 1,
-            duration: 0.9,
+            duration: 1,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: article,
-              start: 'top 84%',
-              end: 'top 58%',
-              scrub: 0.6,
+              start: 'top 86%',
+              end: 'top 56%',
+              scrub: 0.75,
             },
             delay: index * 0.02,
+          }
+        );
+      });
+
+      const aboutPanels = gsap.utils.toArray('.about-panel');
+      aboutPanels.forEach((panel, index) => {
+        gsap.fromTo(
+          panel,
+          { y: 52, scale: 0.98, autoAlpha: 0 },
+          {
+            y: 0,
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.95,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: panel,
+              start: 'top 88%',
+              end: 'top 62%',
+              scrub: 0.7,
+            },
+            delay: index * 0.03,
           }
         );
       });
@@ -393,8 +416,9 @@ export default function Page() {
       </section>
 
       <div style={{ visibility: sequenceComplete ? 'visible' : 'hidden' }} className="transition-opacity duration-500">
-      <section ref={stackWrapRef} id="about" className="stack-wrap relative px-5 pb-3 pt-2 sm:px-8 md:px-12 lg:px-16">
-        <div className="stack-pin container rounded-[2rem] border border-[#d7be92]/32 bg-[#fbf5ec]/96 p-6 shadow-[0_32px_104px_rgba(73,50,22,0.08)] backdrop-blur-xl md:p-8">
+      <section ref={stackWrapRef} id="about" className="stack-wrap relative -mt-16 px-5 pb-3 pt-0 sm:-mt-20 sm:px-8 md:-mt-24 md:px-12 lg:px-16">
+        <div className="about-panel stack-pin container relative z-10 rounded-[2rem] border border-[#d7be92]/32 bg-[#fbf5ec]/96 p-6 shadow-[0_32px_104px_rgba(73,50,22,0.1)] backdrop-blur-xl md:p-8">
+          <div className="absolute inset-x-0 -top-8 mx-auto h-16 w-[86%] rounded-full bg-white/85 blur-2xl" aria-hidden="true" />
           <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
             <div>
               <p className="text-[0.64rem] uppercase tracking-[0.4em] text-[#b68142]">About</p>
