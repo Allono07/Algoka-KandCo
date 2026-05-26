@@ -222,6 +222,8 @@ export default function Page() {
   }, [frameSources]);
 
   useEffect(() => {
+    if (!sequenceComplete) return undefined;
+
     const lenis = new Lenis({
       duration: 1,
       lerp: 0.1,
@@ -297,24 +299,24 @@ export default function Page() {
         },
       });
 
-      const serviceArticles = gsap.utils.toArray('.service-article');
+      const serviceArticles = gsap.utils.toArray('[data-service-card]');
       serviceArticles.forEach((article, index) => {
         gsap.fromTo(
           article,
-          { y: 44, scale: 0.96, rotateX: 10, rotateY: index % 2 === 0 ? -5 : 5, autoAlpha: 0 },
+          { y: 72, scale: 0.94, rotateX: 14, rotateY: index % 2 === 0 ? -10 : 10, autoAlpha: 0 },
           {
             y: 0,
             scale: 1,
             rotateX: 0,
             rotateY: 0,
             autoAlpha: 1,
-            duration: 1,
+            duration: 1.1,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: article,
-              start: 'top 86%',
-              end: 'top 56%',
-              scrub: 0.75,
+              start: 'top 90%',
+              end: 'top 46%',
+              scrub: 0.9,
             },
             delay: index * 0.02,
           }
@@ -397,7 +399,7 @@ export default function Page() {
       gsap.ticker.remove(raf);
       lenis.destroy();
     };
-  }, []);
+  }, [sequenceComplete]);
 
   return (
     <main className="site-shell relative min-h-screen bg-[#f6f1ea] text-[#171717]">
@@ -415,10 +417,11 @@ export default function Page() {
         </div>
       </section>
 
-      <div style={{ visibility: sequenceComplete ? 'visible' : 'hidden' }} className="transition-opacity duration-500">
-      <section ref={stackWrapRef} id="about" className="stack-wrap relative -mt-16 px-5 pb-3 pt-0 sm:-mt-20 sm:px-8 md:-mt-24 md:px-12 lg:px-16">
-        <div className="about-panel stack-pin container relative z-10 rounded-[2rem] border border-[#d7be92]/32 bg-[#fbf5ec]/96 p-6 shadow-[0_32px_104px_rgba(73,50,22,0.1)] backdrop-blur-xl md:p-8">
-          <div className="absolute inset-x-0 -top-8 mx-auto h-16 w-[86%] rounded-full bg-white/85 blur-2xl" aria-hidden="true" />
+      {sequenceComplete && (
+      <>
+      <section ref={stackWrapRef} id="about" className="stack-wrap relative z-20 -mt-44 px-5 pb-0 pt-0 sm:-mt-56 sm:px-8 md:-mt-64 md:px-12 lg:px-16">
+        <div className="about-panel stack-pin container relative z-20 rounded-[2rem] border border-[#d7be92]/32 bg-[#fbf5ec]/96 p-6 shadow-[0_32px_104px_rgba(73,50,22,0.1)] backdrop-blur-xl md:p-8">
+          <div className="absolute inset-x-0 -top-10 mx-auto h-20 w-[88%] rounded-full bg-white/90 blur-3xl" aria-hidden="true" />
           <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
             <div>
               <p className="text-[0.64rem] uppercase tracking-[0.4em] text-[#b68142]">About</p>
@@ -447,7 +450,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section ref={heroRef} className="hero-stage relative overflow-hidden px-5 py-2 sm:px-8 md:px-12 lg:px-16">
+      <section ref={heroRef} className="hero-stage relative mt-4 overflow-hidden px-5 py-1 sm:mt-5 sm:px-8 md:mt-6 md:px-12 lg:px-16">
         <div className="container">
           <div className="flex items-center justify-between gap-6 border-b border-[#d7bb8b]/35 pb-4">
             <div className="font-display text-lg font-semibold tracking-wide text-[#171717]">KALP & CO</div>
@@ -458,7 +461,7 @@ export default function Page() {
             </nav>
           </div>
 
-          <div className="grid gap-8 py-4 lg:grid-cols-[1.18fr_0.82fr] lg:items-end lg:py-7">
+          <div className="grid gap-8 py-3 lg:grid-cols-[1.18fr_0.82fr] lg:items-end lg:py-6">
             <div data-reveal className="relative">
               <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#d6b67f]/40 bg-[#fff9ef]/90 px-4 py-2 text-[0.62rem] uppercase tracking-[0.34em] text-[#8e6536]">
                 Full-spectrum digital marketing and creative agency in Bengaluru
@@ -502,27 +505,47 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="services" className="relative overflow-hidden px-5 py-2 sm:px-8 md:px-12 lg:px-16">
+      <section id="services" className="relative mt-2 overflow-hidden px-5 py-1 sm:mt-3 sm:px-8 md:mt-4 md:px-12 lg:px-16">
         <div className="container">
           <div data-line className="h-px w-full origin-left bg-gradient-to-r from-transparent via-[#c99658] to-transparent" />
-          <div className="mt-2 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {SERVICES.map((item) => (
-              <article key={item.title} data-card className="service-article card p-6 shadow-[0_24px_72px_rgba(70,48,20,0.06)] backdrop-blur-xl">
-                <div className="text-[0.62rem] uppercase tracking-[0.42em] text-[#b68142]">{item.id}</div>
-                <h2 className="mt-4 font-display text-[clamp(1.9rem,2.3vw,2.6rem)] leading-[0.96] tracking-[-0.04em] text-[#22170f]">
-                  {item.title}
-                </h2>
-                <p className="mt-4 text-sm leading-7 text-[#5a4631]">{item.copy}</p>
-              </article>
-            ))}
+          <div className="mt-2 grid gap-8 lg:grid-cols-[0.34fr_0.66fr] lg:items-start">
+            <div data-reveal className="max-w-sm pt-2">
+              <p className="text-[0.64rem] uppercase tracking-[0.4em] text-[#b68142]">Services</p>
+              <h2 className="mt-4 font-display text-[clamp(2.2rem,4vw,4.8rem)] uppercase leading-[0.92] tracking-[-0.04em] text-[#1f160f]">
+                Digital work built for clarity, growth, and consistency.
+              </h2>
+              <p className="mt-5 text-sm leading-7 text-[#5a4631]">
+                The service stack is designed to read like an editorial sequence, with each card sliding forward as you scroll instead of sitting in a flat grid.
+              </p>
+            </div>
+
+            <div className="services-stack">
+              {SERVICES.map((item, index) => (
+                <article
+                  key={item.title}
+                  data-service-card
+                  className="service-article services-stack-card card p-6 shadow-[0_24px_72px_rgba(70,48,20,0.06)] backdrop-blur-xl"
+                  style={{ zIndex: SERVICES.length - index }}
+                >
+                  <div className="flex items-start justify-between gap-6">
+                    <div className="text-[0.62rem] uppercase tracking-[0.42em] text-[#b68142]">{item.id}</div>
+                    <div className="text-[0.62rem] uppercase tracking-[0.32em] text-[#8d6a47]">0{index + 1}</div>
+                  </div>
+                  <h2 className="mt-4 font-display text-[clamp(1.9rem,2.3vw,2.8rem)] leading-[0.96] tracking-[-0.04em] text-[#22170f]">
+                    {item.title}
+                  </h2>
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5a4631]">{item.copy}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="relative overflow-hidden px-5 py-2 sm:px-8 md:px-12 lg:px-16">
+      <section id="contact" className="relative mt-2 overflow-hidden px-5 py-1 sm:mt-3 sm:px-8 md:mt-4 md:px-12 lg:px-16">
         <div className="container">
           <div data-line className="h-px w-full origin-left bg-gradient-to-r from-transparent via-[#c99658] to-transparent" />
-          <div className="mt-2 grid gap-5 lg:grid-cols-[1.02fr_0.98fr]">
+          <div className="mt-1 grid gap-5 lg:grid-cols-[1.02fr_0.98fr]">
             <div data-reveal className="card p-6 shadow-[0_24px_72px_rgba(68,47,20,0.06)] backdrop-blur-xl md:p-7">
               <p className="text-[0.64rem] uppercase tracking-[0.4em] text-[#b68142]">Contact</p>
               <h2 className="mt-4 font-display text-[clamp(2.1rem,4vw,4.6rem)] uppercase leading-[0.92] tracking-[-0.04em] text-[#1f160f]">
@@ -555,13 +578,14 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="px-5 pb-5 pt-1 text-[0.64rem] uppercase tracking-[0.35em] text-[#7a5d3b] sm:px-8 md:px-12 lg:px-16">
+      <footer className="mt-2 border-t border-[#c7b089] bg-[#d8c3a4] px-5 pb-5 pt-1 text-[0.64rem] uppercase tracking-[0.35em] text-[#5e452b] sm:px-8 md:px-12 lg:px-16">
         <div className="container flex flex-col gap-3 border-t border-[#d6b67f]/30 pt-5 md:flex-row md:items-center md:justify-between">
           <span>KALP & CO</span>
           <span>Bengaluru, India</span>
         </div>
       </footer>
-      </div>
+      </>
+      )}
     </main>
   );
 }

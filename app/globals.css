@@ -143,35 +143,75 @@ canvas {
   box-shadow: 0 18px 50px rgba(66, 46, 19, 0.08);
 }
 
+.services-stack {
+  position: relative;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.services-stack-card {
+  position: relative;
+  top: auto;
+  margin-top: 0;
+  transform-origin: top center;
+}
+
+.services-stack-card:nth-child(1) {
+  transform: translateY(0) scale(1);
+}
+
+.services-stack-card:nth-child(2) {
+  transform: translateY(1.15rem) scale(0.985);
+}
+
+.services-stack-card:nth-child(3) {
+  transform: translateY(2.3rem) scale(0.97);
+}
+
+.services-stack-card:nth-child(4) {
+  transform: translateY(3.45rem) scale(0.955);
+}
+
+.services-stack-card:nth-child(5) {
+  transform: translateY(4.6rem) scale(0.94);
+}
+
+.services-stack-card:nth-child(n + 2) {
+  margin-top: -0.5rem;
+}
+
 .stack-wrap {
-  min-height: 175vh;
+  min-height: auto;
 }
 
 .stack-pin {
   position: relative;
-  min-height: 60vh;
+  min-height: auto;
 }
 
 .stack-card-stage {
   position: relative;
-  min-height: 300px;
+  display: grid;
+  gap: 0.9rem;
+  min-height: auto;
 }
 
 .stack-card {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  inset: auto;
+  transform-origin: top center;
 }
 
 .stack-card:nth-child(2) {
-  transform: translateY(18px) scale(0.975);
+  transform: translateY(-0.25rem) scale(0.985);
 }
 
 .stack-card:nth-child(3) {
-  transform: translateY(36px) scale(0.95);
+  transform: translateY(-0.5rem) scale(0.97);
 }
 
 .stack-card:nth-child(4) {
-  transform: translateY(54px) scale(0.925);
+  transform: translateY(-0.75rem) scale(0.955);
 }
 
 .btn-primary {
