@@ -2,6 +2,58 @@
   background: #eeeeee;
 }
 
+.home-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  pointer-events: auto;
+  background: transparent;
+}
+
+.home-intro__grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+}
+
+.home-intro__box {
+  position: relative;
+  background: #000;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.home-intro__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.home-intro__mask {
+  overflow: hidden;
+}
+
+.home-intro__wordmark {
+  color: #f7f2ea;
+  font-size: clamp(88px, 15vw, 220px);
+  font-family: 'Faculty Glyphic', serif;
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.home-intro__letter {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
 .canvas-hero {
   position: relative;
   height: 100vh;
@@ -337,6 +389,16 @@
 }
 
 @media (max-width: 767px) {
+  .home-intro__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+  }
+
+  .home-intro__wordmark {
+    font-size: clamp(64px, 21vw, 128px);
+    letter-spacing: -0.03em;
+  }
+
   .canvas-hero__arrow {
     bottom: 22px;
   }

@@ -35,7 +35,7 @@ function getFrameManifest() {
   };
 }
 
-export default function Canvas() {
+export default function Canvas({ onReadyChange }) {
   const sectionRef = useRef(null);
   const canvasRef = useRef(null);
   const arrowRef = useRef(null);
@@ -45,6 +45,12 @@ export default function Canvas() {
   const rafRef = useRef(0);
   const [loadProgress, setLoadProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    if (typeof onReadyChange === 'function') {
+      onReadyChange(isReady);
+    }
+  }, [isReady, onReadyChange]);
 
   useEffect(() => {
     let isMounted = true;
