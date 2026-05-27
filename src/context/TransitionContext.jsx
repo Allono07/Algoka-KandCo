@@ -59,6 +59,10 @@ export function TransitionProvider({ children }) {
     const targetPath =
       typeof to === 'string' ? to : typeof to?.pathname === 'string' ? to.pathname : '';
 
+    if (options?.state?.returnToHomeContent) {
+      window.__kalpReturnToHomeContent = true;
+    }
+
     if (isTransitioningRef.current || !curtainRef.current || targetPath === location.pathname) {
       return;
     }

@@ -1,5 +1,6 @@
 .text-reveal {
   position: relative;
+  margin-top: -1px;
   background: #eeeeee;
   color: #050505;
   z-index: 1;
@@ -13,6 +14,7 @@
 .text-reveal__content {
   position: sticky;
   top: 0;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -20,6 +22,54 @@
   min-height: 100vh;
   padding: clamp(124px, 16vh, 168px) 10vw 56px;
   will-change: transform, opacity;
+}
+
+.text-reveal__f1 {
+  position: absolute;
+  top: clamp(7vh, 11vh, 15vh);
+  right: clamp(2vw, 4vw, 6vw);
+  width: clamp(380px, 34vw, 520px);
+  pointer-events: none;
+  z-index: 2;
+  will-change: transform, opacity;
+}
+
+.text-reveal__f1-picture,
+.text-reveal__f1-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.text-reveal__f1--idle {
+  opacity: 0;
+  transform: translate3d(0, -22px, 0) scale(0.97);
+}
+
+.text-reveal__f1--entering {
+  animation: f1-enter 2.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.text-reveal__f1--settled {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+@keyframes f1-enter {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -26px, 0) scale(0.965);
+  }
+
+  22% {
+    opacity: 1;
+    transform: translate3d(0, -8px, 0) scale(0.985);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
 }
 
 .text-reveal__intro {
@@ -127,6 +177,16 @@
 @media (max-width: 767px) {
   .text-reveal__track {
     min-height: 235vh;
+  }
+
+  .text-reveal__f1 {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(92vw, 440px);
+    margin-top: clamp(20px, 5vw, 36px);
+    margin-left: auto;
+    margin-right: 2vw;
   }
 
   .text-reveal__content {

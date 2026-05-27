@@ -2,10 +2,31 @@ import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import useNavigateWithTransition from '../hooks/useNavigateWithTransition';
 
+const CONTACT_ITEMS = [
+  {
+    label: 'Address',
+    value: 'No.33/1 PJD No.76-22-33/1, Fourth Floor, Vittal Mallya Rd, Bengaluru, Karnataka - 560001',
+  },
+  {
+    label: 'Email',
+    value: 'contact@kalpandco.com',
+    href: 'mailto:contact@kalpandco.com',
+  },
+  {
+    label: 'Phone',
+    value: '94822 12222',
+    href: 'tel:+919482212222',
+  },
+  {
+    label: 'Hours',
+    value: 'Mon - Sat, 10:00 AM - 7:00 PM IST',
+  },
+];
+
 export default function Contact() {
   const rootRef = useRef(null);
   const headingRef = useRef(null);
-  const formRef = useRef(null);
+  const detailsRef = useRef(null);
   const ledeRef = useRef(null);
   const navigateWithTransition = useNavigateWithTransition();
 
@@ -13,7 +34,7 @@ export default function Contact() {
     const context = gsap.context(() => {
       const animatedItems = [
         ledeRef.current,
-        ...formRef.current.querySelectorAll('.form-field, .page-shell__submit'),
+        ...detailsRef.current.querySelectorAll('.service-row, .contact-social'),
       ];
 
       gsap.fromTo(
@@ -51,7 +72,7 @@ export default function Contact() {
         type="button"
         className="page-shell__back"
         data-cursor-hover
-        onClick={() => navigateWithTransition('/')}
+        onClick={() => navigateWithTransition('/', { state: { returnToHomeContent: true } })}
       >
         <span aria-hidden="true">←</span> Home
       </button>
@@ -64,34 +85,33 @@ export default function Contact() {
         </div>
 
         <p ref={ledeRef} className="page-shell__lede">
-          If you&apos;re shaping something ambitious, we&apos;d love to hear what needs to move
-          next.
+          For inquiries, use the direct details below.
         </p>
 
-        <form className="contact-form" ref={formRef} onSubmit={(event) => event.preventDefault()}>
-          <label className="form-field">
-            <span className="form-field__label">Name</span>
-            <input type="text" name="name" placeholder="Your name" />
-          </label>
+        <div ref={detailsRef} className="services-list">
+          {CONTACT_ITEMS.map((item) => (
+            <div key={item.label} className="service-row" data-cursor-hover>
+              <div className="service-row__title">{item.label}</div>
+              {item.href ? (
+                <a className="service-row__copy" href={item.href}>
+                  {item.value}
+                </a>
+              ) : (
+                <p className="service-row__copy">{item.value}</p>
+              )}
+            </div>
+          ))}
 
-          <label className="form-field">
-            <span className="form-field__label">Email</span>
-            <input type="email" name="email" placeholder="name@studio.com" />
-          </label>
-
-          <label className="form-field">
-            <span className="form-field__label">Message</span>
-            <textarea name="message" rows="4" placeholder="What are you building?" />
-          </label>
-
-          <button
-            type="submit"
-            className="pill-button pill-button--solid page-shell__submit"
+          <a
+            href="https://www.instagram.com/kalpandco?igsh=aWo1YTE0Z3BpMmx4&utm_source=qr"
+            target="_blank"
+            rel="noreferrer"
+            className="pill-button pill-button--solid page-shell__submit contact-social"
             data-cursor-hover
           >
-            Submit
-          </button>
-        </form>
+            Instagram @kalpandco
+          </a>
+        </div>
       </div>
     </main>
   );

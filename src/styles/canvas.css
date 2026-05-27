@@ -76,18 +76,16 @@
 
 .canvas-hero__blend {
   position: absolute;
-  inset: auto 0 0;
+  left: 0;
+  right: 0;
+  bottom: -1px;
   height: clamp(72px, 12vh, 132px);
-  background:
-    radial-gradient(circle at 50% 0%, rgba(234, 228, 216, 0.16), transparent 42%),
-    linear-gradient(
-      to bottom,
-      rgba(5, 5, 5, 0) 0%,
-      rgba(16, 16, 16, 0.04) 14%,
-      rgba(80, 80, 80, 0.1) 40%,
-      rgba(212, 212, 212, 0.38) 72%,
-      #eeeeee 100%
-    );
+  background: linear-gradient(
+    to bottom,
+    rgba(238, 238, 238, 0) 0%,
+    rgba(238, 238, 238, 0.65) 70%,
+    rgba(238, 238, 238, 0.98) 100%
+  );
   pointer-events: none;
 }
 
@@ -173,47 +171,13 @@
   flex: 0 0 auto;
 }
 
-.home-nav__mark {
+.home-nav__brand-image {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 54px;
   height: 54px;
-  border-radius: 16px;
-  background: #050505;
+  object-fit: contain;
   overflow: hidden;
-}
-
-.home-nav__mark::before,
-.home-nav__mark::after {
-  content: '';
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border: 2px solid #59a8ff;
-}
-
-.home-nav__mark::before {
-  top: 6px;
-  left: 6px;
-  border-right: 0;
-  border-bottom: 0;
-}
-
-.home-nav__mark::after {
-  right: 6px;
-  bottom: 6px;
-  border-left: 0;
-  border-top: 0;
-}
-
-.home-nav__mark-line {
-  width: 28px;
-  height: 4px;
-  border-radius: 999px;
-  background: #fff;
-  transform: rotate(-45deg);
 }
 
 .home-nav__links {
@@ -324,14 +288,9 @@
     padding: 0 16px 0 14px;
   }
 
-  .home-nav__mark {
+  .home-nav__brand-image {
     width: 46px;
     height: 46px;
-    border-radius: 14px;
-  }
-
-  .home-nav__mark-line {
-    width: 22px;
   }
 
   .home-nav__links {
