@@ -70,6 +70,10 @@ export function TransitionProvider({ children }) {
       transformOrigin: 'bottom center',
     });
 
+    if (options?.state?.returnToHomeContent && typeof window !== 'undefined') {
+      window.__kalpReturnToHomeContent = true;
+    }
+
     shouldOpenRef.current = true;
     window.scrollTo(0, 0);
     navigate(to, options);

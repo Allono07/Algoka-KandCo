@@ -2,10 +2,10 @@ import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 const FOOTER_ITEMS = [
-  { label: 'Location', value: 'Chennai / Remote' },
-  { label: 'Phone', value: '+91 00000 00000' },
-  { label: 'Email', value: 'hello@algoka.studio' },
-  { label: 'Availability', value: 'New projects from Q3 2026' },
+  { label: 'Address', value: 'No.33/1 PJD No.76-22-33/1, Fourth Floor, Vittal Mallya Rd, Bengaluru, Karnataka - 560001' },
+  { label: 'Email', value: 'contact@kalpandco.com' },
+  { label: 'Phone', value: '94822 12222' },
+  { label: 'Hours', value: 'Mon - Sat, 10:00 AM - 7:00 PM IST' },
 ];
 
 export default function FooterReveal() {
@@ -63,8 +63,8 @@ export default function FooterReveal() {
       </div>
 
       <div className="site-footer__bottom" data-footer-item>
-        <p className="site-footer__copyright">© 2026 Algoka. All rights reserved.</p>
-        <p className="site-footer__note">Built to move slowly where the brand needs to breathe.</p>
+        <p className="site-footer__copyright">© 2026 KALP &amp; CO. All rights reserved.</p>
+        <p className="site-footer__note">Digital marketing and creative production, Bengaluru.</p>
       </div>
     </footer>
   );

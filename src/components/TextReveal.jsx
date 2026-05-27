@@ -3,9 +3,8 @@ import { gsap } from 'gsap';
 import useNavigateWithTransition from '../hooks/useNavigateWithTransition';
 
 const LINES = [
-  ['So', 'are', 'you'],
-  ['ready', 'to', 'build'],
-  ['with', 'us?'],
+  ['KALP', '&', 'CO'],
+  ['DIGITAL', 'MARKETING'],
 ];
 
 export default function TextReveal({ onNavTriggerReady }) {
@@ -141,7 +140,7 @@ export default function TextReveal({ onNavTriggerReady }) {
                 data-cursor-hover
                 onClick={() => navigateWithTransition('/contact')}
               >
-                Contact
+                Contact us
               </button>
 
               <button
@@ -155,7 +154,7 @@ export default function TextReveal({ onNavTriggerReady }) {
                 data-cursor-hover
                 onClick={() => navigateWithTransition('/services')}
               >
-                Services
+                View services
               </button>
             </div>
           </div>

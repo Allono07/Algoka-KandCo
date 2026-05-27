@@ -88,9 +88,7 @@ export default function HomeNav({ triggerElement }) {
           aria-label="Go to home"
           onClick={() => handleNavigate('/')}
         >
-          <span className="home-nav__mark" aria-hidden="true">
-            <span className="home-nav__mark-line" />
-          </span>
+          <img className="home-nav__brand-image" src="/kalp.png" alt="Kalp&Co" />
         </button>
 
         <nav className="home-nav__links" aria-label="Primary">

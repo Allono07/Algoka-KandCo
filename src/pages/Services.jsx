@@ -4,20 +4,24 @@ import useNavigateWithTransition from '../hooks/useNavigateWithTransition';
 
 const SERVICES = [
   {
-    title: 'Narrative Systems',
-    copy: 'Scroll-led product stories and brand sequences built to feel more like film than templates.',
+    title: 'SEO & Web Development',
+    copy: 'Search-led websites and technical builds made to support visibility, performance, and long-term reliability.',
   },
   {
-    title: 'Editorial Interfaces',
-    copy: 'Typography-first digital experiences with motion, rhythm, and pacing that earn attention.',
+    title: 'Social Media Management',
+    copy: 'Planning, publishing, and day-to-day brand communication with a consistent voice and visual system.',
   },
   {
-    title: 'Launch Direction',
-    copy: 'Concept-to-ship support for landing pages, campaigns, and product reveals with a sharp point of view.',
+    title: 'Performance Marketing',
+    copy: 'Paid campaigns tuned for reach, leads, and measurable return with clean reporting and optimization.',
   },
   {
-    title: 'Motion Engineering',
-    copy: 'GSAP, canvas, and transition architecture tuned to feel seamless across routes, breakpoints, and devices.',
+    title: 'Influencer Marketing',
+    copy: 'Creator partnerships aligned to audience fit, campaign goals, and brand positioning.',
+  },
+  {
+    title: 'Film Making & Production',
+    copy: 'Commercial shoots, reels, and production support for campaign and brand storytelling.',
   },
 ];
 
@@ -82,7 +86,7 @@ export default function Services() {
         type="button"
         className="page-shell__back"
         data-cursor-hover
-        onClick={() => navigateWithTransition('/')}
+        onClick={() => navigateWithTransition('/', { state: { returnToHomeContent: true } })}
       >
         <span aria-hidden="true">←</span> Home
       </button>
@@ -95,8 +99,8 @@ export default function Services() {
         </div>
 
         <p ref={ledeRef} className="page-shell__lede">
-          We build digital launches with cinematic movement, editorial restraint, and code that
-          stays intentional under pressure.
+          KALP &amp; CO works across digital marketing, social media, paid media, influencer
+          partnerships, and film production.
         </p>
 
         <div ref={rowsRef} className="services-list">
