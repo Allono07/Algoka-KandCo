@@ -1,13 +1,14 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import useNavigateWithTransition from '../hooks/useNavigateWithTransition';
+import FormulaOneHero from './FormulaOneHero';
 
 const LINES = [
   ['KALP', '&', 'CO'],
   ['DIGITAL', 'MARKETING'],
 ];
 
-export default function TextReveal({ onNavTriggerReady }) {
+export default function TextReveal({ isIntroComplete, onNavTriggerReady }) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const contentRef = useRef(null);
@@ -91,6 +92,7 @@ export default function TextReveal({ onNavTriggerReady }) {
     >
       <div ref={trackRef} className="text-reveal__track">
         <div ref={contentRef} className="text-reveal__content">
+          <FormulaOneHero isActive={isIntroComplete} />
           <div
             ref={(element) => {
               introRef.current = element;
@@ -158,6 +160,8 @@ export default function TextReveal({ onNavTriggerReady }) {
               </button>
             </div>
           </div>
+
+          <FormulaOneHero isActive={isIntroComplete} variant="mobile" />
         </div>
       </div>
     </section>

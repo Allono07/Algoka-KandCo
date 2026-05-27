@@ -236,7 +236,7 @@ export default function Canvas({ onReadyChange }) {
             if (value < 0.04) {
               return 0;
             }
-
+            
             if (value > 0.992 && value < 1) {
               return 1;
             }

@@ -54,7 +54,7 @@ export default function Home() {
       ) : null}
       <HomeNav triggerElement={navTriggerElement} />
       <Canvas onReadyChange={setIsHeroReady} />
-      <TextReveal onNavTriggerReady={setNavTriggerElement} />
+      <TextReveal isIntroComplete={isIntroComplete} onNavTriggerReady={setNavTriggerElement} />
       <FooterReveal />
     </main>
   );
