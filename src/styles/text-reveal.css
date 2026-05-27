@@ -179,6 +179,13 @@
     min-height: 235vh;
   }
 
+  .text-reveal__heading {
+    max-width: 14ch;
+    font-size: clamp(44px, 12vw, 88px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+
   .text-reveal__f1 {
     position: relative;
     top: auto;
