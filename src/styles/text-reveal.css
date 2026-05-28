@@ -21,6 +21,7 @@
   gap: clamp(28px, 4vw, 52px);
   min-height: 100vh;
   padding: clamp(124px, 16vh, 168px) 10vw 56px;
+  overflow: hidden;
   will-change: transform, opacity;
 }
 
@@ -31,7 +32,11 @@
   width: clamp(380px, 34vw, 520px);
   pointer-events: none;
   z-index: 2;
-  will-change: transform, opacity;
+}
+
+.text-reveal__f1-motion {
+  will-change: transform, filter;
+  transform: translate3d(0, 0, 0);
 }
 
 .text-reveal__f1-picture,

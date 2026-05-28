@@ -1,14 +1,13 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import useNavigateWithTransition from '../hooks/useNavigateWithTransition';
-import FormulaOneHero from './FormulaOneHero';
 
 const LINES = [
   ['KALP', '&', 'CO'],
   ['DIGITAL', 'MARKETING'],
 ];
 
-export default function TextReveal({ onNavTriggerReady }) {
+export default function TextReveal({ onNavTriggerReady, children }) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const contentRef = useRef(null);
@@ -160,7 +159,7 @@ export default function TextReveal({ onNavTriggerReady }) {
             </div>
           </div>
 
-          <FormulaOneHero />
+          {children}
         </div>
       </div>
     </section>
