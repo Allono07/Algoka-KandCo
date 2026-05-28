@@ -79,7 +79,8 @@
 }
 
 .text-reveal__heading {
-  max-width: 11ch;
+  /* allow longer lines so words (e.g. "DIGITAL MARKETING") don't get clipped */
+  max-width: 24ch;
   margin: 0;
   font-size: clamp(56px, 9vw, 120px);
   font-weight: 800;
@@ -180,7 +181,8 @@
   }
 
   .text-reveal__heading {
-    max-width: 14ch;
+    /* slightly larger on small screens to avoid trimming long words */
+    max-width: 28ch;
     font-size: clamp(44px, 12vw, 88px);
     line-height: 1.02;
     letter-spacing: -0.03em;
