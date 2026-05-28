@@ -53,7 +53,7 @@ export default function F1CarAnimation({ shouldStart }) {
     };
   }, [isMobile, shouldStart]);
 
-  const startY = isMobile ? 1200 : 1400;
+  const startY = isMobile ? '70vh' : '140vh';
 
   return (
     <div className="text-reveal__f1" aria-hidden="true">
@@ -61,9 +61,10 @@ export default function F1CarAnimation({ shouldStart }) {
         className="text-reveal__f1-motion"
         initial={{
           x: 0,
-          y: isMobile ? 1200 : 1400,
+          y: startY,
           rotate: 0,
-          filter: 'blur(0px)',
+          filter: 'blur(12px)',
+          opacity: 0,
         }}
         animate={
           shouldAnimate
@@ -71,21 +72,22 @@ export default function F1CarAnimation({ shouldStart }) {
                 y: 0,
                 x: 0,
                 rotate: 0,
-                filter: ['blur(12px)', 'blur(10px)', 'blur(4px)', 'blur(0px)'],
+                filter: 'blur(0px)',
+                opacity: 1,
               }
-            : { y: startY, x: 0, rotate: 0, filter: 'blur(0px)' }
+            : { y: startY, x: 0, rotate: 0, filter: 'blur(12px)', opacity: 0 }
         }
         transition={{
           y: {
-            type: 'spring',
-            stiffness: 125,
-            damping: 22,
-            mass: 0.85,
-            duration: 1.35,
+            duration: 2.2,
+            ease: [0.22, 1, 0.36, 1],
           },
           filter: {
-            duration: 1.2,
-            times: [0, 0.35, 0.7, 1],
+            duration: 1.5,
+            ease: 'easeOut',
+          },
+          opacity: {
+            duration: 0.25,
             ease: 'easeOut',
           },
         }}

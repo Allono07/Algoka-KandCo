@@ -50,25 +50,30 @@ export default function Home() {
       return undefined;
     }
 
-    function checkScrollProgress() {
-      const totalScrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const target = document.querySelector('.text-reveal__f1');
 
-      if (totalScrollable <= 0) {
-        return;
-      }
-
-      const progress = window.scrollY / totalScrollable;
-
-      if (progress >= 0.42) {
-        setShouldStartF1Animation(true);
-      }
+    if (!target) {
+      return undefined;
     }
 
-    checkScrollProgress();
-    window.addEventListener('scroll', checkScrollProgress, { passive: true });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldStartF1Animation(true);
+          observer.disconnect();
+        }
+      },
+      {
+        root: null,
+        threshold: 0.08,
+        rootMargin: '0px 0px -28% 0px',
+      }
+    );
+
+    observer.observe(target);
 
     return () => {
-      window.removeEventListener('scroll', checkScrollProgress);
+      observer.disconnect();
     };
   }, [shouldStartF1Animation]);
 
