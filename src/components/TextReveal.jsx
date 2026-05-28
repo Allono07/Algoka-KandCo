@@ -8,7 +8,7 @@ const LINES = [
   ['DIGITAL', 'MARKETING'],
 ];
 
-export default function TextReveal({ isIntroComplete, onNavTriggerReady }) {
+export default function TextReveal({ onNavTriggerReady }) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const contentRef = useRef(null);
@@ -160,7 +160,7 @@ export default function TextReveal({ isIntroComplete, onNavTriggerReady }) {
             </div>
           </div>
 
-          <FormulaOneHero isActive={isIntroComplete} />
+          <FormulaOneHero />
         </div>
       </div>
     </section>
