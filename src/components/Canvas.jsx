@@ -45,6 +45,12 @@ export default function Canvas({ onReadyChange }) {
   const targetFrameRef = useRef(0);
   const displayFrameRef = useRef(0);
   const tickerFrameRef = useRef(0);
+  const endHoldRef = useRef(false);
+  const endHoldConsumedRef = useRef(false);
+  const releaseArmedRef = useRef(false);
+  const releaseTimerRef = useRef(0);
+  const lockScrollYRef = useRef(0);
+  const scrollClampRef = useRef(0);
   const [loadProgress, setLoadProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
 
@@ -222,6 +228,61 @@ export default function Canvas({ onReadyChange }) {
     tickerFrameRef.current = updateFrame;
     gsap.ticker.add(tickerFrameRef.current);
 
+    function activateEndHold() {
+      if (endHoldConsumedRef.current) {
+        return;
+      }
+
+      endHoldRef.current = true;
+      releaseArmedRef.current = false;
+      lockScrollYRef.current = window.scrollY;
+      if (!scrollClampRef.current) {
+        const clampScroll = () => {
+          if (!endHoldRef.current) {
+            return;
+          }
+
+          if (window.scrollY !== lockScrollYRef.current) {
+            window.scrollTo(0, lockScrollYRef.current);
+          }
+        };
+
+        scrollClampRef.current = clampScroll;
+        window.addEventListener('scroll', clampScroll, { passive: true });
+      }
+    }
+
+    function releaseEndHold() {
+      endHoldRef.current = false;
+      releaseArmedRef.current = false;
+      window.clearTimeout(releaseTimerRef.current);
+      releaseTimerRef.current = 0;
+      endHoldConsumedRef.current = true;
+      if (scrollClampRef.current) {
+        window.removeEventListener('scroll', scrollClampRef.current);
+        scrollClampRef.current = 0;
+      }
+    }
+
+    function handleHoldGesture(event) {
+      if (!endHoldRef.current) {
+        return;
+      }
+
+      event.preventDefault();
+      window.scrollTo(0, lockScrollYRef.current);
+
+      if (releaseArmedRef.current) {
+        releaseEndHold();
+        return;
+      }
+
+      window.clearTimeout(releaseTimerRef.current);
+      releaseTimerRef.current = window.setTimeout(() => {
+        releaseArmedRef.current = true;
+      }, 180);
+    }
+
     const context = gsap.context(() => {
       const holdStart = 0.94;
 
@@ -250,6 +311,13 @@ export default function Canvas({ onReadyChange }) {
 
           targetFrameRef.current = frameProgress * (imagesRef.current.length - 1);
 
+          if (self.progress >= holdStart && !endHoldConsumedRef.current) {
+            activateEndHold();
+          } else if (self.progress < 0.92) {
+            endHoldConsumedRef.current = false;
+            releaseEndHold();
+          }
+
           gsap.set(arrowRef.current, {
             autoAlpha: arrowOpacity,
             y: gsap.utils.interpolate(0, 24, Math.min(self.progress / 0.09, 1)),
@@ -271,10 +339,20 @@ export default function Canvas({ onReadyChange }) {
     }
 
     window.addEventListener('resize', handleResize);
+    window.addEventListener('wheel', handleHoldGesture, { passive: false, capture: true });
+    window.addEventListener('touchmove', handleHoldGesture, { passive: false, capture: true });
+    window.addEventListener('keydown', handleHoldGesture, { capture: true });
     ScrollTrigger.refresh();
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('wheel', handleHoldGesture, true);
+      window.removeEventListener('touchmove', handleHoldGesture, true);
+      window.removeEventListener('keydown', handleHoldGesture, true);
+      if (scrollClampRef.current) {
+        window.removeEventListener('scroll', scrollClampRef.current);
+      }
+      window.clearTimeout(releaseTimerRef.current);
       gsap.ticker.remove(tickerFrameRef.current);
       context.revert();
     };

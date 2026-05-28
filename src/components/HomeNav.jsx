@@ -132,7 +132,11 @@ export default function HomeNav({ triggerElement }) {
             aria-label="Toggle menu"
             onClick={() => setIsOpen((current) => !current)}
           >
-            Menu
+            <span className="home-nav__menu-icon" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
           </button>
         </div>
       </div>
