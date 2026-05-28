@@ -6,7 +6,7 @@ import ScrollArrow from './ScrollArrow';
 
 const DESKTOP_FRAME_COUNT = 120;
 const MOBILE_FRAME_COUNT = 120;
-const MOBILE_FRAME_STEP = 2;
+const MOBILE_FRAME_STEP = 1;
 const FRAME_CACHE = new Map();
 
 function getFrameManifest() {
@@ -42,7 +42,9 @@ export default function Canvas({ onReadyChange }) {
   const blendRef = useRef(null);
   const imagesRef = useRef([]);
   const currentFrameRef = useRef(0);
-  const rafRef = useRef(0);
+  const targetFrameRef = useRef(0);
+  const displayFrameRef = useRef(0);
+  const tickerFrameRef = useRef(0);
   const [loadProgress, setLoadProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
 
@@ -89,7 +91,7 @@ export default function Canvas({ onReadyChange }) {
       unlockScroll();
 
       return () => {
-        cancelAnimationFrame(rafRef.current);
+        gsap.ticker.remove(tickerFrameRef.current);
       };
     }
 
@@ -139,7 +141,6 @@ export default function Canvas({ onReadyChange }) {
     return () => {
       isMounted = false;
       unlockScroll();
-      cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
@@ -172,14 +173,9 @@ export default function Canvas({ onReadyChange }) {
 
       currentFrameRef.current = frameIndex;
       context.clearRect(0, 0, viewportWidth, viewportHeight);
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = 'high';
       context.drawImage(image, drawX, drawY, drawWidth, drawHeight);
-    }
-
-    function requestDraw(frameIndex) {
-      cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(() => {
-        drawFrame(frameIndex);
-      });
     }
 
     function resizeCanvas() {
@@ -204,11 +200,27 @@ export default function Canvas({ onReadyChange }) {
       canvas.style.width = `${viewportWidth}px`;
       canvas.style.height = `${viewportHeight}px`;
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
-      requestDraw(currentFrameRef.current);
+      drawFrame(currentFrameRef.current);
     }
 
     resizeCanvas();
-    requestDraw(0);
+
+    const updateFrame = () => {
+      const current = displayFrameRef.current;
+      const target = targetFrameRef.current;
+      const next = current + (target - current) * 0.1;
+
+      displayFrameRef.current = next;
+
+      const frameIndex = Math.round(next);
+
+      if (frameIndex !== currentFrameRef.current) {
+        drawFrame(frameIndex);
+      }
+    };
+
+    tickerFrameRef.current = updateFrame;
+    gsap.ticker.add(tickerFrameRef.current);
 
     const context = gsap.context(() => {
       const holdStart = 0.94;
@@ -227,34 +239,16 @@ export default function Canvas({ onReadyChange }) {
         trigger: sectionRef.current,
         start: 'top top',
         end: `+=${Math.max(imagesRef.current.length * 5, window.innerHeight * 1.35)}`,
-        scrub: 0.72,
+        scrub: 1.3,
         pin: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        snap: {
-          snapTo: (value) => {
-            if (value < 0.04) {
-              return 0;
-            }
-
-            if (value > 0.992 && value < 1) {
-              return 1;
-            }
-
-            return value;
-          },
-          duration: { min: 0.08, max: 0.18 },
-          ease: 'power2.out',
-        },
         onUpdate: (self) => {
           const frameProgress = gsap.utils.clamp(0, 1, self.progress / holdStart);
-          const frameIndex = Math.round(frameProgress * (imagesRef.current.length - 1));
           const arrowOpacity = gsap.utils.clamp(0, 1, 1 - self.progress / 0.09);
           const blendProgress = gsap.utils.clamp(0, 1, (self.progress - 0.972) / 0.028);
 
-          if (frameIndex !== currentFrameRef.current) {
-            requestDraw(frameIndex);
-          }
+          targetFrameRef.current = frameProgress * (imagesRef.current.length - 1);
 
           gsap.set(arrowRef.current, {
             autoAlpha: arrowOpacity,
@@ -267,7 +261,7 @@ export default function Canvas({ onReadyChange }) {
           });
         },
         onRefresh: () => {
-          requestDraw(currentFrameRef.current);
+          drawFrame(currentFrameRef.current);
         },
       });
     }, sectionRef);
@@ -281,7 +275,7 @@ export default function Canvas({ onReadyChange }) {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(rafRef.current);
+      gsap.ticker.remove(tickerFrameRef.current);
       context.revert();
     };
   }, [isReady]);
