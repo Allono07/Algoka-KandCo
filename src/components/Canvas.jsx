@@ -4,8 +4,9 @@ import { Observer } from 'gsap/Observer';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollArrow from './ScrollArrow';
 
-const DESKTOP_FRAME_COUNT = 120;
-const MOBILE_FRAME_COUNT = 120;
+const DESKTOP_FRAME_COUNT = 100;
+// Updated to match files in public/frames/mobile (numeric 3-digit names)
+const MOBILE_FRAME_COUNT = 100;
 const MOBILE_FRAME_STEP = 1;
 const FRAME_CACHE = new Map();
 
@@ -17,20 +18,29 @@ function getFrameManifest() {
   const frameSources = [];
   const publicRoot = process.env.PUBLIC_URL || '';
 
-  for (let frame = 1; frame <= total; frame += step) {
-    frameSources.push(
-      `${publicRoot}/frames/${folder}/frame_${String(frame).padStart(4, '0')}.png`
-    );
-  }
+  if (isMobile) {
+    // Mobile frames are provided as numeric 3-digit files (e.g. 001.png .. 145.png).
+    for (let frame = 1; frame <= MOBILE_FRAME_COUNT; frame += step) {
+      frameSources.push(
+        `${publicRoot}/frames/${folder}/${String(frame).padStart(3, '0')}.png`
+      );
+    }
 
-  const finalFrame = `${publicRoot}/frames/${folder}/frame_${String(total).padStart(4, '0')}.png`;
+    const finalFrame = `${publicRoot}/frames/${folder}/${String(MOBILE_FRAME_COUNT).padStart(3, '0')}.png`;
 
-  if (frameSources[frameSources.length - 1] !== finalFrame) {
-    frameSources.push(finalFrame);
+    if (frameSources[frameSources.length - 1] !== finalFrame) {
+      frameSources.push(finalFrame);
+    }
+  } else {
+    for (let frame = 1; frame <= total; frame += 1) {
+      frameSources.push(
+        `${publicRoot}/frames/${folder}/${String(frame).padStart(3, '0')}.png`
+      );
+    }
   }
 
   return {
-    cacheKey: `${folder}-${step}`,
+    cacheKey: isMobile ? `${folder}-${step}` : `desktop-${total}`,
     frameSources,
   };
 }
@@ -103,46 +113,42 @@ export default function Canvas({ onReadyChange }) {
 
     let loadedFrames = 0;
 
-    Promise.all(
-      frameSources.map(
-        (source) =>
-          new Promise((resolve, reject) => {
-            const image = new Image();
-            image.decoding = 'async';
-            image.src = source;
-            image.onload = () => {
-              loadedFrames += 1;
+    const loaders = frameSources.map((source) =>
+      new Promise((resolve) => {
+        const image = new Image();
+        image.decoding = 'async';
+        image.src = source;
+        image.onload = () => {
+          loadedFrames += 1;
 
-              if (isMounted) {
-                setLoadProgress(loadedFrames / frameSources.length);
-              }
+          if (isMounted) {
+            setLoadProgress(loadedFrames / frameSources.length);
+          }
 
-              resolve(image);
-            };
-            image.onerror = () => reject(new Error(`Unable to load ${source}.`));
-          })
-      )
-    )
-      .then((images) => {
-        if (!isMounted) {
-          return;
-        }
-
-        FRAME_CACHE.set(cacheKey, images);
-        imagesRef.current = images;
-        setLoadProgress(1);
-        setIsReady(true);
-        unlockScroll();
+          resolve({ status: 'fulfilled', value: image, source });
+        };
+        image.onerror = () => {
+          console.warn(`Canvas: failed to load frame ${source}`);
+          // Resolve with rejected status but don't short-circuit other loads
+          resolve({ status: 'rejected', reason: new Error(`Unable to load ${source}`), source });
+        };
       })
-      .catch(() => {
-        if (!isMounted) {
-          return;
-        }
+    );
 
-        setLoadProgress(1);
-        setIsReady(true);
-        unlockScroll();
-      });
+    Promise.all(loaders).then((results) => {
+      if (!isMounted) return;
+
+      const images = results
+        .filter((r) => r && r.status === 'fulfilled')
+        .map((r) => r.value);
+
+      // If nothing loaded, still allow app to continue (avoid dead state)
+      FRAME_CACHE.set(cacheKey, images);
+      imagesRef.current = images;
+      setLoadProgress(1);
+      setIsReady(true);
+      unlockScroll();
+    });
 
     return () => {
       isMounted = false;
