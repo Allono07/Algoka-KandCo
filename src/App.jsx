@@ -11,6 +11,7 @@ import './styles/global.css';
 import './styles/canvas.css';
 import './styles/text-reveal.css';
 import './styles/pages.css';
+import BrandIntro from './components/BrandIntro';
 
 gsap.registerPlugin(ScrollTrigger, Observer);
 
@@ -35,6 +36,7 @@ function AppShell() {
 export default function App() {
   return (
     <BrowserRouter>
+      <BrandIntro />
       <AppShell />
     </BrowserRouter>
   );

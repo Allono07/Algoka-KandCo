@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap');
 
+@font-face {
+  font-family: 'Artegra Sans SC ExtraBold';
+  src: url('../assets/artegra-sans-extra-bold/artegra-sans-extra-bold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg-dark: #050505;
   --bg-light: #eeeeee;

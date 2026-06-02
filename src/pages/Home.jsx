@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Canvas from '../components/Canvas';
 import F1CarAnimation from '../components/F1CarAnimation';
 import FooterReveal from '../components/FooterReveal';
-import HomeIntro from '../components/HomeIntro';
+// HomeIntro removed in favor of global BrandIntro
 import HomeNav from '../components/HomeNav';
 import TextReveal from '../components/TextReveal';
 
@@ -18,9 +18,7 @@ export default function Home() {
     return Boolean(window.__kalpReturnToHomeContent);
   });
   const [isIntroComplete, setIsIntroComplete] = useState(() => {
-    if (typeof window === 'undefined') {
-      return false;
-    }
+    if (typeof window === 'undefined') return false;
 
     return Boolean(window.__kalpReturnToHomeContent);
   });
@@ -29,6 +27,12 @@ export default function Home() {
     if (typeof window !== 'undefined' && window.__kalpReturnToHomeContent) {
       delete window.__kalpReturnToHomeContent;
     }
+  }, []);
+
+  useEffect(() => {
+    const handler = () => setIsIntroComplete(true);
+    window.addEventListener('kalpcoIntroComplete', handler);
+    return () => window.removeEventListener('kalpcoIntroComplete', handler);
   }, []);
 
   useEffect(() => {
@@ -77,15 +81,9 @@ export default function Home() {
     };
   }, [shouldStartF1Animation]);
 
-  function handleIntroComplete() {
-    setIsIntroComplete(true);
-  }
-
   return (
     <main className="page-root home-page">
-      {!isIntroComplete ? (
-        <HomeIntro isReady={isHeroReady} onComplete={handleIntroComplete} />
-      ) : null}
+      {/* BrandIntro renders at app root; we no longer render HomeIntro here. */}
       <HomeNav triggerElement={navTriggerElement} />
       <Canvas onReadyChange={setIsHeroReady} />
       <TextReveal isIntroComplete={isIntroComplete} onNavTriggerReady={setNavTriggerElement}>
