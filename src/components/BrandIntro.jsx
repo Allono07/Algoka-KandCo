@@ -31,15 +31,19 @@ export default function BrandIntro() {
 
       // Phase 2 & 3: zoom group & expand white circle (start simultaneously)
       groupControls.start({ scale: 3.5, transition: { duration: 0.9, ease: [0.4, 0, 0.2, 1] } });
-      circleControls.start({ scale: 40, transition: { duration: 1.0, ease: [0.65, 0, 0.35, 1] } });
+      circleControls.start({
+        scale: 40,
+        opacity: 1,
+        transition: { duration: 1.0, ease: [0.65, 0, 0.35, 1] },
+      });
 
       // Start fading the group opacity 400ms into the zoom (remaining 500ms)
       setTimeout(() => {
         groupControls.start({ opacity: 0, transition: { duration: 0.5, ease: 'linear' } });
       }, 400);
 
-      // Wait until circle expansion completes
-      await new Promise((r) => setTimeout(r, 1000));
+      // Shorter white hold so the landing page appears sooner.
+      await new Promise((r) => setTimeout(r, 500));
 
       if (cancelled) return;
 
@@ -52,8 +56,8 @@ export default function BrandIntro() {
         // ignore
       }
 
-      // Phase 4: smoother overlay fade and immediate reveal
-      await overlayControls.start({ opacity: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } });
+      // Phase 4: smoother overlay fade with less blank time.
+      await overlayControls.start({ opacity: 0, transition: { duration: 0.95, ease: [0.22, 1, 0.36, 1] } });
 
       try {
         if (typeof window !== 'undefined') {
@@ -103,7 +107,7 @@ export default function BrandIntro() {
 
         <motion.div
           className="brand-intro-circle"
-          initial={{ scale: 0 }}
+          initial={{ scale: 0, opacity: 0 }}
           animate={circleControls}
           style={{ willChange: 'transform, opacity' }}
         />
