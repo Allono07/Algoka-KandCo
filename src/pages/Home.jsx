@@ -5,6 +5,12 @@ import FooterReveal from '../components/FooterReveal';
 // HomeIntro removed in favor of global BrandIntro
 import HomeNav from '../components/HomeNav';
 import TextReveal from '../components/TextReveal';
+import About from '../components/About';
+import Clients from '../components/Clients';
+import Services from '../components/Services.jsx';
+import MediaGallery from '../components/MediaGallery.jsx';
+import HeroBrand from '../components/HeroBrand';
+// import IntroOverlay removed – overlay no longer needed
 
 export default function Home() {
   const [navTriggerElement, setNavTriggerElement] = useState(null);
@@ -86,14 +92,20 @@ export default function Home() {
     <main className="page-root home-page">
       {/* BrandIntro renders at app root; we no longer render HomeIntro here. */}
       <HomeNav triggerElement={navTriggerElement} sentinelRef={sentinelRef} />
+      
       <section className="hero-section">
+        <HeroBrand />
         <VideoBackground onLoaded={() => setIsHeroReady(true)} />
       </section>
+      <div ref={sentinelRef} style={{ height: '1px' }} />
       <TextReveal isIntroComplete={isIntroComplete} onNavTriggerReady={setNavTriggerElement}>
+          <About />
+          <Clients />
+          <Services />
+          <MediaGallery />
         <F1CarAnimation shouldStart={shouldStartF1Animation} />
       </TextReveal>
-      <div ref={sentinelRef} style={{ height: '1px' }} />
-      <FooterReveal />
+            <FooterReveal />
     </main>
   );
 }

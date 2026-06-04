@@ -1,7 +1,8 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useNavigateWithTransition from '../hooks/useNavigateWithTransition';
-
+gsap.registerPlugin(ScrollTrigger);
 const LINES = [
   ['KALP', '&', 'CO'],
   ['DIGITAL', 'MARKETING'],
@@ -17,30 +18,29 @@ export default function TextReveal({ onNavTriggerReady, children }) {
   const navigateWithTransition = useNavigateWithTransition();
   let wordPosition = 0;
 
+  // Ensure refs arrays are fresh each render
   wordRefs.current = [];
   actionRefs.current = [];
 
   useLayoutEffect(() => {
-    const context = gsap.context(() => {
+    const ctx = gsap.context(() => {
       const introDelay = 0.56;
 
+      // Initial state for words
       gsap.set(wordRefs.current, {
         scale: 2.2,
-        y: (index) => 60 + index * 6,
+        y: (i) => 60 + i * 6,
         opacity: 0,
         transformOrigin: 'center center',
       });
 
-      gsap.set(actionRefs.current, {
-        y: 40,
-        opacity: 0,
-      });
+      // Initial state for buttons
+      gsap.set(actionRefs.current, { y: 40, opacity: 0 });
 
-      gsap.set(contentRef.current, {
-        opacity: 1,
-        y: 0,
-      });
+      // Ensure content is visible
+      gsap.set(contentRef.current, { opacity: 1, y: 0 });
 
+      // Scroll‑triggered timeline matching pre‑dev behavior
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: trackRef.current,
@@ -76,47 +76,32 @@ export default function TextReveal({ onNavTriggerReady, children }) {
           introDelay + 1.34
         );
     }, sectionRef);
-
-    return () => {
-      context.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={(element) => {
-        sectionRef.current = element;
-      }}
-      className="text-reveal"
-    >
+    <section ref={el => (sectionRef.current = el)} className="text-reveal">
       <div ref={trackRef} className="text-reveal__track">
         <div ref={contentRef} className="text-reveal__content">
           <div
-            ref={(element) => {
-              introRef.current = element;
-
-              if (onNavTriggerReady) {
-                onNavTriggerReady(element);
-              }
+            ref={el => {
+              introRef.current = el;
+              if (onNavTriggerReady) onNavTriggerReady(el);
             }}
             className="text-reveal__intro"
           >
             <h2 className="text-reveal__heading">
-              {LINES.map((line, lineIndex) => (
+              {LINES.map((line, lineIdx) => (
                 <span key={line.join('-')} className="text-reveal__line">
-                  {line.map((word, wordIndex) => {
-                    const wordKey = `${lineIndex}-${wordIndex}-${word}`;
-                    const currentIndex = wordPosition;
-
+                  {line.map((word, wordIdx) => {
+                    const key = `${lineIdx}-${wordIdx}-${word}`;
+                    const curIdx = wordPosition;
                     wordPosition += 1;
-
                     return (
                       <span
-                        key={wordKey}
-                        ref={(element) => {
-                          if (element) {
-                            wordRefs.current[currentIndex] = element;
-                          }
+                        key={key}
+                        ref={el => {
+                          if (el) wordRefs.current[curIdx] = el;
                         }}
                         className="text-reveal__word"
                       >
@@ -127,13 +112,10 @@ export default function TextReveal({ onNavTriggerReady, children }) {
                 </span>
               ))}
             </h2>
-
             <div className="text-reveal__actions">
               <button
-                ref={(element) => {
-                  if (element) {
-                    actionRefs.current[0] = element;
-                  }
+                ref={el => {
+                  if (el) actionRefs.current[0] = el;
                 }}
                 type="button"
                 className="pill-button pill-button--solid"
@@ -142,12 +124,9 @@ export default function TextReveal({ onNavTriggerReady, children }) {
               >
                 Contact us
               </button>
-
               <button
-                ref={(element) => {
-                  if (element) {
-                    actionRefs.current[1] = element;
-                  }
+                ref={el => {
+                  if (el) actionRefs.current[1] = el;
                 }}
                 type="button"
                 className="pill-button pill-button--outline"
@@ -158,7 +137,6 @@ export default function TextReveal({ onNavTriggerReady, children }) {
               </button>
             </div>
           </div>
-
           {children}
         </div>
       </div>

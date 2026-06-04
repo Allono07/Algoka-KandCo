@@ -1,184 +1,151 @@
-import { useLayoutEffect, useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useNavigateWithTransition from '../hooks/useNavigateWithTransition';
+import '../styles/homeNav.css';
 
-const NAV_ITEMS = [
+const MENU_LINKS = [
   { label: 'Home', to: '/' },
-  { label: 'Services', to: '/services' },
+  { label: 'About', anchor: '#about' },
+  { label: 'Services', anchor: '#services' },
+  { label: 'Clients', anchor: '#clients' },
+  { label: 'Our Work', anchor: '#media-gallery' },
   { label: 'Contact', to: '/contact' },
 ];
 
 export default function HomeNav({ triggerElement, sentinelRef }) {
-  const [showLogo, setShowLogo] = useState(false);
+  const navRef = useRef(null);
+  const logoRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const navigateWithTransition = useNavigateWithTransition();
 
-  // Observe sentinel to toggle logo/text
+  // Observe sentinel (below hero) to toggle scrolled state
   useEffect(() => {
-    if (!sentinelRef.current) return;
+    if (!sentinelRef?.current) return;
     const observer = new IntersectionObserver(
-      ([entry]) => setShowLogo(!entry.isIntersecting),
+      ([entry]) => {
+        setIsScrolled(!entry.isIntersecting);
+      },
       { threshold: 0 }
     );
     observer.observe(sentinelRef.current);
     return () => observer.disconnect();
   }, [sentinelRef]);
-  const navRef = useRef(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const navigateWithTransition = useNavigateWithTransition();
 
+  // Show nav after intro
   useLayoutEffect(() => {
-    if (!navRef.current) {
-      return undefined;
-    }
+    if (!navRef.current) return;
+    gsap.set(navRef.current, { autoAlpha: 0, y: -24, pointerEvents: 'none' });
 
-    const context = gsap.context(() => {
-      gsap.set(navRef.current, {
-        autoAlpha: 0,
-        y: -24,
-        pointerEvents: 'none',
-      });
+    if (!triggerElement) return;
 
-      if (!triggerElement) {
-        return;
-      }
-
+    const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: triggerElement,
-        start: 'top+=120 top',
-        end: 'bottom bottom',
+        start: 'top+=80 top',
         onEnter: () => {
           navRef.current.style.pointerEvents = 'auto';
-          gsap.to(navRef.current, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.42,
-            ease: 'power3.out',
-            overwrite: true,
-          });
+          gsap.to(navRef.current, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power3.out', overwrite: true });
         },
         onEnterBack: () => {
           navRef.current.style.pointerEvents = 'auto';
-          gsap.to(navRef.current, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.42,
-            ease: 'power3.out',
-            overwrite: true,
-          });
+          gsap.to(navRef.current, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power3.out', overwrite: true });
         },
         onLeaveBack: () => {
           navRef.current.style.pointerEvents = 'none';
           setIsOpen(false);
-          gsap.to(navRef.current, {
-            autoAlpha: 0,
-            y: -24,
-            duration: 0.32,
-            ease: 'power3.out',
-            overwrite: true,
-          });
+          gsap.to(navRef.current, { autoAlpha: 0, y: -24, duration: 0.32, ease: 'power3.in', overwrite: true });
         },
       });
     }, navRef);
 
-    return () => {
-      context.revert();
-    };
+    return () => ctx.revert();
   }, [triggerElement]);
 
-  function handleNavigate(to) {
+  // Lock body scroll when menu open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  function handleNav(item) {
     setIsOpen(false);
-    navigateWithTransition(to);
+    if (item.to) {
+      navigateWithTransition(item.to);
+    } else if (item.anchor) {
+      setTimeout(() => {
+        const el = document.querySelector(item.anchor);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
   }
 
   return (
-    <header ref={navRef} className={`home-nav ${isOpen ? 'is-open' : ''}`}>
-      <div className="home-nav__bar">
-        <button
-          type="button"
-          className="home-nav__brand"
-          data-cursor-hover
-          aria-label="Go to home"
-          onClick={() => handleNavigate('/')}
-        >
-          {showLogo ? (
-          <img className="home-nav__brand-image" src="/kalp.png" alt="Kalp&Co" />
-        ) : (
-          <span className="home-nav__brand-text brand-text">KALP&CO</span>
-        )}
-        </button>
+    <>
+      <header
+        ref={navRef}
+        className={`home-nav${isScrolled ? ' is-scrolled' : ''}${isOpen ? ' is-open' : ''}`}
+      >
+        <div className="home-nav__bar">
+          {/* Left spacer for centering */}
+          <div className="home-nav__side" />
 
-        <nav className="home-nav__links" aria-label="Primary">
-          {NAV_ITEMS.map((item) => (
+          {/* Center Logo */}
+          <button
+            ref={logoRef}
+            type="button"
+            className="home-nav__logo brand-text"
+            data-cursor-hover
+            aria-label="Go to home"
+            onClick={() => { setIsOpen(false); navigateWithTransition('/'); }}
+          >
+            Klap &amp; Co
+          </button>
+
+          {/* Right: MENU toggle */}
+          <div className="home-nav__side home-nav__side--right">
             <button
-              key={item.label}
               type="button"
-              className="home-nav__link"
+              className="home-nav__menu-btn"
               data-cursor-hover
-              onClick={() => handleNavigate(item.to)}
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isOpen}
+              onClick={() => setIsOpen(o => !o)}
             >
-              {item.label}
+              {isOpen ? 'CLOSE' : 'MENU'}
             </button>
-          ))}
-        </nav>
+          </div>
+        </div>
+      </header>
 
-        <div className="home-nav__actions">
-          <button
-            type="button"
-            className="home-nav__icon"
-            data-cursor-hover
-            aria-label="Search"
-          >
-            <span className="home-nav__icon-search" aria-hidden="true" />
-          </button>
+      {/* Full-screen drawer overlay */}
+      <div className={`nav-drawer${isOpen ? ' nav-drawer--open' : ''}`} aria-hidden={!isOpen}>
+        <div className="nav-drawer__inner">
+          <nav className="nav-drawer__links" aria-label="Site navigation">
+            {MENU_LINKS.map((item, i) => (
+              <button
+                key={item.label}
+                type="button"
+                className="nav-drawer__link"
+                data-cursor-hover
+                style={{ '--i': i }}
+                onClick={() => handleNav(item)}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
 
-          <button
-            type="button"
-            className="home-nav__cta"
-            data-cursor-hover
-            onClick={() => handleNavigate('/contact')}
-          >
-            Start a project
-          </button>
-
-          <button
-            type="button"
-            className="home-nav__menu"
-            data-cursor-hover
-            aria-expanded={isOpen}
-            aria-label="Toggle menu"
-            onClick={() => setIsOpen((current) => !current)}
-          >
-            <span className="home-nav__menu-icon" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </span>
-          </button>
+          <div className="nav-drawer__footer">
+            <p className="nav-drawer__tagline">Creative & Marketing Agency</p>
+            <div className="nav-drawer__contact">
+              <a href="mailto:contact@kalpandco.com" className="nav-drawer__contact-link">contact@kalpandco.com</a>
+              <a href="https://www.instagram.com/kalpandco" target="_blank" rel="noreferrer" className="nav-drawer__contact-link">Instagram</a>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="home-nav__drawer">
-        <button
-          type="button"
-          className="home-nav__drawer-link home-nav__drawer-link--cta"
-          data-cursor-hover
-          onClick={() => handleNavigate('/contact')}
-        >
-          Start a project
-        </button>
-
-        {NAV_ITEMS.map((item) => (
-          <button
-            key={item.label}
-            type="button"
-            className="home-nav__drawer-link"
-            data-cursor-hover
-            onClick={() => handleNavigate(item.to)}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-    </header>
+    </>
   );
 }

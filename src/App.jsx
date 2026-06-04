@@ -11,6 +11,9 @@ import './styles/global.css';
 import './styles/canvas.css';
 import './styles/text-reveal.css';
 import './styles/pages.css';
+import './styles/sections.css';
+import './styles/heroBrand.css';
+import './styles/homeNav.css';
 import BrandIntro from './components/BrandIntro';
 
 gsap.registerPlugin(ScrollTrigger, Observer);

@@ -1,0 +1,23 @@
+/* Overlay shown over the hero video */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.intro-overlay.hidden {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.intro-overlay .intro-brand {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 4rem;
+  color: var(--text-primary);
+}

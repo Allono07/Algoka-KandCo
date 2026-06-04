@@ -1,0 +1,78 @@
+/* -------------------------------------------------
+   sections.css – common styling for About, Clients, Services, Media Gallery
+   ------------------------------------------------- */
+
+section {
+  padding: 6rem 0;
+  background: var(--bg-dark);
+  color: var(--text-light);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section-title {
+  font-family: 'YourFont', sans-serif;
+  font-size: 2.4rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* About */
+.section-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Clients */
+.clients-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+.client-logo {
+  max-height: 70px;
+  filter: brightness(0) invert(1);
+}
+
+/* Services */
+.services-list {
+  list-style: none;
+  columns: 2;
+  column-gap: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+.service-item {
+  margin-bottom: 0.6rem;
+}
+
+/* Media Gallery */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.media-img {
+  width: 100%;
+  height: 0;
+  padding-bottom: 66%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.media-img:hover {
+  transform: scale(1.07);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .services-list { columns: 1; }
+}

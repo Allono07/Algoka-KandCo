@@ -1,0 +1,23 @@
+/* Services section styling */
+.services-section {
+  padding: 4rem 0;
+  background: var(--bg-light);
+  color: var(--text-primary);
+}
+
+.services-list {
+  list-style: none;
+  columns: 2;
+  column-gap: 2rem;
+  font-size: 1.1rem;
+}
+
+.service-item {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .services-list {
+    columns: 1;
+  }
+}

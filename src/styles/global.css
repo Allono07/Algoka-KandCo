@@ -1,16 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
 
 @font-face {
-
-.brand-text {
-  font-family: 'Artegra Sans SC ExtraBold', sans-serif;
-  /* matching the size used for the logo text – adjust as needed */
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--text-light);
-}
-
   font-family: 'Artegra Sans SC ExtraBold';
   src: url('../assets/artegra-sans-extra-bold/artegra-sans-extra-bold.ttf') format('truetype');
   font-weight: 800;
@@ -18,13 +8,24 @@
   font-display: swap;
 }
 
+.brand-text {
+  font-family: 'Artegra Sans SC ExtraBold', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 :root {
   --bg-dark: #050505;
-  --bg-light: #eeeeee;
-  --text-dark: #050505;
+  --bg-light: #f2f0ed;
+  --bg-sand: #e8e4de;
+  --text-dark: #0a0a0a;
   --text-light: #f7f2ea;
-  --border-dark: rgba(5, 5, 5, 0.24);
+  --text-muted: rgba(10, 10, 10, 0.45);
+  --border-dark: rgba(5, 5, 5, 0.14);
+  --border-light: rgba(247, 242, 234, 0.18);
   --transition-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * {
