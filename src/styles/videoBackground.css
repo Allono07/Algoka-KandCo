@@ -1,0 +1,10 @@
+/* Video background fills the viewport and stays fixed behind the page */
+.hero-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}

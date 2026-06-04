@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useNavigateWithTransition from '../hooks/useNavigateWithTransition';
@@ -9,7 +9,19 @@ const NAV_ITEMS = [
   { label: 'Contact', to: '/contact' },
 ];
 
-export default function HomeNav({ triggerElement }) {
+export default function HomeNav({ triggerElement, sentinelRef }) {
+  const [showLogo, setShowLogo] = useState(false);
+
+  // Observe sentinel to toggle logo/text
+  useEffect(() => {
+    if (!sentinelRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowLogo(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(sentinelRef.current);
+    return () => observer.disconnect();
+  }, [sentinelRef]);
   const navRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const navigateWithTransition = useNavigateWithTransition();
@@ -88,7 +100,11 @@ export default function HomeNav({ triggerElement }) {
           aria-label="Go to home"
           onClick={() => handleNavigate('/')}
         >
+          {showLogo ? (
           <img className="home-nav__brand-image" src="/kalp.png" alt="Kalp&Co" />
+        ) : (
+          <span className="home-nav__brand-text brand-text">KALP&CO</span>
+        )}
         </button>
 
         <nav className="home-nav__links" aria-label="Primary">

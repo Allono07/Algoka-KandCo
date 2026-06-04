@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import Canvas from '../components/Canvas';
+import { useEffect, useState, useRef } from 'react';
+import VideoBackground from '../components/VideoBackground';
 import F1CarAnimation from '../components/F1CarAnimation';
 import FooterReveal from '../components/FooterReveal';
 // HomeIntro removed in favor of global BrandIntro
@@ -17,6 +17,7 @@ export default function Home() {
 
     return Boolean(window.__kalpReturnToHomeContent);
   });
+  const sentinelRef = useRef(null);
   const [isIntroComplete, setIsIntroComplete] = useState(() => {
     if (typeof window === 'undefined') return false;
 
@@ -84,11 +85,14 @@ export default function Home() {
   return (
     <main className="page-root home-page">
       {/* BrandIntro renders at app root; we no longer render HomeIntro here. */}
-      <HomeNav triggerElement={navTriggerElement} />
-      <Canvas onReadyChange={setIsHeroReady} />
+      <HomeNav triggerElement={navTriggerElement} sentinelRef={sentinelRef} />
+      <section className="hero-section">
+        <VideoBackground onLoaded={() => setIsHeroReady(true)} />
+      </section>
       <TextReveal isIntroComplete={isIntroComplete} onNavTriggerReady={setNavTriggerElement}>
         <F1CarAnimation shouldStart={shouldStartF1Animation} />
       </TextReveal>
+      <div ref={sentinelRef} style={{ height: '1px' }} />
       <FooterReveal />
     </main>
   );

@@ -2,6 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap');
 
 @font-face {
+
+.brand-text {
+  font-family: 'Artegra Sans SC ExtraBold', sans-serif;
+  /* matching the size used for the logo text – adjust as needed */
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-light);
+}
+
   font-family: 'Artegra Sans SC ExtraBold';
   src: url('../assets/artegra-sans-extra-bold/artegra-sans-extra-bold.ttf') format('truetype');
   font-weight: 800;
@@ -207,4 +216,11 @@ main {
   .custom-cursor {
     display: none;
   }
+}
+
+/* Hero section wrapper for full‑viewport video */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
 }
