@@ -14,6 +14,40 @@ const MENU_LINKS = [
 ];
 
 export default function HomeNav({ triggerElement, sentinelRef }) {
+  // State to ensure intro animation runs only once
+  const [introPlayed, setIntroPlayed] = useState(false);
+
+  // Listen for the intro completion event and animate the logo merging
+  useEffect(() => {
+    const handler = () => {
+      if (introPlayed) return;
+      const heroEl = document.querySelector('.hero-brand__text');
+      const navLogo = logoRef.current;
+      if (!heroEl || !navLogo) return;
+      const heroRect = heroEl.getBoundingClientRect();
+      const navRect = navLogo.getBoundingClientRect();
+      const dx = heroRect.left - navRect.left;
+      const dy = heroRect.top - navRect.top;
+      const scale = heroRect.width / navRect.width;
+      // start from hero position
+      gsap.set(navLogo, { x: dx, y: dy, scale });
+      gsap.to(navLogo, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        onComplete: () => {
+          setIntroPlayed(true);
+          // Fade out the original hero brand text
+          gsap.to(heroEl, { opacity: 0, duration: 0.4, ease: 'power3.out' });
+        },
+      });
+    };
+    window.addEventListener('kalpcoIntroComplete', handler);
+    return () => window.removeEventListener('kalpcoIntroComplete', handler);
+  }, [introPlayed]);
+
   const navRef = useRef(null);
   const logoRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
