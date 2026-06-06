@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
@@ -12,34 +12,57 @@ const navLinks = [
 ]
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
-const ease = value => value * value * (3 - 2 * value)
+const mix = (from, to, progress) => from + (to - from) * progress
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [morph, setMorph] = useState(0)
+  const [brandMotion, setBrandMotion] = useState({ morph: 0, heroBottom: 0 })
+  const brandMotionRef = useRef({ morph: 0, heroBottom: 0 })
 
   useEffect(() => {
-    const handleScroll = () => {
-      const heroHeight = window.innerHeight
-      const start = heroHeight * 0.48
-      const end = heroHeight * 0.96
-      setMorph(ease(clamp((window.scrollY - start) / (end - start), 0, 1)))
+    let frameId = null
+
+    const updateMorph = () => {
+      const hero = document.getElementById('home')
+      const heroHeight = hero?.offsetHeight || window.innerHeight
+      const heroBottom = hero?.getBoundingClientRect().bottom || heroHeight - window.scrollY
+      const scrollDistance = Math.max(heroHeight * 0.82, 1)
+      const nextMorph = clamp(window.scrollY / scrollDistance, 0, 1)
+      const nextBrandMotion = { morph: nextMorph, heroBottom }
+      const currentBrandMotion = brandMotionRef.current
+
+      if (
+        Math.abs(currentBrandMotion.morph - nextMorph) > 0.001 ||
+        Math.abs(currentBrandMotion.heroBottom - heroBottom) > 0.5
+      ) {
+        brandMotionRef.current = nextBrandMotion
+        setBrandMotion(nextBrandMotion)
+      }
+      frameId = window.requestAnimationFrame(updateMorph)
     }
 
-    handleScroll()
-    window.addEventListener('scroll', handleScroll)
-    window.addEventListener('resize', handleScroll)
+    frameId = window.requestAnimationFrame(updateMorph)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId)
+      }
     }
   }, [])
 
-  const navReady = morph > 0.9
-  const brandTop = `calc(${80 * (1 - morph)}vh + ${29 * morph}px)`
-  const brandSize = `clamp(${22 + (1 - morph) * 30}px, ${2 + (1 - morph) * 7}vw, ${22 + (1 - morph) * 86}px)`
-  const menuButtonOpacity = navReady ? 1 : 0
+  const { morph, heroBottom } = brandMotion
+  const shrinkProgress = morph
+  const moveProgress = clamp((morph - 0.86) / 0.14, 0, 1)
+  const navProgress = clamp((morph - 0.9) / 0.1, 0, 1)
+  const navReady = navProgress > 0.94
+  const heroBrandTop = heroBottom - 24
+  const brandTop = `${mix(heroBrandTop, 29, moveProgress)}px`
+  const brandTranslateY = -(100 - 50 * moveProgress)
+  const brandSize = `min(${mix(12.8, 2.15, shrinkProgress)}vw, ${mix(200, 34, shrinkProgress)}px)`
+  const brandColorValue = Math.round(mix(255, 10, navProgress))
+  const brandColor = `rgb(${brandColorValue}, ${brandColorValue}, ${brandColorValue})`
+  const menuButtonOpacity = navProgress
+  const brandText = navReady ? 'Kalp&Co' : 'KalpAndCo'
 
   return (
     <motion.header
@@ -57,10 +80,9 @@ export default function Navbar() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        background: navReady ? 'rgba(247,247,243,0.94)' : 'transparent',
-        backdropFilter: navReady ? 'blur(18px)' : 'none',
-        borderBottom: navReady ? '1px solid var(--color-border)' : '1px solid transparent',
-        transition: 'background 0.45s ease, border-color 0.45s ease, backdrop-filter 0.45s ease',
+        background: `rgba(247, 247, 243, ${0.94 * navProgress})`,
+        backdropFilter: `blur(${18 * navProgress}px)`,
+        borderBottom: `1px solid rgba(216, 216, 208, ${navProgress})`,
       }}
     >
       <a
@@ -70,20 +92,20 @@ export default function Navbar() {
           position: 'fixed',
           top: brandTop,
           left: '50%',
-          transform: 'translate(-50%, -50%)',
+          transform: `translate3d(-50%, ${brandTranslateY}%, 0)`,
           fontFamily: 'var(--font-display)',
           fontSize: brandSize,
           fontWeight: 800,
-          letterSpacing: `${0.17 - morph * 0.07}em`,
-          color: '#0A0A0A',
+          lineHeight: 0.82,
+          letterSpacing: `${0.13 - shrinkProgress * 0.03}em`,
+          color: brandColor,
           textDecoration: 'none',
           whiteSpace: 'nowrap',
           pointerEvents: navReady ? 'auto' : 'none',
-          transition: 'letter-spacing 0.12s linear',
-          willChange: 'top, font-size, letter-spacing',
+          willChange: 'top, transform, font-size, letter-spacing, color',
         }}
       >
-        KALP&CO
+        {brandText}
       </a>
 
       <button
@@ -92,7 +114,7 @@ export default function Navbar() {
         aria-label="Open menu"
         style={{
           background: 'transparent',
-          border: '1px solid var(--color-border)',
+          border: `1px solid rgba(10, 10, 10, ${navProgress})`,
           cursor: 'none',
           color: 'var(--color-white)',
           opacity: menuButtonOpacity,
