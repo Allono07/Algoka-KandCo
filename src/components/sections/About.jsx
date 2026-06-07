@@ -2,7 +2,7 @@ import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { fadeUp, slideLeft, staggerContainer } from '../../utils/animations';
 
-const aboutImage = 'src/assets/about/56.jpg.jpeg';
+const aboutImage = 'src/assets/about/56.jpeg';
 
 export default function About() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.18 });
