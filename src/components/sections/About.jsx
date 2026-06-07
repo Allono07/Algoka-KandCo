@@ -1,8 +1,8 @@
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { fadeUp, slideLeft, staggerContainer } from '../../utils/animations';
+import aboutImage from '../../assets/about/56.jpeg';
 
-const aboutImage = 'src/assets/about/56.jpeg';
 
 export default function About() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.18 });
@@ -15,9 +15,9 @@ export default function About() {
         animate={inView ? 'visible' : 'hidden'}
         className="about-copy"
       >
-        <motion.span variants={fadeUp} className="about-pill">
+        {/* <motion.span variants={fadeUp} className="about-pill">
           The Luxury Lifestyle Agency Group
-        </motion.span>
+        </motion.span> */}
 
         <motion.h2 variants={fadeUp} className="about-title">
           We blend CREATIVITY, CULTURE and CUTTING-EDGE IMMERSIVE TECHNOLOGIES
