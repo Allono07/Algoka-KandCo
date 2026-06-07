@@ -59,7 +59,7 @@ export default function Navbar() {
   const heroBrandTop = heroBottom - 24
   const brandTop = `${mix(heroBrandTop, 29, moveProgress)}px`
   const brandTranslateY = -(100 - 50 * moveProgress)
-  const brandSize = `min(${mix(12.8, 2.15, shrinkProgress)}vw, ${mix(200, 34, shrinkProgress)}px)`
+  const brandSize = `clamp(${mix(42, 22, shrinkProgress)}px, ${mix(12.8, 3.5, shrinkProgress)}vw, ${mix(200, 34, shrinkProgress)}px)`
   const brandColorValue = Math.round(mix(255, 10, navProgress))
   const brandColor = `rgb(${brandColorValue}, ${brandColorValue}, ${brandColorValue})`
   const menuButtonOpacity = navProgress
@@ -67,6 +67,7 @@ export default function Navbar() {
 
   return (
     <motion.header
+      className="site-navbar"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -77,7 +78,7 @@ export default function Navbar() {
         right: 0,
         zIndex: 1000,
         minHeight: '58px',
-        padding: '16px 32px',
+        padding: '16px clamp(16px, 4vw, 32px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',

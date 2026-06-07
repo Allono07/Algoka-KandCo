@@ -42,7 +42,7 @@ export default function App() {
         <Portfolio />
         <Process />
         <ClientLogos />
-        <Testimonials />
+        {/* <Testimonials /> */}
         {/* <Team /> */}
         <Blog />
         <Contact />

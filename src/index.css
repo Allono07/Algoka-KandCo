@@ -24,7 +24,10 @@
 /* Global CSS Reset & Base Styles */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
 
 body {
   background-color: var(--color-black);
@@ -34,6 +37,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   cursor: none;          /* We use a custom cursor */
+  overflow-x: hidden;
 }
 
 ::selection {

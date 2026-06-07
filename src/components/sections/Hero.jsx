@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import desktopVideo from '../../../Intro - video/laptop-video.mp4'
-import mobileVideo from '../../../Intro - video/mobile-video.mp4'
+import mobileVideo from '../../../Intro - video/intro-mobile-samyak.mp4'
 
 export default function Hero() {
   const videoRef = useRef(null)
@@ -14,10 +14,11 @@ export default function Hero() {
   return (
     <section
       id="home"
+      className="hero-section"
       style={{
         position: 'relative',
         height: '100vh',
-        minHeight: '680px',
+        minHeight: 'min(680px, 100svh)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
