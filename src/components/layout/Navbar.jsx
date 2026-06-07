@@ -111,6 +111,7 @@ export default function Navbar() {
 
       <button
         type="button"
+        className="menu-toggle-btn"
         onClick={() => setMenuOpen(true)}
         aria-label="Open menu"
         style={{
@@ -131,7 +132,7 @@ export default function Navbar() {
           fontSize: '12px',
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          borderRadius: '999px',
+          borderRadius: '8px',
         }}
         onMouseEnter={event => {
           event.currentTarget.style.background = 'var(--color-surface)'
@@ -141,7 +142,7 @@ export default function Navbar() {
         }}
       >
         <span className="menu-label">Menu</span>
-        <span className="hamburger-lines" aria-hidden="true">
+        <span className="hamburger-lines hamburger-desktop-hidden" aria-hidden="true">
           <span />
           <span />
         </span>
