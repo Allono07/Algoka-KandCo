@@ -43,7 +43,7 @@ export default function App() {
         <Process />
         <ClientLogos />
         <Testimonials />
-        <Team />
+        {/* <Team /> */}
         <Blog />
         <Contact />
       </main>
