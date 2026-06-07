@@ -17,8 +17,8 @@ const mix = (from, to, progress) => from + (to - from) * progress
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [brandMotion, setBrandMotion] = useState({ morph: 0, heroBottom: 0 })
-  const brandMotionRef = useRef({ morph: 0, heroBottom: 0 })
+  const [brandMotion, setBrandMotion] = useState({ morph: 0, heroBottom: 0, heroHeight: 0 })
+  const brandMotionRef = useRef({ morph: 0, heroBottom: 0, heroHeight: 0 })
 
   useEffect(() => {
     let frameId = null
@@ -27,9 +27,9 @@ export default function Navbar() {
       const hero = document.getElementById('home')
       const heroHeight = hero?.offsetHeight || window.innerHeight
       const heroBottom = hero?.getBoundingClientRect().bottom || heroHeight - window.scrollY
-      const scrollDistance = Math.max(heroHeight * 0.82, 1)
+      const scrollDistance = Math.max(heroHeight, 1)
       const nextMorph = clamp(window.scrollY / scrollDistance, 0, 1)
-      const nextBrandMotion = { morph: nextMorph, heroBottom }
+      const nextBrandMotion = { morph: nextMorph, heroBottom, heroHeight }
       const currentBrandMotion = brandMotionRef.current
 
       if (
@@ -51,12 +51,16 @@ export default function Navbar() {
     }
   }, [])
 
-  const { morph, heroBottom } = brandMotion
+  const { morph, heroBottom, heroHeight } = brandMotion
   const shrinkProgress = morph
-  const moveProgress = clamp((morph - 0.86) / 0.14, 0, 1)
-  const navProgress = clamp((morph - 0.9) / 0.1, 0, 1)
+  const moveProgress = clamp((morph - 0.85) / 0.15, 0, 1)
+  const navProgress = clamp((morph - 0.88) / 0.12, 0, 1)
   const navReady = navProgress > 0.94
-  const heroBrandTop = heroBottom - 24
+  // const heroBrandTop = heroBottom - 24
+  const isDesktop = window.innerWidth >= 1024;
+  const heroBrandTop = isDesktop
+  ? heroBottom - 24
+  : heroBottom - 45;
   const brandTop = `${mix(heroBrandTop, 29, moveProgress)}px`
   const brandTranslateY = -(100 - 50 * moveProgress)
   const brandSize = `clamp(${mix(42, 22, shrinkProgress)}px, ${mix(12.8, 3.5, shrinkProgress)}vw, ${mix(200, 34, shrinkProgress)}px)`
