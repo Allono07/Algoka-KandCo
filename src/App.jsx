@@ -48,7 +48,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
-      <WhatsAppButton />
+      {/* <WhatsAppButton /> */}
       <Toaster position="bottom-center" />
     </>
   )

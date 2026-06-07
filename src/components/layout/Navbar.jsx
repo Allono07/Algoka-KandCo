@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
@@ -80,7 +81,7 @@ export default function Navbar() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        background: `rgba(247, 247, 243, ${0.94 * navProgress})`,
+        background: `rgba(245, 240, 238, ${0.94 * navProgress})`,
         backdropFilter: `blur(${18 * navProgress}px)`,
         borderBottom: `1px solid rgba(216, 216, 208, ${navProgress})`,
       }}
@@ -146,9 +147,11 @@ export default function Navbar() {
         </span>
       </button>
 
+      {createPortal((
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            className="menu-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -156,9 +159,9 @@ export default function Navbar() {
             style={{
               position: 'fixed',
               inset: 0,
-              background: 'rgba(247,247,243,0.98)',
-              zIndex: 999,
-              padding: '24px',
+              background: 'rgba(245,240,238,0.98)',
+              zIndex: 2000,
+              padding: '28px 40px',
               backdropFilter: 'blur(18px)',
             }}
           >
@@ -213,6 +216,7 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+      ), document.body)}
     </motion.header>
   )
 }
