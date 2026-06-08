@@ -3,9 +3,9 @@ import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
-  { number: '01', label: 'About', href: '#about' },
-  { number: '02', label: 'Services', href: '#services' },
-  { number: '03', label: 'Work', href: '#portfolio' },
+  { number: '01', label: 'Services', href: '#services' },
+  { number: '02', label: 'Work', href: '#portfolio' },
+  { number: '03', label: 'About', href: '#about' },
   { number: '04', label: 'Process', href: '#process' },
   { number: '05', label: 'Team', href: '#team' },
   { number: '06', label: 'Blog', href: '#blog' },
@@ -56,6 +56,7 @@ export default function Navbar() {
   const moveProgress = clamp((morph - 0.85) / 0.15, 0, 1)
   const navProgress = clamp((morph - 0.88) / 0.12, 0, 1)
   const navReady = navProgress > 0.94
+  const showAmpersand = morph > 0.82
   // const heroBrandTop = heroBottom - 24
   const isDesktop = window.innerWidth >= 1024;
   const heroBrandTop = isDesktop
@@ -67,8 +68,6 @@ export default function Navbar() {
   const brandColorValue = Math.round(mix(255, 10, navProgress))
   const brandColor = `rgb(${brandColorValue}, ${brandColorValue}, ${brandColorValue})`
   const menuButtonOpacity = navProgress
-  const brandText = navReady ? 'Kalp&Co' : 'KalpAndCo'
-
   return (
     <motion.header
       className="site-navbar"
@@ -111,7 +110,33 @@ export default function Navbar() {
           willChange: 'top, transform, font-size, letter-spacing, color',
         }}
       >
-        {brandText}
+        <span>KALP</span>
+        <AnimatePresence mode="wait">
+          {showAmpersand ? (
+            <motion.span
+              key="amp"
+              initial={{ opacity: 0, y: 8, scale: 0.7 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.7 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              style={{ display: 'inline-block' }}
+            >
+              &amp;
+            </motion.span>
+          ) : (
+            <motion.span
+              key="and"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              style={{ display: 'inline-block' }}
+            >
+              AND
+            </motion.span>
+          )}
+        </AnimatePresence>
+        <span>CO</span>
       </a>
 
       <button

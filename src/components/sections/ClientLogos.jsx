@@ -84,7 +84,7 @@ export default function ClientLogos() {
             color: 'var(--color-muted)',
           }}
         >
-          Trusted by Brands That Mean Business
+          Our Trusted Brands
         </p>
       </div>
 

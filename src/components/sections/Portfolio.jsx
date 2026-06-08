@@ -1,19 +1,40 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { portfolio } from '../../data/portfolio'
 import { fadeUp, staggerContainer } from '../../utils/animations'
-
-const filters = ['All', 'Branding', 'Performance', 'Social', 'AI', 'Strategy', 'Web']
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('All')
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
+  const trackRef = useRef(null)
+
+  const filters = ['All', 'Branding', 'Performance', 'Social', 'AI', 'Strategy', 'Web']
 
   const filteredPortfolio = useMemo(() => {
     if (activeFilter === 'All') return portfolio
     return portfolio.filter(item => item.category === activeFilter)
   }, [activeFilter])
+
+  const scroll = dir => {
+    trackRef.current?.scrollBy({ left: dir * 320, behavior: 'smooth' })
+  }
+
+  const arrowStyle = side => ({
+    position: 'absolute',
+    [side]: 0,
+    top: '50%',
+    transform: 'translateY(-50%)',
+    width: '44px',
+    height: '44px',
+    borderRadius: '50%',
+    background: 'var(--color-accent)',
+    border: 'none',
+    color: 'var(--color-black)',
+    fontSize: '18px',
+    cursor: 'none',
+    zIndex: 10,
+  })
 
   return (
     <section id="portfolio" ref={ref} className="section-padding" style={{ background: 'var(--color-charcoal)' }}>
@@ -22,7 +43,7 @@ export default function Portfolio() {
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          style={{ marginBottom: '56px' }}
+          style={{ marginBottom: '56px', textAlign: 'center' }}
         >
           <motion.span
             variants={fadeUp}
@@ -37,41 +58,40 @@ export default function Portfolio() {
           >
             Selected Work
           </motion.span>
-          <motion.div
+          <motion.h2
             variants={fadeUp}
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
-              gap: '32px',
-              flexWrap: 'wrap',
+              fontFamily: 'var(--font-heading)',
+              fontSize: 'clamp(32px, 5vw, 60px)',
+              fontWeight: 800,
+              lineHeight: 1,
+              color: 'var(--color-white)',
+              marginBottom: '32px',
             }}
           >
-            <h2
-              style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(38px, 6vw, 76px)',
-                fontWeight: 800,
-                lineHeight: 1,
-                color: 'var(--color-white)',
-                maxWidth: '760px',
-              }}
-            >
-              Campaigns Crafted to Move Markets
-            </h2>
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-              {filters.map(filter => (
+            Our Work
+          </motion.h2>
+          <motion.div
+            variants={fadeUp}
+            style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}
+          >
+            {filters.map(filter => {
+              const active = activeFilter === filter
+
+              return (
                 <button
                   key={filter}
                   type="button"
                   onClick={() => setActiveFilter(filter)}
                   style={{
-                    border: `1px solid ${activeFilter === filter ? 'var(--color-accent)' : 'var(--color-border)'}`,
-                    background: activeFilter === filter ? 'var(--color-accent)' : 'transparent',
-                    color: activeFilter === filter ? 'var(--color-black)' : 'var(--color-muted)',
-                    padding: '9px 14px',
-                    fontSize: '12px',
-                    letterSpacing: '0.08em',
+                    padding: '10px 22px',
+                    borderRadius: '999px',
+                    border: `1px solid ${active ? 'var(--color-accent)' : 'var(--color-border)'}`,
+                    background: active ? 'var(--color-accent)' : 'transparent',
+                    color: active ? 'var(--color-black)' : 'var(--color-muted)',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    letterSpacing: '0.06em',
                     textTransform: 'uppercase',
                     cursor: 'none',
                     transition: 'all 0.3s ease',
@@ -79,90 +99,69 @@ export default function Portfolio() {
                 >
                   {filter}
                 </button>
-              ))}
-            </div>
+              )
+            })}
           </motion.div>
         </motion.div>
 
-        <motion.div
-          layout
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }}
-          className="grid-responsive-3"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredPortfolio.map((item, i) => (
-              <motion.article
+        <div style={{ position: 'relative' }}>
+          <button type="button" aria-label="Scroll portfolio left" onClick={() => scroll(-1)} style={arrowStyle('left')}>
+            {'<'}
+          </button>
+          <div
+            ref={trackRef}
+            style={{
+              display: 'flex',
+              gap: '16px',
+              overflowX: 'auto',
+              scrollSnapType: 'x mandatory',
+              scrollbarWidth: 'none',
+              padding: '20px 52px',
+            }}
+          >
+            {filteredPortfolio.map(item => (
+              <div
                 key={item.title}
-                layout
-                initial={{ opacity: 0, y: 40 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                exit={{ opacity: 0, y: 30 }}
-                transition={{ delay: i * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                className="portfolio-card"
-                style={{ cursor: 'none' }}
+                style={{
+                  flex: '0 0 calc(25% - 12px)',
+                  minWidth: '240px',
+                  scrollSnapAlign: 'start',
+                  aspectRatio: '3 / 4',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  background: 'var(--color-surface)',
+                }}
               >
+                <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div
                   style={{
-                    position: 'relative',
-                    aspectRatio: '4/5',
-                    overflow: 'hidden',
-                    background: 'var(--color-surface)',
-                    marginBottom: '20px',
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    padding: '16px',
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.85), transparent)',
                   }}
                 >
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    className="portfolio-img"
+                  <p
                     style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block',
-                      transition: 'transform 0.6s ease',
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      background: 'linear-gradient(to top, rgba(10,10,10,0.9), rgba(10,10,10,0.08))',
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: 'absolute',
-                      left: '20px',
-                      right: '20px',
-                      bottom: '20px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      color: '#F5F5F0',
+                      fontSize: '11px',
+                      color: 'var(--color-accent)',
+                      letterSpacing: '0.18em',
+                      textTransform: 'uppercase',
                     }}
                   >
-                    <span style={{ fontSize: '11px', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
-                      {item.tag}
-                    </span>
-                    <span style={{ color: '#F5F5F0' }}>{item.year}</span>
-                  </div>
+                    {item.tag}
+                  </p>
+                  <h3 style={{ fontSize: '16px', color: '#fff', fontWeight: 700 }}>{item.title}</h3>
                 </div>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: '22px',
-                    lineHeight: 1.2,
-                    color: 'var(--color-white)',
-                    marginBottom: '10px',
-                  }}
-                >
-                  {item.title}
-                </h3>
-                <p style={{ color: 'var(--color-muted)', fontSize: '14px', lineHeight: 1.7 }}>{item.desc}</p>
-              </motion.article>
+              </div>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </div>
+          <button type="button" aria-label="Scroll portfolio right" onClick={() => scroll(1)} style={arrowStyle('right')}>
+            {'>'}
+          </button>
+        </div>
       </div>
     </section>
   )

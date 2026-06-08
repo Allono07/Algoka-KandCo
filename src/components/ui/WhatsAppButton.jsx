@@ -1,13 +1,35 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 export default function WhatsAppButton() {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const updateVisibility = () => {
+      const hero = document.getElementById('home')
+      const heroHeight = hero?.offsetHeight || window.innerHeight
+      const progress = Math.min(Math.max(window.scrollY / Math.max(heroHeight, 1), 0), 1)
+
+      setIsVisible(progress > 0.88)
+    }
+
+    updateVisibility()
+    window.addEventListener('scroll', updateVisibility, { passive: true })
+    window.addEventListener('resize', updateVisibility)
+
+    return () => {
+      window.removeEventListener('scroll', updateVisibility)
+      window.removeEventListener('resize', updateVisibility)
+    }
+  }, [])
+
   return (
     <motion.a
       href="https://wa.me/919482212222?text=Hi%20Kalp%20%26%20Co%2C%20I%27d%20like%20to%20discuss%20a%20project."
       target="_blank" rel="noopener noreferrer"
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ delay: 3, type: 'spring', stiffness: 200 }}
+      initial={false}
+      animate={isVisible ? { scale: 1, opacity: 1, y: 0 } : { scale: 0.85, opacity: 0, y: 12 }}
+      transition={{ type: 'spring', stiffness: 200, damping: 22 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
       style={{
@@ -16,6 +38,7 @@ export default function WhatsAppButton() {
         background: 'var(--color-white)', display: 'flex', alignItems: 'center', justifyContent: 'center',
         border: '1px solid var(--color-border)',
         boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35)', cursor: 'none',
+        pointerEvents: isVisible ? 'auto' : 'none',
       }}
       aria-label="Chat on WhatsApp"
     >

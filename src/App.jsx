@@ -37,18 +37,18 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <About />
         <Services />
         <Portfolio />
-        <Process />
         <ClientLogos />
-        {/* <Testimonials /> */}
-        {/* <Team /> */}
+        <About />
+        <Process />
+        <Testimonials />
+        <Team />
         <Blog />
         <Contact />
       </main>
       <Footer />
-      {/* <WhatsAppButton /> */}
+      <WhatsAppButton />
       <Toaster position="bottom-center" />
     </>
   )
