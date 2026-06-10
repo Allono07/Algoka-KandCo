@@ -11,16 +11,17 @@ export default function Testimonials() {
 
   return (
     <section ref={ref} className="section-padding"
-      style={{ background: 'var(--color-charcoal)', overflow: 'hidden' }}>
+      style={{ background: 'transparent', overflow: 'hidden' }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }} style={{ marginBottom: '60px', textAlign: 'center' }}>
-          <span style={{ display: 'block', fontSize: '12px', letterSpacing: '0.3em',
-                         textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: '16px' }}>
-            Client Stories
+          <span style={{ display: 'block', fontSize: '12px', letterSpacing: '0.15em',
+                         textTransform: 'uppercase', color: '#94847D', marginBottom: '16px',
+                         fontWeight: 600, fontFamily: 'Montserrat, sans-serif' }}>
+            ★ Client Stories
           </span>
-          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(36px, 5vw, 64px)',
-                       fontWeight: 800, color: 'var(--color-white)' }}>
+          <h2 style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 'clamp(36px, 5vw, 64px)',
+                       fontWeight: 800, color: '#2D2926' }}>
             What They Say
           </h2>
         </motion.div>
@@ -34,21 +35,22 @@ export default function Testimonials() {
         >
           {testimonials.map((t, i) => (
             <SwiperSlide key={i}>
-              <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', padding: '0 20px' }}>
-                <div style={{ fontSize: '80px', color: 'var(--color-accent)', lineHeight: 0.8,
-                               fontFamily: 'Georgia', marginBottom: '32px' }}>"</div>
-                <p style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(20px, 3vw, 28px)',
-                             fontWeight: 500, color: 'var(--color-white)', lineHeight: 1.6,
-                             marginBottom: '48px', fontStyle: 'italic' }}>
+              <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', padding: '48px 32px',
+                            background: '#FAF6F0', border: '1px solid #C1B6AF', borderRadius: '16px' }}>
+                <div style={{ fontSize: '80px', color: '#C1B6AF', lineHeight: 0.8,
+                               fontFamily: 'Georgia', marginBottom: '24px' }}>"</div>
+                <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 'clamp(20px, 3vw, 28px)',
+                             fontWeight: 400, color: '#2D2926', lineHeight: 1.6,
+                             marginBottom: '40px', fontStyle: 'italic' }}>
                   {t.quote}
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
                   <img src={t.avatar} alt={t.name}
                     style={{ width: '52px', height: '52px', borderRadius: '50%',
-                              border: '2px solid var(--color-accent)', objectFit: 'cover' }} />
+                              border: '2px solid #C1B6AF', objectFit: 'cover' }} />
                   <div style={{ textAlign: 'left' }}>
-                    <p style={{ fontWeight: 700, color: 'var(--color-white)', marginBottom: '4px' }}>{t.name}</p>
-                    <p style={{ fontSize: '13px', color: 'var(--color-muted)' }}>{t.role}</p>
+                    <p style={{ fontWeight: 600, color: '#94847D', marginBottom: '4px', fontFamily: 'Montserrat, sans-serif' }}>{t.name}</p>
+                    <p style={{ fontSize: '13px', color: '#7F736E', fontFamily: 'Montserrat, sans-serif' }}>{t.role}</p>
                   </div>
                 </div>
               </div>

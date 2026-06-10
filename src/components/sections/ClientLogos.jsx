@@ -1,95 +1,38 @@
-import { motion } from 'framer-motion'
 import { clients } from '../../data/clients'
 
-function LogoRow({ direction = 1, items }) {
-  return (
-    <div
-      style={{
-        overflow: 'hidden',
-        width: '100%',
-        padding: '20px 0',
-      }}
-    >
-      <motion.div
-        animate={{
-          x: direction > 0 ? ['0%', '-50%'] : ['-50%', '0%'],
-        }}
-        transition={{
-          duration: 30,
-          ease: 'linear',
-          repeat: Infinity,
-        }}
-        style={{
-          display: 'flex',
-          gap: '64px',
-          width: 'max-content',
-        }}
-      >
-        {[...items, ...items].map((client, i) => (
-          <div
-            key={i}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minWidth: '140px',
-              opacity: 0.4,
-              transition: 'opacity 0.3s',
-              cursor: 'pointer',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = '1'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.opacity = '0.4'
-            }}
-          >
-            <img
-              src={client.logo}
-              alt={client.name}
-              style={{
-                maxWidth: '120px',
-                maxHeight: '40px',
-                filter: 'brightness(0)',
-              }}
-            />
-          </div>
-        ))}
-      </motion.div>
-    </div>
-  )
-}
-
 export default function ClientLogos() {
+  const reversedClients = [...clients].reverse();
+
   return (
-    <section
-      style={{
-        background: 'var(--color-charcoal)',
-        padding: '80px 0',
-        borderTop: '1px solid var(--color-border)',
-        borderBottom: '1px solid var(--color-border)',
-      }}
-    >
-      <div
-        style={{
-          textAlign: 'center',
-          marginBottom: '48px',
-        }}
-      >
-        <p
-          style={{
-            fontSize: '12px',
-            letterSpacing: '0.3em',
-            textTransform: 'uppercase',
-            color: 'var(--color-muted)',
-          }}
-        >
-          Our Trusted Brands
-        </p>
+    <section className="trusted-brands">
+      <p className="section-label">★ TRUSTED BY</p>
+      <h2>Brands We've Worked With</h2>
+
+      {/* Row 1: scrolls left */}
+      <div className="marquee-track">
+        <div className="marquee-inner marquee-left">
+          {clients.map((client, i) => (
+            <img key={`left-1-${i}`} src={client.logo} alt={client.name} />
+          ))}
+          {/* Duplicate set for seamless loop */}
+          {clients.map((client, i) => (
+            <img key={`left-2-${i}`} src={client.logo} alt={client.name} />
+          ))}
+        </div>
       </div>
 
-      <LogoRow direction={1} items={clients} />
-      <LogoRow direction={-1} items={clients.slice().reverse()} />
+      {/* Row 2: scrolls right */}
+      <div className="marquee-track">
+        <div className="marquee-inner marquee-right">
+          {reversedClients.map((client, i) => (
+            <img key={`right-1-${i}`} src={client.logo} alt={client.name} />
+          ))}
+          {/* Duplicate set for seamless loop */}
+          {reversedClients.map((client, i) => (
+            <img key={`right-2-${i}`} src={client.logo} alt={client.name} />
+          ))}
+        </div>
+      </div>
     </section>
   )
 }

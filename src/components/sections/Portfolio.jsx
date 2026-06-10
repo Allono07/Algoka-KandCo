@@ -37,7 +37,7 @@ export default function Portfolio() {
   })
 
   return (
-    <section id="portfolio" ref={ref} className="section-padding" style={{ background: 'var(--color-charcoal)' }}>
+    <section id="portfolio" ref={ref} className="section-padding" style={{ background: 'transparent' }}>
       <div className="container">
         <motion.div
           variants={staggerContainer}
@@ -61,11 +61,11 @@ export default function Portfolio() {
           <motion.h2
             variants={fadeUp}
             style={{
-              fontFamily: 'var(--font-heading)',
+              fontFamily: 'Montserrat, sans-serif',
               fontSize: 'clamp(32px, 5vw, 60px)',
               fontWeight: 800,
               lineHeight: 1,
-              color: 'var(--color-white)',
+              color: '#2D2926',
               marginBottom: '32px',
             }}
           >
@@ -122,6 +122,7 @@ export default function Portfolio() {
             {filteredPortfolio.map(item => (
               <div
                 key={item.title}
+                className="portfolio-card-redesign"
                 style={{
                   flex: '0 0 calc(25% - 12px)',
                   minWidth: '240px',
@@ -129,7 +130,9 @@ export default function Portfolio() {
                   aspectRatio: '3 / 4',
                   overflow: 'hidden',
                   position: 'relative',
-                  background: 'var(--color-surface)',
+                  background: 'transparent',
+                  borderRadius: '16px',
+                  transition: 'transform 0.3s ease',
                 }}
               >
                 <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -145,15 +148,22 @@ export default function Portfolio() {
                 >
                   <p
                     style={{
+                      fontFamily: 'Montserrat, sans-serif',
+                      fontWeight: 300,
                       fontSize: '11px',
-                      color: 'var(--color-accent)',
+                      color: '#94847D',
                       letterSpacing: '0.18em',
                       textTransform: 'uppercase',
                     }}
                   >
                     {item.tag}
                   </p>
-                  <h3 style={{ fontSize: '16px', color: '#fff', fontWeight: 700 }}>{item.title}</h3>
+                  <h3 style={{ 
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontWeight: 600,
+                    fontSize: '16px', 
+                    color: '#fff' 
+                  }}>{item.title}</h3>
                 </div>
               </div>
             ))}

@@ -34,7 +34,7 @@ export default function Process() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
 
   return (
-    <section id="process" ref={ref} className="section-padding bg-black">
+    <section id="process" ref={ref} className="section-padding" style={{ background: 'transparent' }}>
       <div className="container">
         {/* Header */}
         <motion.div
@@ -44,14 +44,30 @@ export default function Process() {
         >
           <motion.span
             variants={fadeUp}
-            className="block text-xs tracking-widest uppercase text-accent mb-5"
+            style={{
+              display: 'block',
+              fontSize: '12px',
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              color: '#94847D',
+              marginBottom: '20px',
+              fontWeight: 600,
+              fontFamily: 'Montserrat, sans-serif'
+            }}
           >
-            How We Work
+            ★ How We Work
           </motion.span>
 
           <motion.h2
             variants={fadeUp}
-            className="font-heading text-4xl md:text-5xl font-extrabold leading-tight text-white mb-12"
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              fontSize: 'clamp(32px, 5vw, 60px)',
+              fontWeight: 800,
+              color: '#2D2926',
+              marginBottom: '48px',
+              lineHeight: 1.1
+            }}
           >
             Our Process
           </motion.h2>
@@ -67,7 +83,13 @@ export default function Process() {
                 className="text-center"
               >
                 {/* Number */}
-                <div className="font-heading text-6xl font-extrabold text-border mb-4 transition-colors">
+                <div style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontSize: '60px',
+                  fontWeight: 700,
+                  color: '#94847D',
+                  marginBottom: '16px'
+                }}>
                   {step.num}
                 </div>
 
@@ -76,16 +98,33 @@ export default function Process() {
                   initial={{ scaleX: 0 }}
                   animate={inView ? { scaleX: 1 } : {}}
                   transition={{ delay: 0.3 + i * 0.15, duration: 0.6 }}
-                  className="h-0.5 bg-accent mx-auto mb-4"
+                  style={{
+                    height: '2px',
+                    background: '#C1B6AF',
+                    width: '100%',
+                    marginBottom: '16px'
+                  }}
                 />
 
                 {/* Title */}
-                <h3 className="font-heading text-lg font-bold text-white mb-2">
+                <h3 style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontSize: '18px',
+                  fontWeight: 600,
+                  color: '#2D2926',
+                  marginBottom: '8px'
+                }}>
                   {step.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-muted leading-relaxed">{step.desc}</p>
+                <p style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontSize: '14px',
+                  color: '#7F736E',
+                  lineHeight: 1.6,
+                  fontWeight: 300
+                }}>{step.desc}</p>
               </motion.div>
             ))}
           </div>
