@@ -3,13 +3,16 @@ import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
-  { number: '01', label: 'Services', href: '#services' },
-  { number: '02', label: 'Work', href: '#portfolio' },
-  { number: '03', label: 'About', href: '#about' },
-  { number: '04', label: 'Process', href: '#process' },
-  { number: '05', label: 'Team', href: '#team' },
-  { number: '06', label: 'Blog', href: '#blog' },
-  { number: '07', label: 'Contact', href: '#contact' },
+  { number: '01', label: 'What We Have to Offer', href: '#services' },
+  { number: '02', label: 'Our Work', href: '#portfolio' },
+  { number: '03', label: 'Our Trusted Brands', href: '#trusted-brands' },
+  { number: '04', label: 'About Us', href: '#about' },
+  { number: '05', label: 'Our Process', href: '#process' },
+  { number: '06', label: 'Why Choose Kalp & Co.', href: '#why-choose' },
+  { number: '07', label: 'From the Studio', href: '#studio' },
+  { number: '08', label: 'What They Say', href: '#testimonials' },
+  { number: '09', label: 'Meet the People Leading the Way', href: '#team' },
+  { number: '10', label: 'Contact Us', href: '#contact' },
 ]
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
@@ -80,14 +83,13 @@ export default function Navbar() {
         left: 0,
         right: 0,
         zIndex: 1000,
-        minHeight: '58px',
-        padding: '16px clamp(16px, 4vw, 32px)',
+        minHeight: '44px',
+        padding: '8px clamp(16px, 4vw, 32px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
         background: `rgba(245, 240, 238, ${0.94 * navProgress})`,
         backdropFilter: `blur(${18 * navProgress}px)`,
-        borderBottom: `1px solid rgba(216, 216, 208, ${navProgress})`,
       }}
     >
       <a

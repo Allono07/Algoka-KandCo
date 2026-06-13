@@ -27,12 +27,12 @@ export default function Team() {
             className="grid-responsive-4">
             {team.map((member, i) => (
               <motion.div key={i} variants={scaleIn}
-                style={{ 
-                  background: '#FAF6F0', 
-                  border: '1px solid #C1B6AF', 
+                style={{
+                  background: '#FAF6F0',
+                  border: '1px solid #C1B6AF',
                   borderRadius: '16px',
                   padding: '16px',
-                  cursor: 'pointer' 
+                  cursor: 'pointer',
                 }}
                 className="team-card"
               >

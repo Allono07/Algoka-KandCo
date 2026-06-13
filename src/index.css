@@ -17,7 +17,7 @@
   --transition-medium: 0.4s ease;
   --transition-slow:   0.8s cubic-bezier(0.16, 1, 0.3, 1);
 
-  --section-padding: 120px 0;
+  --section-padding: 80px 0;
   --container-max:   1320px;
 }
 
@@ -66,7 +66,7 @@ main section {
 
 @media (max-width: 768px) {
   .container { padding: 0 20px; }
-  :root { --section-padding: 80px 0; }
+  :root { --section-padding: 56px 0; }
 }
 
 /* Font face for Artegra */
@@ -164,6 +164,7 @@ main section {
 @media (max-width: 1024px) {
   .grid-responsive   { grid-template-columns: 1fr !important; }
   .grid-responsive-3 { grid-template-columns: 1fr 1fr !important; }
+  .grid-responsive-2 { grid-template-columns: 1fr 1fr !important; }
   .grid-responsive-4 { grid-template-columns: 1fr 1fr !important; }
   .grid-responsive-5 { grid-template-columns: 1fr 1fr !important; }
   .grid-responsive-footer { grid-template-columns: 1fr 1fr !important; }
@@ -172,6 +173,7 @@ main section {
 }
 @media (max-width: 640px) {
   .grid-responsive-3 { grid-template-columns: 1fr !important; }
+  .grid-responsive-2 { grid-template-columns: 1fr !important; }
   .grid-responsive-4 { grid-template-columns: 1fr !important; }
   .grid-responsive-5 { grid-template-columns: 1fr !important; }
   .grid-responsive-footer { grid-template-columns: 1fr !important; }
@@ -193,7 +195,7 @@ main section {
 
 /* About Us Redesign */
 .about-redesign {
-  padding: 100px 0;
+  padding: 70px 0;
   background: transparent;
 }
 .about-hero {
@@ -201,7 +203,7 @@ main section {
   grid-template-columns: 1fr 1fr;
   gap: 64px;
   align-items: center;
-  margin-bottom: 80px;
+  margin-bottom: 56px;
 }
 .about-hero-text {
   max-width: 500px;
@@ -246,7 +248,7 @@ main section {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 24px;
-  margin-bottom: 80px;
+  margin-bottom: 56px;
 }
 .vmv-card {
   border: 1px solid #C1B6AF;
@@ -580,7 +582,7 @@ main section {
 
 /* ─── Services Section Redesign ───────────────────────────────── */
 .services-section-redesign {
-  padding: 100px 0;
+  padding: 70px 0;
 }
 
 .services-panel-grid {
@@ -625,6 +627,15 @@ main section {
   border: 1px solid #C1B6AF;
   border-radius: 100px;
   padding: 14px 24px;
+}
+.tab-inactive:hover {
+  background: #94847D;
+  color: #fff;
+  border-color: #94847D;
+}
+.tab-active:hover {
+  background: #7F736E;
+  border-color: #7F736E;
 }
 
 .services-image-col {
@@ -671,7 +682,7 @@ section, header, footer, main, .section, [class*="section"] {
 
 /* Trusted Brands Marquee */
 .trusted-brands {
-  padding: 100px 0;
+  padding: 70px 0;
   background: transparent;
   text-align: center;
 }
@@ -737,7 +748,7 @@ section, header, footer, main, .section, [class*="section"] {
 
 /* From The Studio Redesign */
 .studio-redesign {
-  padding: 120px 0;
+  padding: 80px 0;
   background: transparent;
 }
 .studio-layout {

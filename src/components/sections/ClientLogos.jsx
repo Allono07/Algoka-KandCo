@@ -4,7 +4,7 @@ export default function ClientLogos() {
   const reversedClients = [...clients].reverse();
 
   return (
-    <section className="trusted-brands">
+    <section id="trusted-brands" className="trusted-brands">
       <p className="section-label">★ TRUSTED BY</p>
       <h2>Brands We've Worked With</h2>
 

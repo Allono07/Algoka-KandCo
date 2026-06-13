@@ -10,7 +10,7 @@ export default function Testimonials() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 })
 
   return (
-    <section ref={ref} className="section-padding"
+    <section id="testimonials" ref={ref} className="section-padding"
       style={{ background: 'transparent', overflow: 'hidden' }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}}

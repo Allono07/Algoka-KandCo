@@ -103,7 +103,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           void main() {
             vec2 uv = gl_FragCoord.xy / u_res;
-            float t  = u_time * 0.18; // speed — raise for faster
+            float t  = u_time * 0.10; // speed — raise for faster
 
             // Two layers of fbm warping each other (domain warping = fluid look)
             vec2 q = vec2(

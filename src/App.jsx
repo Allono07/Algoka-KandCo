@@ -6,6 +6,7 @@ import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
+import WhyChoose from './components/sections/WhyChoose'
 import Services from './components/sections/Services'
 import Portfolio from './components/sections/Portfolio'
 import Process from './components/sections/Process'
@@ -42,9 +43,10 @@ export default function App() {
         <ClientLogos />
         <About />
         <Process />
+        <WhyChoose />
+        <Blog />
         <Testimonials />
         <Team />
-        <Blog />
         <Contact />
       </main>
       <Footer />

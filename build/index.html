@@ -6,6 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>algoka-kandco</title>
 
@@ -17,8 +18,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-W4G76X6W');</script>
 <!-- End Google Tag Manager -->
 
-    <script type="module" crossorigin src="/assets/index-CrtnTh4H.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CCZkZ92Z.css">
+    <script type="module" crossorigin src="/assets/index-D-X5-rGC.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-zPobO1_-.css">
   </head>
   <body>
 
@@ -27,6 +28,146 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
     
-    <div id="root"></div>
+    <canvas id="fluid-bg" aria-hidden="true"></canvas>
+    <div id="root"></div>
+    <script>
+      // Paste at bottom of <body> — no libraries needed, pure WebGL
+      (function () {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const canvas = document.getElementById('fluid-bg');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) return;
+
+        function resize() {
+          canvas.width  = window.innerWidth;
+          canvas.height = window.innerHeight;
+          gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Vertex shader — just covers the full screen
+        const vertSrc = `
+          attribute vec2 a_pos;
+          void main() {
+            gl_Position = vec4(a_pos, 0.0, 1.0);
+          }
+        `;
+
+        // Fragment shader — the actual fluid/ink animation
+        const fragSrc = `
+          precision highp float;
+          uniform float u_time;
+          uniform vec2  u_res;
+
+          // Beige palette
+          // #FAF6F0, #EDE0D0, #DDD1CB, #C1B6AF, #94847D
+          vec3 col0 = vec3(0.980, 0.965, 0.941); // #FAF6F0
+          vec3 col1 = vec3(0.929, 0.878, 0.816); // #EDE0D0
+          vec3 col2 = vec3(0.867, 0.820, 0.796); // #DDD1CB
+          vec3 col3 = vec3(0.757, 0.714, 0.686); // #C1B6AF
+          vec3 col4 = vec3(0.580, 0.518, 0.490); // #94847D
+
+          // Smooth noise
+          vec2 hash2(vec2 p) {
+            p = vec2(dot(p, vec2(127.1, 311.7)),
+                     dot(p, vec2(269.5, 183.3)));
+            return -1.0 + 2.0 * fract(sin(p) * 43758.5453);
+          }
+
+          float noise(vec2 p) {
+            vec2 i = floor(p);
+            vec2 f = fract(p);
+            vec2 u = f * f * (3.0 - 2.0 * f);
+            return mix(
+              mix(dot(hash2(i + vec2(0,0)), f - vec2(0,0)),
+                  dot(hash2(i + vec2(1,0)), f - vec2(1,0)), u.x),
+              mix(dot(hash2(i + vec2(0,1)), f - vec2(0,1)),
+                  dot(hash2(i + vec2(1,1)), f - vec2(1,1)), u.x), u.y
+            );
+          }
+
+          // Fractional Brownian Motion — layered noise = organic fluid look
+          float fbm(vec2 p) {
+            float v = 0.0;
+            float a = 0.5;
+            vec2  shift = vec2(100.0);
+            mat2  rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));
+            for (int i = 0; i < 5; i++) {
+              v += a * noise(p);
+              p  = rot * p * 2.0 + shift;
+              a *= 0.5;
+            }
+            return v;
+          }
+
+          void main() {
+            vec2 uv = gl_FragCoord.xy / u_res;
+            float t  = u_time * 0.10; // speed — raise for faster
+
+            // Two layers of fbm warping each other (domain warping = fluid look)
+            vec2 q = vec2(
+              fbm(uv + vec2(0.0, 0.0) + t),
+              fbm(uv + vec2(5.2, 1.3) + t)
+            );
+
+            vec2 r = vec2(
+              fbm(uv + 4.0 * q + vec2(1.7, 9.2) + 0.15 * t),
+              fbm(uv + 4.0 * q + vec2(8.3, 2.8) + 0.12 * t)
+            );
+
+            float f = fbm(uv + 4.0 * r + t * 0.5);
+
+            // Map noise value to colour stops
+            f = clamp((f * 0.5 + 0.5), 0.0, 1.0);
+
+            vec3 color = mix(col0, col1, clamp(f * 2.0,        0.0, 1.0));
+                color  = mix(color, col2, clamp(f * 2.0 - 0.5, 0.0, 1.0));
+                color  = mix(color, col3, clamp(f * 2.0 - 1.0, 0.0, 1.0));
+                color  = mix(color, col4, clamp(f * 2.0 - 1.5, 0.0, 1.0));
+
+            gl_FragColor = vec4(color, 1.0);
+          }
+        `;
+
+        function compile(type, src) {
+          const s = gl.createShader(type);
+          gl.shaderSource(s, src);
+          gl.compileShader(s);
+          return s;
+        }
+
+        const prog = gl.createProgram();
+        gl.attachShader(prog, compile(gl.VERTEX_SHADER,   vertSrc));
+        gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fragSrc));
+        gl.linkProgram(prog);
+        gl.useProgram(prog);
+
+        // Full-screen quad
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER,
+          new Float32Array([-1,-1, 1,-1, -1,1, 1,-1, 1,1, -1,1]),
+          gl.STATIC_DRAW);
+
+        const aPos = gl.getAttribLocation(prog, 'a_pos');
+        gl.enableVertexAttribArray(aPos);
+        gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+        const uTime = gl.getUniformLocation(prog, 'u_time');
+        const uRes  = gl.getUniformLocation(prog, 'u_res');
+
+        let start = performance.now();
+
+        (function loop() {
+          const t = (performance.now() - start) / 1000;
+          gl.uniform1f(uTime, t);
+          gl.uniform2f(uRes, canvas.width, canvas.height);
+          gl.drawArrays(gl.TRIANGLES, 0, 6);
+          requestAnimationFrame(loop);
+        })();
+      })();
+    </script>
   </body>
 </html>
