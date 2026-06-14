@@ -85,7 +85,8 @@ export default function Contact() {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div className="contact-form-box">
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
               <input name="name" placeholder="Name" type="text"
                 value={form.name} onChange={handleChange} required
                 style={inputStyle}
@@ -111,7 +112,8 @@ export default function Contact() {
                 style={{ marginTop: '16px', alignSelf: 'flex-start' }}>
                 {loading ? 'Sending...' : 'Send Message →'}
               </motion.button>
-            </form>
+              </form>
+            </div>
           </motion.div>
 
           {/* Right Column: Image + Map */}

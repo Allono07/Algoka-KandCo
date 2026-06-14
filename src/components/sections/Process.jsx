@@ -80,14 +80,13 @@ export default function Process() {
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: i * 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="text-center"
+                className="process-step text-center"
               >
                 {/* Number */}
-                <div style={{
+                <div className="process-step-num" style={{
                   fontFamily: 'Montserrat, sans-serif',
                   fontSize: '60px',
                   fontWeight: 700,
-                  color: '#94847D',
                   marginBottom: '16px'
                 }}>
                   {step.num}

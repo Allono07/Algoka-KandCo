@@ -23,9 +23,8 @@ export default function Team() {
             Meet the People Leading the Way
           </motion.h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}
-            className="grid-responsive-4">
-            {team.map((member, i) => (
+          <div className="team-grid-2">
+            {team.slice(0, 2).map((member, i) => (
               <motion.div key={i} variants={scaleIn}
                 style={{
                   background: '#FAF6F0',
