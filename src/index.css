@@ -278,8 +278,8 @@ main section {
 /* Header row: ABOUT US + description */
 .about-header-row {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 32px;
+  grid-template-columns: auto 1fr;
+  gap: 48px;
   align-items: start;
   margin-bottom: 32px;
 }
@@ -297,6 +297,7 @@ main section {
   color: #7F736E;
   line-height: 1.7;
   padding-top: 12px;
+  text-align: justify;
 }
 
 /* Full-width landscape image */
@@ -349,6 +350,7 @@ main section {
   color: #7F736E;
   line-height: 1.8;
   max-width: 560px;
+  text-align: justify;
 }
 
 /* 2x2 Mission / Values / Vision / Reflection grid */
@@ -363,8 +365,6 @@ main section {
   grid-template-columns: 1fr 1fr;
   gap: 24px;
   align-items: center;
-  border-top: 1px solid #C1B6AF;
-  padding-top: 24px;
 }
 
 .about-mvvr-img {
@@ -405,6 +405,7 @@ main section {
   font-weight: 300;
   color: #7F736E;
   line-height: 1.75;
+  text-align: justify;
 }
 
 /* Responsive */
