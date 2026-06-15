@@ -24,7 +24,7 @@ export default function Services() {
               marginBottom: '16px',
               fontWeight: 600,
               fontFamily: 'Montserrat, sans-serif'
-            }}>★ SERVICES</p>
+            }}></p>
             <h2 style={{
               fontFamily: 'Montserrat, sans-serif',
               fontSize: 'clamp(32px, 5vw, 60px)',
@@ -118,7 +118,7 @@ export default function Services() {
                     fontWeight: 600,
                     fontFamily: 'Montserrat, sans-serif'
                   }}>
-                    ✦ AS YOU WISH
+                    {/* ✦ AS YOU WISH */}
                   </p>
                   <h3 style={{
                     fontFamily: 'Montserrat, sans-serif',

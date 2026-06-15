@@ -57,7 +57,7 @@ export const services = [
     number: '08',
     title: 'Strategic Planning',
     desc: 'Business growth audits, competitive analysis, brand architecture, and integrated marketing strategy.',
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80&auto=format&fit=crop',
+    image: strategicPlanningImage,
   },
   {
     number: '09',
@@ -69,7 +69,7 @@ export const services = [
     number: '10',
     title: 'Product Launch Campaigns',
     desc: 'End‑to‑end launch planning — teaser campaigns, influencer seeding, PR, paid media, and post‑launch sustain.',
-    image: strategicPlanningImage,
+    image: productLaunchCampaignsImage,
   },
   {
     number: '11',

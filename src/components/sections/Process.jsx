@@ -55,7 +55,7 @@ export default function Process() {
               fontFamily: 'Montserrat, sans-serif'
             }}
           >
-            ★ How We Work
+            {/* ★ How We Work */}
           </motion.span>
 
           <motion.h2

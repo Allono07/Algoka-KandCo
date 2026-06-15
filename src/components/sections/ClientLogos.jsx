@@ -5,7 +5,7 @@ export default function ClientLogos() {
 
   return (
     <section id="trusted-brands" className="trusted-brands">
-      <p className="section-label">★ TRUSTED BY</p>
+      {/* <p className="section-label">★ TRUSTED BY</p> */}
       <h2>Brands We've Worked With</h2>
 
       {/* Row 1: scrolls left */}

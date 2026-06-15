@@ -56,7 +56,7 @@ export default function Portfolio() {
               marginBottom: '16px',
             }}
           >
-            Selected Work
+            {/* Selected Work */}
           </motion.span>
           <motion.h2
             variants={fadeUp}
