@@ -195,7 +195,7 @@ export default function Navbar() {
         style={{
           background: 'transparent',
           border: '1px solid rgba(10, 10, 10, 0)',
-          cursor: 'none',
+          cursor: 'pointer',
           color: 'var(--color-white)',
           opacity: 0,
           pointerEvents: 'none',
