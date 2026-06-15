@@ -52,7 +52,7 @@ export default function Contact() {
               style={{ display: 'block', fontSize: '12px', letterSpacing: '0.15em',
                        textTransform: 'uppercase', color: '#94847D', marginBottom: '16px',
                        fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-              ★ GET IN TOUCH
+              {/* ★ GET IN TOUCH */}
             </motion.span>
             <motion.h2 variants={fadeUp}
               style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 'clamp(40px, 5vw, 72px)',

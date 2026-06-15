@@ -129,9 +129,7 @@ export default function Services() {
                     fontWeight: 700,
                     fontStyle: 'italic'
                   }}>
-                    {activeService.title.split(' ').map((word, i) => 
-                      i % 2 === 1 ? <span key={i} style={{fontWeight: 400}}>{word} </span> : <span key={i}>{word} </span>
-                    )}
+                    {activeService.title}
                   </h3>
                   <p style={{
                     fontFamily: 'Montserrat, sans-serif',

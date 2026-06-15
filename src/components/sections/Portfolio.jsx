@@ -110,6 +110,7 @@ export default function Portfolio() {
           </button>
           <div
             ref={trackRef}
+            className="portfolio-carousel-track"
             style={{
               display: 'flex',
               gap: '16px',

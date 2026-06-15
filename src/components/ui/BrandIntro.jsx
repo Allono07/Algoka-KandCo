@@ -11,6 +11,11 @@ export default function BrandIntro() {
   const overlayControls = useAnimation();
 
   useEffect(() => {
+    const placeholder = document.getElementById('loader-placeholder');
+    if (placeholder) {
+      placeholder.remove();
+    }
+
     if (!visible) return;
     let cancelled = false;
 
