@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import toast from 'react-hot-toast'
 import { fadeUp, staggerContainer } from '../../utils/animations'
-import aboutImage from '../../assets/about/56.jpeg'
+import contactImage from '../../assets/contact/contact.jpeg'
 
 const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID'
 const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'
@@ -124,7 +124,7 @@ export default function Contact() {
             style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
           >
             <div style={{ width: '100%', height: '400px', borderRadius: '16px', overflow: 'hidden' }}>
-              <img src={aboutImage} alt="Studio Space" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={contactImage} alt="Studio Space" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             
             <div style={{ width: '100%', height: '240px', borderRadius: '12px', overflow: 'hidden', border: '1px solid #C1B6AF' }}>

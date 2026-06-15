@@ -1,32 +1,36 @@
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../utils/animations';
-import aboutImage from '../../assets/about/56.jpeg'; // placeholder — replace per slot later
+import aboutImage from '../../assets/about/aboutus.jpeg';
+import reflectionImage from '../../assets/about/reflection.jpeg';
+import visionImage from '../../assets/about/vision.jpeg';
+import missionImage from '../../assets/about/mission.jpeg';
+import valuesImage from '../../assets/about/value.jpeg';
 
 const aboutBlocks = [
   {
     label: 'MISSION',
     heading: 'Our Mission',
     body: 'To elevate brands through immersive campaigns, strategic planning, and creative solutions that convert and inspire — built around real business outcomes, not vanity metrics.',
-    img: aboutImage,
+    img: missionImage,
   },
   {
     label: 'VALUES',
     heading: 'Our Values',
     body: 'Driven by curiosity, rooted in strategic insight, and dedicated to delivering premium, high-impact results for every partner we work with.',
-    img: aboutImage,
+    img: valuesImage,
   },
   {
     label: 'VISION',
     heading: 'Our Vision',
     body: 'To become the ultimate creative partner for growth-focused brands, blending strategy, technology, and design into one seamless engine for scale.',
-    img: aboutImage,
+    img: visionImage,
   },
   {
     label: 'REFLECTION',
     heading: 'Our Reflection',
     body: 'Every campaign we ship is a reflection of the brand behind it — we hold ourselves to a standard where craft, clarity, and impact are non-negotiable.',
-    img: aboutImage,
+    img: reflectionImage,
   },
 ];
 
