@@ -1,14 +1,9 @@
 import { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
-import emailjs from '@emailjs/browser'
 import toast from 'react-hot-toast'
 import { fadeUp, staggerContainer } from '../../utils/animations'
 import contactImage from '../../assets/contact/contact.jpeg'
-
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID'
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY'
 
 export default function Contact() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
@@ -20,12 +15,29 @@ export default function Contact() {
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
+
+    const formData = new FormData()
+    formData.append('name', form.name)
+    formData.append('email', form.email)
+    formData.append('message', form.message)
+
     try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, EMAILJS_PUBLIC_KEY)
-      toast.success('Message sent! We\'ll be in touch shortly.')
-      setForm({ name: '', email: '', message: '' })
-    } catch {
-      toast.error('Something went wrong. Please try again.')
+      const response = await fetch('https://algoka.io/api/submit.ph', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        toast.success('Message sent successfully!')
+        setForm({ name: '', email: '', message: '' })
+      } else {
+        toast.error(data.message || 'Something went wrong')
+      }
+    } catch (error) {
+      console.error(error)
+      toast.error('Something went wrong')
     } finally {
       setLoading(false)
     }
