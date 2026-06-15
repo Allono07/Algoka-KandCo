@@ -47,6 +47,7 @@ export default function Process() {
             style={{
               display: 'block',
               fontSize: '12px',
+              
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
               color: '#94847D',
