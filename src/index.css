@@ -274,29 +274,35 @@ main section {
   padding: 70px 0;
   background: transparent;
 }
-.about-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #94847D;
-  margin-bottom: 16px;
-  font-weight: 600;
+
+/* Header row: ABOUT US + description */
+.about-header-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 32px;
 }
-.about-title-large {
+.about-main-title {
   font-family: 'Montserrat', sans-serif;
-  font-size: clamp(40px, 6vw, 72px);
-  font-weight: 700;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 800;
   color: #2D2926;
-  margin-bottom: 24px;
-  line-height: 1.1;
+  line-height: 1;
+}
+.about-header-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #7F736E;
+  line-height: 1.7;
+  padding-top: 12px;
 }
 
-/* Landscape hero image with overlay */
+/* Full-width landscape image */
 .about-landscape-wrap {
-  position: relative;
   width: 100%;
-  height: 500px;
+  aspect-ratio: 16 / 3;
   border-radius: 16px;
   overflow: hidden;
   margin-bottom: 40px;
@@ -306,28 +312,19 @@ main section {
   height: 100%;
   object-fit: cover;
 }
-.about-landscape-overlay {
-  position: absolute;
-  bottom: 32px;
-  left: 32px;
-  background: rgba(250, 246, 240, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 20px 32px;
-  border-radius: 12px;
-}
 
-/* Identity row: portrait | text | portrait */
+/* Identity row: image + text */
 .about-identity-row {
   display: grid;
-  grid-template-columns: 1fr 1.4fr 1fr;
-  gap: 24px;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 40px;
+  align-items: center;
   margin-bottom: 56px;
 }
 .about-identity-img {
   border-radius: 16px;
   overflow: hidden;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
 }
 .about-identity-img img {
   width: 100%;
@@ -338,112 +335,96 @@ main section {
 .about-identity-img:hover img {
   transform: scale(1.05);
 }
-.about-identity-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 24px;
-}
-.about-identity-label {
+.about-identity-heading {
   font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #94847D;
-  font-weight: 600;
-  border-bottom: 1px solid #C1B6AF;
-  padding-bottom: 8px;
-  margin-bottom: 20px;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  color: #2D2926;
+  margin-bottom: 16px;
 }
 .about-identity-body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  color: #7F736E;
-  line-height: 1.75;
+  font-size: 15px;
   font-weight: 300;
-  max-width: 360px;
+  color: #7F736E;
+  line-height: 1.8;
+  max-width: 560px;
 }
 
-/* Vision / Mission / Values rows */
-.about-vmv-rows {
+/* 2x2 Mission / Values / Vision / Reflection grid */
+.about-mvvr-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px 48px;
-  align-items: start;
+  gap: 32px;
 }
 
-.vmv-row {
+.about-mvvr-card {
   display: grid;
-  grid-template-columns: 140px 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 24px;
-  align-items: start;
+  align-items: center;
   border-top: 1px solid #C1B6AF;
-  padding-top: 32px;
+  padding-top: 24px;
 }
 
-/* Left column — Vision (top) + Values (below it, slightly offset) */
-.vmv-vision { grid-column: 1; grid-row: 1; }
-.vmv-values { grid-column: 1; grid-row: 2; margin-top: 48px; }
-
-/* Right column — Mission spans both rows with a taller portrait image */
-.vmv-mission {
-  grid-column: 2;
-  grid-row: 1 / 3;
-  margin-top: 80px;
-}
-.vmv-mission .vmv-row-img {
-  aspect-ratio: 3 / 4.5;
-}
-
-.vmv-row-img {
+.about-mvvr-img {
   border-radius: 16px;
   overflow: hidden;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 4;
 }
-.vmv-row-img img {
+
+.about-mvvr-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease;
 }
 
-.vmv-label {
+.about-mvvr-card:hover .about-mvvr-img img {
+  transform: scale(1.04);
+}
+
+.about-mvvr-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-mvvr-heading {
   font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.2em;
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #94847D;
-  font-weight: 600;
   margin-bottom: 12px;
-  display: inline-block;
-}
-.vmv-heading {
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(20px, 2.5vw, 28px);
-  font-weight: 600;
-  color: #2D2926;
-  margin-bottom: 12px;
-}
-.vmv-body {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  color: #7F736E;
-  line-height: 1.7;
-  font-weight: 300;
 }
 
+.about-mvvr-body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #7F736E;
+  line-height: 1.75;
+}
+
+/* Responsive */
 @media (max-width: 860px) {
-  .about-landscape-wrap { height: 280px; }
-  .about-landscape-overlay { left: 16px; bottom: 16px; padding: 14px 20px; }
-  .about-identity-row { grid-template-columns: 1fr; }
+  .about-header-row { grid-template-columns: 1fr; gap: 16px; }
+  .about-main-title { font-size: clamp(40px, 14vw, 64px); }
+  .about-landscape-wrap { aspect-ratio: 16 / 5; }
+  .about-identity-row { grid-template-columns: 1fr; gap: 24px; }
   .about-identity-img { aspect-ratio: 16 / 9; }
-  .about-vmv-rows { grid-template-columns: 1fr; gap: 32px; }
-  .vmv-vision, .vmv-values, .vmv-mission {
-    grid-column: 1; grid-row: auto; margin-top: 0;
+  .about-mvvr-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
-  .vmv-row { grid-template-columns: 100px 1fr; gap: 16px; padding-top: 24px; }
-  .vmv-mission .vmv-row-img { aspect-ratio: 3 / 4; }
+  .about-mvvr-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .about-mvvr-img {
+    aspect-ratio: 16 / 9;
+  }
 }
 
 .about-why {
@@ -913,7 +894,8 @@ section, header, footer, main, .section, [class*="section"] {
 .marquee-track {
   overflow: hidden;
   width: 100%;
-  padding: 16px 0;
+  padding: 24px 0;
+  background: #FFFFFF;
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
@@ -938,7 +920,7 @@ section, header, footer, main, .section, [class*="section"] {
   to   { transform: translateX(0); }
 }
 .marquee-inner img {
-  height: 48px;
+  height: clamp(55px, 6vw, 80px);
   width: auto;
   object-fit: contain;
   opacity: 0.65;
