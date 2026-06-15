@@ -805,19 +805,21 @@ main section {
   max-height: 600px;
   overflow-y: auto;
   padding-right: 16px;
-  scrollbar-width: thin;
-  scrollbar-color: #C1B6AF transparent;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
 }
 
 .services-tabs::-webkit-scrollbar {
-  width: 4px;
+  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
 }
-.services-tabs::-webkit-scrollbar-track {
-  background: transparent;
+
+/* Portfolio carousel scrollbar hiding */
+.portfolio-carousel-track {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
 }
-.services-tabs::-webkit-scrollbar-thumb {
-  background: #C1B6AF;
-  border-radius: 4px;
+.portfolio-carousel-track::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
 }
 
 .tab-active {

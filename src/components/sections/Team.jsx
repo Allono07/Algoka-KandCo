@@ -15,7 +15,7 @@ export default function Team() {
             style={{ display: 'block', fontSize: '12px', letterSpacing: '0.15em',
                      textTransform: 'uppercase', color: '#94847D', marginBottom: '16px',
                      fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
-            ★ The Team
+            {/* ★ The Team */}
           </motion.span>
           <motion.h2 variants={fadeUp}
             style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 'clamp(36px, 5vw, 64px)',
