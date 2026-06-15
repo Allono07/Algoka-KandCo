@@ -115,19 +115,20 @@ export default function Footer() {
             </div>
           ))}
 
-          {/* Bottom Bar */}
-          <div style={{
-            borderTop: '1px solid var(--color-border)', paddingTop: '32px',
-            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-            flexWrap: 'wrap', gap: '16px'
-          }}>
-            <p style={{ fontSize: '12px', color: 'var(--color-border)' }}>
-              © {new Date().getFullYear()} Kalp & Co. All rights reserved.
-            </p>
-            <p style={{ fontSize: '12px', color: 'var(--color-border)' }}>
-              Bengaluru · India
-            </p>
-          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div style={{
+          borderTop: '1px solid var(--color-border)', paddingTop: '32px',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          flexWrap: 'wrap', gap: '16px'
+        }}>
+          <p style={{ fontSize: '12px', color: '#000000', fontFamily: 'Montserrat, sans-serif' }}>
+            © {new Date().getFullYear()} Kalp & Co. All rights reserved.
+          </p>
+          <p style={{ fontSize: '12px', color: '#000000', fontFamily: 'Montserrat, sans-serif' }}>
+            Bengaluru · India
+          </p>
         </div>
       </div>
     </footer>
