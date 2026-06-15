@@ -22,7 +22,7 @@ export default function Contact() {
     formData.append('message', form.message)
 
     try {
-      const response = await fetch('https://algoka.io/api/submit.ph', {
+      const response = await fetch('https://algoka.io/api/submit.php', {
         method: 'POST',
         body: formData,
       })
