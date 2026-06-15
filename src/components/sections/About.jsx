@@ -1,28 +1,31 @@
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../utils/animations';
-import aboutImage from '../../assets/about/56.jpeg'; // reuse existing — replace later
+import aboutImage from '../../assets/about/56.jpeg'; // placeholder — replace per slot later
 
-const vmvData = [
-  {
-    label: 'VISION',
-    position: 'vision',
-    heading: 'Crafting the Future',
-    body: 'To become the ultimate creative partner for growth-focused brands, blending strategy, technology, and design into one seamless engine.',
-    img: aboutImage,
-  },
+const aboutBlocks = [
   {
     label: 'MISSION',
-    position: 'mission',
-    heading: 'Elevate Experiences',
-    body: 'We exist to elevate brands through immersive campaigns, strategic planning, and creative solutions that convert and inspire.',
+    heading: 'Our Mission',
+    body: 'To elevate brands through immersive campaigns, strategic planning, and creative solutions that convert and inspire — built around real business outcomes, not vanity metrics.',
     img: aboutImage,
   },
   {
     label: 'VALUES',
-    position: 'values',
-    heading: 'Innovation & Excellence',
-    body: 'Driven by curiosity, rooted in strategic insight, and dedicated to delivering premium, high-impact results for every partner.',
+    heading: 'Our Values',
+    body: 'Driven by curiosity, rooted in strategic insight, and dedicated to delivering premium, high-impact results for every partner we work with.',
+    img: aboutImage,
+  },
+  {
+    label: 'VISION',
+    heading: 'Our Vision',
+    body: 'To become the ultimate creative partner for growth-focused brands, blending strategy, technology, and design into one seamless engine for scale.',
+    img: aboutImage,
+  },
+  {
+    label: 'REFLECTION',
+    heading: 'Our Reflection',
+    body: 'Every campaign we ship is a reflection of the brand behind it — we hold ourselves to a standard where craft, clarity, and impact are non-negotiable.',
     img: aboutImage,
   },
 ];
@@ -34,66 +37,47 @@ export default function About() {
     <section id="about" ref={ref} className="about-redesign">
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
-        <motion.h2
-          variants={fadeUp}
+        <motion.div
+          variants={staggerContainer}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            fontSize: 'clamp(32px, 5vw, 60px)',
-            fontWeight: 800,
-            color: '#2D2926',
-            textAlign: 'center',
-            marginBottom: '48px',
-          }}
         >
-          ABOUT US
-        </motion.h2>
+          {/* Header row: ABOUT US + description */}
+          <motion.div variants={fadeUp} className="about-header-row">
+            <h2 className="about-main-title">ABOUT US</h2>
+            <p className="about-header-desc">
+              Kalp &amp; Co is a growth-focused creative and marketing agency helping brands build impact through strategy, branding, content, AI-powered solutions, and digital performance marketing.
+            </p>
+          </motion.div>
 
-        <motion.div variants={staggerContainer} initial="hidden" animate={inView ? 'visible' : 'hidden'}>
-
-          {/* Landscape hero image */}
+          {/* Full-width landscape image */}
           <motion.div variants={fadeUp} className="about-landscape-wrap">
             <img src={aboutImage} alt="Kalp & Co Studio" className="about-landscape-img" />
-            <div className="about-landscape-overlay">
-              <p className="about-label">↗ ABOUT US</p>
-              <h3 className="about-title-large" style={{ marginBottom: 0 }}>KALP & CO.</h3>
+          </motion.div>
+
+          {/* Identity block: image + heading/paragraph */}
+          <motion.div variants={fadeUp} className="about-identity-row">
+            <div className="about-identity-img">
+              <img src={aboutImage} alt="Brand identity" />
+            </div>
+            <div className="about-identity-text">
+              <h3 className="about-identity-heading">IDENTITY</h3>
+              <p className="about-identity-body">
+                We blend creativity, culture, and cutting-edge technology to craft brand identities that feel bold, modern, and unmistakably distinct — built for growth, not just looks. Every visual decision is rooted in strategy, ensuring brands stand out while staying true to who they are.
+              </p>
             </div>
           </motion.div>
 
-          {/* Identity row */}
-          <div className="about-identity-row">
-            <motion.div variants={fadeUp} className="about-identity-img">
-              <img src={aboutImage} alt="Brand work" />
-            </motion.div>
-
-            <motion.div variants={fadeUp} className="about-identity-text">
-              <span className="about-identity-label">IDENTITY</span>
-              <p className="about-identity-body">
-                We blend creativity, culture, and cutting-edge technology to craft brand identities that feel bold, modern, and unmistakably distinct — built for growth, not just looks.
-              </p>
-            </motion.div>
-
-            <motion.div variants={fadeUp} className="about-identity-img">
-              <img src={aboutImage} alt="Brand work" />
-            </motion.div>
-          </div>
-
-          {/* Vision / Mission / Values — staggered layout */}
-          <div className="about-vmv-rows">
-            {vmvData.map(item => (
-              <motion.div
-                variants={fadeUp}
-                key={item.label}
-                className={`vmv-row vmv-${item.position}`}
-              >
-                <div className="vmv-row-img">
-                  <img src={item.img} alt={item.label} />
+          {/* 2x2 Mission / Values / Vision / Reflection grid */}
+          <div className="about-mvvr-grid">
+            {aboutBlocks.map(block => (
+              <motion.div variants={fadeUp} key={block.label} className="about-mvvr-card">
+                <div className="about-mvvr-img">
+                  <img src={block.img} alt={block.label} />
                 </div>
-                <div className="vmv-row-text">
-                  <span className="vmv-label">{item.label}</span>
-                  <h4 className="vmv-heading">{item.heading}</h4>
-                  <p className="vmv-body">{item.body}</p>
+                <div className="about-mvvr-text">
+                  <h4 className="about-mvvr-heading">{block.label}</h4>
+                  <p className="about-mvvr-body">{block.body}</p>
                 </div>
               </motion.div>
             ))}
