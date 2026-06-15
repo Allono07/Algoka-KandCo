@@ -142,7 +142,7 @@ main section {
 
 @media (max-width: 768px) {
   .brand-intro-word {
-    left: 48%;
+    left: 40%;
   }
 }
 
@@ -923,13 +923,14 @@ section, header, footer, main, .section, [class*="section"] {
   height: clamp(55px, 6vw, 80px);
   width: auto;
   object-fit: contain;
-  opacity: 0.65;
-  filter: grayscale(0.3);
-  transition: opacity 0.3s, filter 0.3s;
+  opacity: 1;
+  transition: transform 0.3s ease;
 }
 .marquee-inner img:hover {
-  opacity: 1;
-  filter: grayscale(0);
+  transform: scale(1.1);
+}
+.marquee-inner img.client3-logo {
+  height: clamp(75px, 8.5vw, 110px);
 }
 /* Pause on hover */
 .marquee-track:hover .marquee-inner {

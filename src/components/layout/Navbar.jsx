@@ -52,7 +52,7 @@ export default function Navbar() {
       const heroBrandTop = isMobile
         ? heroBottom - 45
         : heroBottom - 24
-      const brandTop = mix(heroBrandTop, 29, moveProgress)
+      const brandTop = mix(heroBrandTop, isMobile ? 25 : 29, moveProgress)
       const brandTranslateY = -(100 - 50 * moveProgress)
       const brandSizeMin = mix(42, 22, shrinkProgress)
       const brandSizeVw = mix(12.8, 3.5, shrinkProgress)
