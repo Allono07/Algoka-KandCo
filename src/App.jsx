@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
-import Cursor from './components/ui/Cursor'
 import BrandIntro from './components/ui/BrandIntro'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
@@ -33,7 +32,6 @@ export default function App() {
   return (
     <>
       <SEO />
-      <Cursor />
       <BrandIntro />
       <Navbar />
       <main>

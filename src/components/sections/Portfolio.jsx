@@ -32,7 +32,7 @@ export default function Portfolio() {
     border: 'none',
     color: 'var(--color-black)',
     fontSize: '18px',
-    cursor: 'none',
+    cursor: 'pointer',
     zIndex: 10,
   })
 
@@ -93,7 +93,7 @@ export default function Portfolio() {
                     fontWeight: 600,
                     letterSpacing: '0.06em',
                     textTransform: 'uppercase',
-                    cursor: 'none',
+                    cursor: 'pointer',
                     transition: 'all 0.3s ease',
                   }}
                 >

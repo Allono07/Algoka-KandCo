@@ -37,7 +37,7 @@ export default function WhatsAppButton() {
         width: '56px', height: '56px', borderRadius: '50%',
         background: 'var(--color-white)', display: 'flex', alignItems: 'center', justifyContent: 'center',
         border: '1px solid var(--color-border)',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35)', cursor: 'none',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35)', cursor: 'pointer',
         pointerEvents: isVisible ? 'auto' : 'none',
       }}
       aria-label="Chat on WhatsApp"
