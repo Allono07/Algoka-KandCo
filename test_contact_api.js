@@ -2,9 +2,12 @@
 // Usage: node test_contact_api.js [endpoint_url]
 // Example: node test_contact_api.js http://localhost:8000/api/submit.php
 
+// Bypass local SSL inspection issues (e.g. from local antivirus like Bitdefender)
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 const testEndpoint = async () => {
   // Use user-provided URL or default to localhost
-  const url = process.argv[2] || 'http://localhost:5173/api/submit.php';
+  const url = process.argv[2] || 'https://kalpandco.com/api/submit.php';
   console.log(`\nTesting contact form submission endpoint: ${url}`);
 
   // Create a FormData payload matching the browser implementation
