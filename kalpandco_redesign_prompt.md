@@ -218,7 +218,7 @@ section, header, footer, main, .section, [class*="section"] {
 
 ```html
 <section class="trusted-brands">
-  <p class="section-label">★ TRUSTED BY</p>
+  <!-- <p class="section-label">★ TRUSTED BY</p> -->
   <h2>Brands We've Worked With</h2>
 
   <!-- Row 1: scrolls left -->

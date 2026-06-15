@@ -1,17 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
-  { number: '01', label: 'What We Have to Offer', href: '#services' },
-  { number: '02', label: 'Our Work', href: '#portfolio' },
-  { number: '03', label: 'Our Trusted Brands', href: '#trusted-brands' },
   { number: '04', label: 'About Us', href: '#about' },
-  { number: '05', label: 'Our Process', href: '#process' },
+  { number: '02', label: 'Our Work', href: '#portfolio' },
+  // { number: '03', label: 'Our Trusted Brands', href: '#trusted-brands' },
+
+  { number: '01', label: 'What We Have to Offer', href: '#services' },
+  // { number: '05', label: 'Our Process', href: '#process' },
   { number: '06', label: 'Why Choose Kalp & Co.', href: '#why-choose' },
   { number: '07', label: 'From the Studio', href: '#studio' },
-  { number: '08', label: 'What They Say', href: '#testimonials' },
-  { number: '09', label: 'Meet the People Leading the Way', href: '#team' },
+  // { number: '08', label: 'What They Say', href: '#testimonials' },
+  // { number: '09', label: 'Meet the People Leading the Way', href: '#team' },
   { number: '10', label: 'Contact Us', href: '#contact' },
 ]
 
@@ -20,28 +21,87 @@ const mix = (from, to, progress) => from + (to - from) * progress
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [brandMotion, setBrandMotion] = useState({ morph: 0, heroBottom: 0, heroHeight: 0 })
-  const brandMotionRef = useRef({ morph: 0, heroBottom: 0, heroHeight: 0 })
+
+  // Refs for direct DOM manipulation (no React re-renders = no flicker)
+  const brandRef = useRef(null)
+  const headerRef = useRef(null)
+  const menuBtnRef = useRef(null)
+  const prevShowAmpersand = useRef(false)
+  const [showAmpersand, setShowAmpersand] = useState(false)
+  // Track nav readiness for pointer-events (only updates when it crosses threshold)
+  const [navReady, setNavReady] = useState(false)
 
   useEffect(() => {
     let frameId = null
+    let prevNavReady = false
 
     const updateMorph = () => {
       const hero = document.getElementById('home')
       const heroHeight = hero?.offsetHeight || window.innerHeight
       const heroBottom = hero?.getBoundingClientRect().bottom || heroHeight - window.scrollY
       const scrollDistance = Math.max(heroHeight, 1)
-      const nextMorph = clamp(window.scrollY / scrollDistance, 0, 1)
-      const nextBrandMotion = { morph: nextMorph, heroBottom, heroHeight }
-      const currentBrandMotion = brandMotionRef.current
+      const morph = clamp(window.scrollY / scrollDistance, 0, 1)
 
-      if (
-        Math.abs(currentBrandMotion.morph - nextMorph) > 0.001 ||
-        Math.abs(currentBrandMotion.heroBottom - heroBottom) > 0.5
-      ) {
-        brandMotionRef.current = nextBrandMotion
-        setBrandMotion(nextBrandMotion)
+      const shrinkProgress = morph
+      const moveProgress = clamp((morph - 0.85) / 0.15, 0, 1)
+      const navProgress = clamp((morph - 0.88) / 0.12, 0, 1)
+      const isNavReady = navProgress > 0.94
+
+      // Brand position — higher on mobile
+      const isMobile = window.innerWidth < 1024
+      const heroBrandTop = isMobile
+        ? heroBottom - 45
+        : heroBottom - 24
+      const brandTop = mix(heroBrandTop, 29, moveProgress)
+      const brandTranslateY = -(100 - 50 * moveProgress)
+      const brandSizeMin = mix(42, 22, shrinkProgress)
+      const brandSizeVw = mix(12.8, 3.5, shrinkProgress)
+      const brandSizeMax = mix(200, 34, shrinkProgress)
+      const brandColorValue = Math.round(mix(255, 10, navProgress))
+      const letterSpacing = 0.08 - shrinkProgress * 0.02
+
+      // Write directly to DOM — zero React re-renders
+      const brandEl = brandRef.current
+      if (brandEl) {
+        brandEl.style.top = `${brandTop}px`
+        brandEl.style.transform = `translate3d(-50%, ${brandTranslateY}%, 0)`
+        brandEl.style.fontSize = `clamp(${brandSizeMin}px, ${brandSizeVw}vw, ${brandSizeMax}px)`
+        brandEl.style.letterSpacing = `${letterSpacing}em`
+        brandEl.style.color = `rgb(${brandColorValue}, ${brandColorValue}, ${brandColorValue})`
+        brandEl.style.pointerEvents = isNavReady ? 'auto' : 'none'
       }
+
+      // Update header background directly
+      const headerEl = headerRef.current
+      if (headerEl) {
+        headerEl.style.background = `rgba(245, 240, 238, ${0.94 * navProgress})`
+        headerEl.style.backdropFilter = `blur(${18 * navProgress}px)`
+        headerEl.style.webkitBackdropFilter = `blur(${18 * navProgress}px)`
+      }
+
+      // Update menu button opacity directly
+      const menuBtnEl = menuBtnRef.current
+      if (menuBtnEl) {
+        menuBtnEl.style.opacity = navProgress
+        menuBtnEl.style.borderColor = `rgba(10, 10, 10, ${navProgress})`
+        menuBtnEl.style.pointerEvents = isNavReady ? 'auto' : 'none'
+      }
+
+      // Only trigger React re-render for AND/& swap (with hysteresis to prevent flickering)
+      const shouldShowAmpersand = prevShowAmpersand.current
+        ? morph > 0.78  // once showing &, keep it until we scroll back past 78%
+        : morph > 0.82  // start showing & at 82%
+      if (shouldShowAmpersand !== prevShowAmpersand.current) {
+        prevShowAmpersand.current = shouldShowAmpersand
+        setShowAmpersand(shouldShowAmpersand)
+      }
+
+      // Only update navReady state when it crosses the threshold
+      if (isNavReady !== prevNavReady) {
+        prevNavReady = isNavReady
+        setNavReady(isNavReady)
+      }
+
       frameId = window.requestAnimationFrame(updateMorph)
     }
 
@@ -54,25 +114,9 @@ export default function Navbar() {
     }
   }, [])
 
-  const { morph, heroBottom, heroHeight } = brandMotion
-  const shrinkProgress = morph
-  const moveProgress = clamp((morph - 0.85) / 0.15, 0, 1)
-  const navProgress = clamp((morph - 0.88) / 0.12, 0, 1)
-  const navReady = navProgress > 0.94
-  const showAmpersand = morph > 0.82
-  // const heroBrandTop = heroBottom - 24
-  const isDesktop = window.innerWidth >= 1024;
-  const heroBrandTop = isDesktop
-  ? heroBottom - 24
-  : heroBottom - 45;
-  const brandTop = `${mix(heroBrandTop, 29, moveProgress)}px`
-  const brandTranslateY = -(100 - 50 * moveProgress)
-  const brandSize = `clamp(${mix(42, 22, shrinkProgress)}px, ${mix(12.8, 3.5, shrinkProgress)}vw, ${mix(200, 34, shrinkProgress)}px)`
-  const brandColorValue = Math.round(mix(255, 10, navProgress))
-  const brandColor = `rgb(${brandColorValue}, ${brandColorValue}, ${brandColorValue})`
-  const menuButtonOpacity = navProgress
   return (
     <motion.header
+      ref={headerRef}
       className="site-navbar"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -88,27 +132,28 @@ export default function Navbar() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        background: `rgba(245, 240, 238, ${0.94 * navProgress})`,
-        backdropFilter: `blur(${18 * navProgress}px)`,
+        background: 'rgba(245, 240, 238, 0)',
+        backdropFilter: 'blur(0px)',
       }}
     >
       <a
+        ref={brandRef}
         href="#"
         aria-label="Kalp and Co home"
         style={{
           position: 'fixed',
-          top: brandTop,
+          top: '50%',
           left: '50%',
-          transform: `translate3d(-50%, ${brandTranslateY}%, 0)`,
+          transform: 'translate3d(-50%, -100%, 0)',
           fontFamily: 'var(--font-brand)',
-          fontSize: brandSize,
+          fontSize: 'clamp(42px, 12.8vw, 200px)',
           fontWeight: 800,
           lineHeight: 0.82,
-          letterSpacing: `${0.08 - shrinkProgress * 0.02}em`,
-          color: brandColor,
+          letterSpacing: '0.08em',
+          color: 'rgb(255, 255, 255)',
           textDecoration: 'none',
           whiteSpace: 'nowrap',
-          pointerEvents: navReady ? 'auto' : 'none',
+          pointerEvents: 'none',
           willChange: 'top, transform, font-size, letter-spacing, color',
         }}
       >
@@ -142,18 +187,19 @@ export default function Navbar() {
       </a>
 
       <button
+        ref={menuBtnRef}
         type="button"
         className="menu-toggle-btn"
         onClick={() => setMenuOpen(true)}
         aria-label="Open menu"
         style={{
           background: 'transparent',
-          border: `1px solid rgba(10, 10, 10, ${navProgress})`,
+          border: '1px solid rgba(10, 10, 10, 0)',
           cursor: 'none',
           color: 'var(--color-white)',
-          opacity: menuButtonOpacity,
-          pointerEvents: navReady ? 'auto' : 'none',
-          transition: 'opacity 0.35s ease, background 0.25s ease',
+          opacity: 0,
+          pointerEvents: 'none',
+          transition: 'background 0.25s ease',
           minWidth: '44px',
           minHeight: '40px',
           padding: '0 16px',

@@ -18,7 +18,7 @@ export default function Testimonials() {
           <span style={{ display: 'block', fontSize: '12px', letterSpacing: '0.15em',
                          textTransform: 'uppercase', color: '#94847D', marginBottom: '16px',
                          fontWeight: 600, fontFamily: 'Montserrat, sans-serif' }}>
-            ★ Client Stories
+            {/* ★ Client Stories */}
           </span>
           <h2 style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 'clamp(36px, 5vw, 64px)',
                        fontWeight: 800, color: '#2D2926' }}>

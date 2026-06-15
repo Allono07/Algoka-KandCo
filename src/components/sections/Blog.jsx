@@ -33,7 +33,7 @@ export default function Blog() {
               marginBottom: '16px',
               fontWeight: 600
             }}>
-              ★ FROM THE STUDIO
+              {/* ★ FROM THE STUDIO */}
             </span>
             <h2 style={{
               fontFamily: 'Montserrat, sans-serif',

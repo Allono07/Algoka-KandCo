@@ -1,64 +1,75 @@
 // src/data/services.js
+import brandingImage from '../assets/services/branding.jpeg';
+import socialMediaMarketingImage from '../assets/services/socialmedia.jpeg';
+import performanceMarketingImage from '../assets/services/performance.jpeg';
+import websiteDesignDevelopmentImage from '../assets/services/webdesign.jpeg';
+import contentStrategyImage from '../assets/services/content.jpeg';
+import contentMarketingImage from '../assets/services/contentmarketing.jpeg';
+import productMarketingImage from '../assets/services/productmarketing.jpeg';
+import strategicPlanningImage from '../assets/services/strategicplanning.jpeg';
+import aiDrivenMarketingSolutionsImage from '../assets/services/aidriven.jpeg';
+import productLaunchCampaignsImage from '../assets/services/campaign.jpeg';
+// import talentBrandPartnershipsImage from '../assets/services/talent.jpeg';
 export const services = [
   {
     number: '01',
     title: 'Branding',
     desc: 'Identity systems, logo design, brand guidelines, visual language, and messaging that creates lasting recognition.',
-    image: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&q=80&auto=format&fit=crop',
+    image: brandingImage,
   },
   {
     number: '02',
     title: 'Social Media Marketing',
     desc: 'Platform strategy, content calendars, community management, and growth campaigns across all major channels.',
-    image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&q=80&auto=format&fit=crop',
+    image: socialMediaMarketingImage,
   },
   {
     number: '03',
     title: 'Performance Marketing',
     desc: 'ROI‑driven paid campaigns across Google, Meta, and programmatic networks. Data‑led, conversion‑optimised.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop',
+    image: performanceMarketingImage,
   },
   {
     number: '04',
     title: 'Website Design & Development',
     desc: 'High‑performance, visually stunning websites built for conversion, speed, and seamless user experience.',
-    image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80&auto=format&fit=crop',
+    image: websiteDesignDevelopmentImage,
   },
   {
     number: '05',
     title: 'Content Strategy',
     desc: 'Audience research, content mapping, editorial planning, and distribution strategies built for impact.',
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format&fit=crop',
+    image: contentStrategyImage,
   },
   {
     number: '06',
     title: 'Content Marketing',
     desc: 'Long‑form, short‑form, video, and multimedia content that educates, entertains, and converts.',
-    image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80&auto=format&fit=crop',
+    image: contentMarketingImage,
   },
   {
     number: '07',
     title: 'Product Marketing',
     desc: 'Go‑to‑market strategy, positioning, messaging hierarchy, and launch playbooks for new products.',
-    image: 'https://images.unsplash.com/photo-1523726491678-bf852e717f6a?w=800&q=80&auto=format&fit=crop',
+    image: productMarketingImage,
   },
   {
     number: '08',
     title: 'Strategic Planning',
     desc: 'Business growth audits, competitive analysis, brand architecture, and integrated marketing strategy.',
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80&auto=format&fit=crop',
+    image: strategicPlanningImage,
   },
   {
     number: '09',
     title: 'AI‑driven Marketing Solutions',
     desc: 'Automation, personalization at scale, AI‑generated assets, chatbot experiences, and predictive analytics.',
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80&auto=format&fit=crop',
+    image: aiDrivenMarketingSolutionsImage,
   },
   {
     number: '10',
     title: 'Product Launch Campaigns',
     desc: 'End‑to‑end launch planning — teaser campaigns, influencer seeding, PR, paid media, and post‑launch sustain.',
-    image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800&q=80&auto=format&fit=crop',
+    image: productLaunchCampaignsImage,
   },
   {
     number: '11',
@@ -76,6 +87,6 @@ export const services = [
     number: '13',
     title: 'Creative Design Services',
     desc: 'Campaign creatives, print, OOH, packaging, presentations, motion graphics, and everything in between.',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80&auto=format&fit=crop',
+    image: productLaunchCampaignsImage,
   },
 ];
