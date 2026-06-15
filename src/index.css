@@ -896,7 +896,6 @@ section, header, footer, main, .section, [class*="section"] {
   overflow: hidden;
   width: 100%;
   padding: 24px 0;
-  background: #FFFFFF;
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
