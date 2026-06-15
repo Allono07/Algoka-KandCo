@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { motion, AnimatePresence } from 'framer-motion'
 import { services } from '../../data/services'
@@ -7,6 +7,22 @@ import { staggerContainer, fadeUp } from '../../utils/animations'
 export default function Services() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
   const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    const handleSelectService = (e) => {
+      const { serviceTitle } = e.detail;
+      const idx = services.findIndex(s => {
+        const normS = s.title.toLowerCase().replace(/[\u2010-\u2015-]/g, '-');
+        const normT = serviceTitle.toLowerCase().replace(/[\u2010-\u2015-]/g, '-');
+        return normS.includes(normT) || normT.includes(normS);
+      });
+      if (idx !== -1) {
+        setActiveIndex(idx);
+      }
+    };
+    window.addEventListener('select-service', handleSelectService);
+    return () => window.removeEventListener('select-service', handleSelectService);
+  }, []);
 
   const activeService = services[activeIndex]
 
