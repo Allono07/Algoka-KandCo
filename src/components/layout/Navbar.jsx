@@ -3,15 +3,16 @@ import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
-  { number: '01', label: 'What We Have to Offer', href: '#services' },
-  { number: '02', label: 'Our Work', href: '#portfolio' },
-  { number: '03', label: 'Our Trusted Brands', href: '#trusted-brands' },
   { number: '04', label: 'About Us', href: '#about' },
-  { number: '05', label: 'Our Process', href: '#process' },
+  { number: '02', label: 'Our Work', href: '#portfolio' },
+  // { number: '03', label: 'Our Trusted Brands', href: '#trusted-brands' },
+
+  { number: '01', label: 'What We Have to Offer', href: '#services' },
+  // { number: '05', label: 'Our Process', href: '#process' },
   { number: '06', label: 'Why Choose Kalp & Co.', href: '#why-choose' },
   { number: '07', label: 'From the Studio', href: '#studio' },
-  { number: '08', label: 'What They Say', href: '#testimonials' },
-  { number: '09', label: 'Meet the People Leading the Way', href: '#team' },
+  // { number: '08', label: 'What They Say', href: '#testimonials' },
+  // { number: '09', label: 'Meet the People Leading the Way', href: '#team' },
   { number: '10', label: 'Contact Us', href: '#contact' },
 ]
 
