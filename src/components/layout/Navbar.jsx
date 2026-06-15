@@ -100,11 +100,11 @@ export default function Navbar() {
           top: brandTop,
           left: '50%',
           transform: `translate3d(-50%, ${brandTranslateY}%, 0)`,
-          fontFamily: 'var(--font-display)',
+          fontFamily: 'var(--font-brand)',
           fontSize: brandSize,
           fontWeight: 800,
           lineHeight: 0.82,
-          letterSpacing: `${0.13 - shrinkProgress * 0.03}em`,
+          letterSpacing: `${0.08 - shrinkProgress * 0.02}em`,
           color: brandColor,
           textDecoration: 'none',
           whiteSpace: 'nowrap',
@@ -206,7 +206,7 @@ export default function Navbar() {
               className="menu-shell"
             >
               <div className="menu-top">
-                <div className="menu-brand">KALP&CO</div>
+                <div className="menu-brand" style={{ fontFamily: 'var(--font-brand)' }}>KALP&CO</div>
                 <button
                   type="button"
                   onClick={() => setMenuOpen(false)}

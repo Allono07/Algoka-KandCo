@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
 import Cursor from './components/ui/Cursor'
-import Loader from './components/ui/Loader'
+import BrandIntro from './components/ui/BrandIntro'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Hero from './components/sections/Hero'
@@ -34,7 +34,7 @@ export default function App() {
     <>
       <SEO />
       <Cursor />
-      <Loader />
+      <BrandIntro />
       <Navbar />
       <main>
         <Hero />
