@@ -10,11 +10,21 @@ export default function ClientLogos() {
       <div className="marquee-track">
         <div className="marquee-inner marquee-left">
           {clients.map((client, i) => (
-            <img key={`left-1-${i}`} src={client.logo} alt={client.name} />
+            <img 
+              key={`left-1-${i}`} 
+              src={client.logo} 
+              alt={client.name} 
+              className={client.name === 'Client 3' ? 'client3-logo' : ''}
+            />
           ))}
           {/* Duplicate set for seamless loop */}
           {clients.map((client, i) => (
-            <img key={`left-2-${i}`} src={client.logo} alt={client.name} />
+            <img 
+              key={`left-2-${i}`} 
+              src={client.logo} 
+              alt={client.name} 
+              className={client.name === 'Client 3' ? 'client3-logo' : ''}
+            />
           ))}
         </div>
       </div>

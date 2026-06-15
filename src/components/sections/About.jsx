@@ -6,6 +6,7 @@ import reflectionImage from '../../assets/about/reflection.jpeg';
 import visionImage from '../../assets/about/vision.jpeg';
 import missionImage from '../../assets/about/mission.jpeg';
 import valuesImage from '../../assets/about/value.jpeg';
+import identityImage from '../../assets/about/identity.jpeg';
 
 const aboutBlocks = [
   {
@@ -62,7 +63,7 @@ export default function About() {
           {/* Identity block: image + heading/paragraph */}
           <motion.div variants={fadeUp} className="about-identity-row">
             <div className="about-identity-img">
-              <img src={aboutImage} alt="Brand identity" />
+              <img src={identityImage} alt="Brand identity" />
             </div>
             <div className="about-identity-text">
               <h3 className="about-identity-heading">IDENTITY</h3>
