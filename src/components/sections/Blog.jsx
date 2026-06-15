@@ -2,6 +2,9 @@ import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
 import { staggerContainer, fadeUp, slideLeft } from '../../utils/animations'
 import { blog } from '../../data/blog'
+import studioImage1 from '../../assets/studio/studioback.jpeg'
+import studioImage2 from '../../assets/studio/studiofront.jpeg' 
+
 
 export default function Blog() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
@@ -17,8 +20,8 @@ export default function Blog() {
         >
           {/* Images */}
           <motion.div variants={fadeUp} className="studio-image-group">
-            <img src={blog[0]?.img} alt="Studio Work 1" className="studio-img img-back" />
-            <img src={blog[1]?.img} alt="Studio Work 2" className="studio-img img-front" />
+            <img src={studioImage1} alt="Studio Work 1" className="studio-img img-back" />
+            <img src={studioImage2} alt="Studio Work 2" className="studio-img img-front" />
           </motion.div>
 
           {/* Text Block */}

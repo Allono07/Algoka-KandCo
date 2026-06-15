@@ -294,7 +294,7 @@ main section {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #7F736E;
+  color: #4A4340;
   line-height: 1.7;
   padding-top: 12px;
   text-align: justify;
@@ -346,8 +346,8 @@ main section {
 .about-identity-body {
   font-family: 'Montserrat', sans-serif;
   font-size: 15px;
-  font-weight: 300;
-  color: #7F736E;
+  font-weight: 400;
+  color: #4A4340;
   line-height: 1.8;
   max-width: 560px;
   text-align: justify;
@@ -402,8 +402,8 @@ main section {
 .about-mvvr-body {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-  font-weight: 300;
-  color: #7F736E;
+  font-weight: 400;
+  color: #4A4340;
   line-height: 1.75;
   text-align: justify;
 }
@@ -473,9 +473,9 @@ main section {
 .why-desc {
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
-  color: #7F736E;
+  color: #4A4340;
   line-height: 1.5;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 @media (max-width: 1024px) {
