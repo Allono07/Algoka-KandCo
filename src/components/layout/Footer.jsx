@@ -118,19 +118,21 @@ export default function Footer() {
           ))}
 
         </div>
+      </div>
 
-        {/* Footer Video */}
-        <div style={{ width: '100%', borderRadius: '16px', overflow: 'hidden', margin: '40px 0' }}>
-          <video
-            src={footerVideo}
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
-          />
-        </div>
+      {/* Footer Video */}
+      <div className="footer-video-wrap">
+        <video
+          src={footerVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="footer-video-element"
+        />
+      </div>
 
+      <div className="container">
         {/* Bottom Bar */}
         <div style={{
           borderTop: '1px solid var(--color-border)', paddingTop: '32px',
