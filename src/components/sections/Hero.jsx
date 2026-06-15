@@ -24,6 +24,7 @@ export default function Hero() {
         justifyContent: 'center',
         overflow: 'hidden',
         background: '#000',
+        clipPath: 'inset(0 0 0 0)',
       }}
     >
       <video
@@ -33,8 +34,9 @@ export default function Hero() {
         loop
         playsInline
         style={{
-          position: 'absolute',
-          inset: 0,
+          position: 'fixed',
+          top: 0,
+          left: 0,
           width: '100%',
           height: '100%',
           objectFit: 'cover',
@@ -47,10 +49,14 @@ export default function Hero() {
 
       <div
         style={{
-          position: 'absolute',
-          inset: 0,
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
           background: 'linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.2) 58%, rgba(0,0,0,0.42) 100%)',
           zIndex: 1,
+          pointerEvents: 'none',
         }}
       />
     </section>

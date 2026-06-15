@@ -130,7 +130,7 @@ main section {
 .brand-intro-word {
   position: absolute;
   top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, calc(-50% - 0.8em));
   color: #F5F0EE;
   font-family: var(--font-brand);
   font-weight: 800;
@@ -138,6 +138,12 @@ main section {
   letter-spacing: 0.18em;
   opacity: 0;
   text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .brand-intro-word {
+    left: 48%;
+  }
 }
 
 .brand-intro-circle {
