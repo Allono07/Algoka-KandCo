@@ -1,15 +1,49 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import desktopVideo from '../../../Intro - video/laptop-video.mp4'
 import mobileVideo from '../../../Intro - video/intro-mobile-samyak.mp4'
 
 export default function Hero() {
   const videoRef = useRef(null)
+  const [muted, setMuted] = useState(true)
+  const unlockedRef = useRef(false)
 
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.play().catch(() => {})
     }
+
+    // Unmute on first user interaction (browser policy requires this)
+    const unlock = () => {
+      if (unlockedRef.current) return
+      unlockedRef.current = true
+      if (videoRef.current) {
+        videoRef.current.muted = false
+        setMuted(false)
+      }
+      window.removeEventListener('click', unlock)
+      window.removeEventListener('touchstart', unlock)
+      window.removeEventListener('keydown', unlock)
+    }
+
+    window.addEventListener('click', unlock, { once: true })
+    window.addEventListener('touchstart', unlock, { once: true })
+    window.addEventListener('keydown', unlock, { once: true })
+
+    return () => {
+      window.removeEventListener('click', unlock)
+      window.removeEventListener('touchstart', unlock)
+      window.removeEventListener('keydown', unlock)
+    }
   }, [])
+
+  const toggleMute = (e) => {
+    e.stopPropagation()
+    if (!videoRef.current) return
+    const next = !videoRef.current.muted
+    videoRef.current.muted = next
+    setMuted(next)
+    unlockedRef.current = true
+  }
 
   return (
     <section
@@ -59,6 +93,51 @@ export default function Hero() {
           pointerEvents: 'none',
         }}
       />
+
+      {/* Mute / Unmute toggle */}
+      <button
+        onClick={toggleMute}
+        title={muted ? 'Unmute' : 'Mute'}
+        className="hero-mute-btn"
+        style={{
+          position: 'fixed',
+          bottom: '28px',
+          right: '28px',
+          zIndex: 10,
+          background: 'rgba(255,255,255,0.15)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          border: '1px solid rgba(255,255,255,0.3)',
+          borderRadius: '50%',
+          width: '44px',
+          height: '44px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          color: '#fff',
+          fontSize: '18px',
+          transition: 'background 0.2s',
+        }}
+        onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.28)'}
+        onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.15)'}
+      >
+        {muted ? (
+          /* Muted icon */
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+        ) : (
+          /* Unmuted icon */
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+        )}
+      </button>
     </section>
   )
 }
