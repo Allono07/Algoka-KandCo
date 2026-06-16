@@ -72,6 +72,7 @@ export default function Navbar() {
       }
 
       // Update header background directly
+      
       const headerEl = headerRef.current
       if (headerEl) {
         headerEl.style.background = `rgba(245, 240, 238, ${0.94 * navProgress})`
