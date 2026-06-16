@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import footerVideo from '../../assets/video/footervideo.mp4'
 
 const footerLinks = {
@@ -23,6 +24,26 @@ const connectLinkMap = {
 }
 
 export default function Footer() {
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {})
+        } else {
+          video.pause()
+        }
+      },
+      { threshold: 0.3 }
+    )
+
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [])
   const handleServiceClick = (e, serviceTitle) => {
     e.preventDefault();
     const event = new CustomEvent('select-service', { detail: { serviceTitle } });
@@ -123,8 +144,8 @@ export default function Footer() {
       {/* Footer Video */}
       <div className="footer-video-wrap">
         <video
+          ref={videoRef}
           src={footerVideo}
-          autoPlay
           loop
           muted
           playsInline
