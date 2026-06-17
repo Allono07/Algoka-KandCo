@@ -10,7 +10,6 @@ import Services from './components/sections/Services'
 import Portfolio from './components/sections/Portfolio'
 import Process from './components/sections/Process'
 import ClientLogos from './components/sections/ClientLogos'
-import Testimonials from './components/sections/Testimonials'
 import Team from './components/sections/Team'
 import Blog from './components/sections/Blog'
 import Contact from './components/sections/Contact'
@@ -43,7 +42,6 @@ export default function App() {
         <Process />
         <WhyChoose />
         <Blog />
-        <Testimonials />
         <Team />
         <Contact />
       </main>
