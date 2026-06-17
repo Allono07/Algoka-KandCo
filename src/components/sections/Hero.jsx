@@ -4,8 +4,10 @@ import mobileVideo from '../../../Intro - video/intro-mobile-samyak.mp4'
 
 export default function Hero() {
   const videoRef = useRef(null)
+  const sectionRef = useRef(null)
   const [muted, setMuted] = useState(true)
   const unlockedRef = useRef(false)
+  const userInteractedRef = useRef(false)
 
   useEffect(() => {
     if (videoRef.current) {
@@ -16,9 +18,15 @@ export default function Hero() {
     const unlock = () => {
       if (unlockedRef.current) return
       unlockedRef.current = true
+      userInteractedRef.current = true
       if (videoRef.current) {
-        videoRef.current.muted = false
-        setMuted(false)
+        // Only unmute if we haven't forced mute via visibility logic yet
+        // We'll let the observer handle muting/unmuting after interaction
+        // Ensure video is not muted if it should be audible
+        if (videoRef.current.muted) {
+          videoRef.current.muted = false
+          setMuted(false)
+        }
       }
       window.removeEventListener('click', unlock)
       window.removeEventListener('touchstart', unlock)
@@ -29,10 +37,33 @@ export default function Hero() {
     window.addEventListener('touchstart', unlock, { once: true })
     window.addEventListener('keydown', unlock, { once: true })
 
+    // IntersectionObserver to mute/unmute audio based on visibility
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (!entry) return
+        const isVisible = entry.isIntersecting && entry.intersectionRatio > 0
+        if (videoRef.current && userInteractedRef.current) {
+          // Only change muted state if needed and after user interaction
+          if (videoRef.current.muted !== !isVisible) {
+            videoRef.current.muted = !isVisible
+            setMuted(!isVisible)
+          }
+        }
+      },
+      { threshold: [0] }
+    )
+
+    const currentSection = sectionRef.current
+    if (currentSection) {
+      observer.observe(currentSection)
+    }
+
     return () => {
       window.removeEventListener('click', unlock)
       window.removeEventListener('touchstart', unlock)
       window.removeEventListener('keydown', unlock)
+      if (observer) observer.disconnect()
     }
   }, [])
 
@@ -42,11 +73,13 @@ export default function Hero() {
     const next = !videoRef.current.muted
     videoRef.current.muted = next
     setMuted(next)
+    userInteractedRef.current = true
     unlockedRef.current = true
   }
 
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="hero-section"
       style={{

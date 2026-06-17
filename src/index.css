@@ -1466,11 +1466,11 @@ main,
 /* Desktop style: edge-to-edge full width, capped height */
 @media (min-width: 769px) {
   .footer-video-wrap {
-    max-height: 420px;
+    max-height: 560px;
   }
 
   .footer-video-wrap .footer-video-element {
-    height: 420px;
+    height: 560px;
     object-fit: cover;
   }
 }
