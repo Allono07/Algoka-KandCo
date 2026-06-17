@@ -7,6 +7,7 @@ export default function Hero() {
   const sectionRef = useRef(null)
   const [muted, setMuted] = useState(true)
   const unlockedRef = useRef(false)
+  const userInteractedRef = useRef(false)
 
   useEffect(() => {
     if (videoRef.current) {
@@ -17,9 +18,15 @@ export default function Hero() {
     const unlock = () => {
       if (unlockedRef.current) return
       unlockedRef.current = true
+      userInteractedRef.current = true
       if (videoRef.current) {
-        videoRef.current.muted = false
-        setMuted(false)
+        // Only unmute if we haven't forced mute via visibility logic yet
+        // We'll let the observer handle muting/unmuting after interaction
+        // Ensure video is not muted if it should be audible
+        if (videoRef.current.muted) {
+          videoRef.current.muted = false
+          setMuted(false)
+        }
       }
       window.removeEventListener('click', unlock)
       window.removeEventListener('touchstart', unlock)
@@ -36,8 +43,8 @@ export default function Hero() {
         const entry = entries[0]
         if (!entry) return
         const isVisible = entry.isIntersecting && entry.intersectionRatio > 0
-        if (videoRef.current) {
-          // Only change muted state if needed
+        if (videoRef.current && userInteractedRef.current) {
+          // Only change muted state if needed and after user interaction
           if (videoRef.current.muted !== !isVisible) {
             videoRef.current.muted = !isVisible
             setMuted(!isVisible)
@@ -66,6 +73,7 @@ export default function Hero() {
     const next = !videoRef.current.muted
     videoRef.current.muted = next
     setMuted(next)
+    userInteractedRef.current = true
     unlockedRef.current = true
   }
 
