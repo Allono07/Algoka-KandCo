@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { motion, AnimatePresence } from 'framer-motion'
 import { services } from '../../data/services'
@@ -7,6 +7,16 @@ import { staggerContainer, fadeUp } from '../../utils/animations'
 export default function Services() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
   const [activeIndex, setActiveIndex] = useState(0)
+  const tabsRef = useRef(null)
+
+  // Scroll active tab into view whenever activeIndex changes (mobile horizontal strip)
+  useEffect(() => {
+    if (!tabsRef.current) return
+    const activeBtn = tabsRef.current.children[activeIndex]
+    if (activeBtn) {
+      activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+    }
+  }, [activeIndex])
 
   useEffect(() => {
     const handleSelectService = (e) => {
@@ -64,7 +74,7 @@ export default function Services() {
           <motion.div variants={fadeUp} className="services-panel-grid">
             
             {/* Left Column: Tabs */}
-            <div className="services-tabs">
+            <div className="services-tabs" ref={tabsRef}>
               {services.map((service, idx) => (
                 <button
                   key={service.number}
@@ -107,6 +117,29 @@ export default function Services() {
                   }}
                 />
               </AnimatePresence>
+
+              {/* Mobile prev/next arrows — matching Portfolio style */}
+              <button
+                type="button"
+                aria-label="Previous service"
+                onClick={() => setActiveIndex((activeIndex - 1 + services.length) % services.length)}
+                className="services-img-nav services-img-nav--prev"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                aria-label="Next service"
+                onClick={() => setActiveIndex((activeIndex + 1) % services.length)}
+                className="services-img-nav services-img-nav--next"
+              >
+                ›
+              </button>
+
+              {/* Slide counter */}
+              <div className="services-img-counter">
+                {activeIndex + 1} / {services.length}
+              </div>
             </div>
 
             {/* Right Column: Detail Panel */}

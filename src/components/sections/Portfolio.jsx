@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { motion, AnimatePresence } from 'framer-motion'
 import { portfolio } from '../../data/portfolio'
@@ -10,6 +10,15 @@ export default function Portfolio() {
   const trackRef = useRef(null)
   // Lightbox state
   const [lightbox, setLightbox] = useState({ open: false, images: [], index: 0, title: '' })
+  // Mobile single-photo slider index
+  const [mobileIndex, setMobileIndex] = useState(0)
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const filters = ['All', 'Jewels', 'F&B', 'FMCG', 'Fashion', 'Interior']
 
@@ -29,9 +38,15 @@ export default function Portfolio() {
     return cards
   }, [filteredPortfolio])
 
+  // Reset mobile index when filter changes
+  useEffect(() => { setMobileIndex(0) }, [activeFilter])
+
   const scroll = dir => {
     trackRef.current?.scrollBy({ left: dir * 320, behavior: 'smooth' })
   }
+
+  const mobilePrev = () => setMobileIndex(i => (i - 1 + imageCards.length) % imageCards.length)
+  const mobileNext = () => setMobileIndex(i => (i + 1) % imageCards.length)
 
   const openLightbox = (images, index, title) => {
     setLightbox({ open: true, images, index, title })
@@ -139,6 +154,107 @@ export default function Portfolio() {
           </motion.div>
         </motion.div>
 
+        {/* ── MOBILE: single-photo slider ── */}
+        {isMobile && imageCards.length > 0 && (
+          <div style={{ position: 'relative', padding: '0 16px' }}>
+            {/* Prev arrow */}
+            <button
+              type="button"
+              aria-label="Previous photo"
+              onClick={mobilePrev}
+              style={{
+                position: 'absolute',
+                left: '20px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 10,
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.85)',
+                border: 'none',
+                fontSize: '18px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              }}
+            >
+              ‹
+            </button>
+
+            {/* Single image */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={mobileIndex}
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -40 }}
+                transition={{ duration: 0.28 }}
+                style={{
+                  width: '100%',
+                  aspectRatio: '3 / 4',
+                  overflow: 'hidden',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  const card = imageCards[mobileIndex]
+                  openLightbox(card.item.images, card.imgIdx, card.item.title)
+                }}
+              >
+                <img
+                  src={imageCards[mobileIndex].imgSrc}
+                  alt={`${imageCards[mobileIndex].item.title} ${imageCards[mobileIndex].imgIdx + 1}`}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Next arrow */}
+            <button
+              type="button"
+              aria-label="Next photo"
+              onClick={mobileNext}
+              style={{
+                position: 'absolute',
+                right: '20px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 10,
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.85)',
+                border: 'none',
+                fontSize: '18px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              }}
+            >
+              ›
+            </button>
+
+            {/* Slide counter */}
+            <div style={{
+              textAlign: 'center',
+              marginTop: '12px',
+              fontSize: '13px',
+              color: 'var(--color-muted)',
+              fontFamily: 'Montserrat, sans-serif',
+              letterSpacing: '0.05em',
+            }}>
+              {mobileIndex + 1} / {imageCards.length}
+            </div>
+          </div>
+        )}
+
+        {/* ── DESKTOP: horizontal scroll carousel ── */}
+        {!isMobile && (
         <div style={{ position: 'relative' }}>
           <button type="button" aria-label="Scroll portfolio left" onClick={() => scroll(-1)} style={arrowStyle('left')}>
             {'<'}
@@ -191,6 +307,7 @@ export default function Portfolio() {
             {'>'}
           </button>
         </div>
+        )}
 
         {/* Category description shown below carousel when a specific category is selected */}
         <AnimatePresence mode="wait">

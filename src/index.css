@@ -1230,6 +1230,62 @@ main section {
   }
 }
 
+/* ─── Services Image Mobile Nav ─────────────────────── */
+.services-img-nav {
+  display: none; /* hidden on desktop */
+}
+
+.services-img-counter {
+  display: none; /* hidden on desktop */
+}
+
+@media (max-width: 1024px) {
+  .services-img-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    border: none;
+    color: #2D2926;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 0;
+    line-height: 1;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .services-img-nav:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  }
+
+  .services-img-nav--prev {
+    left: 14px;
+  }
+
+  .services-img-nav--next {
+    right: 14px;
+  }
+
+  .services-img-counter {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--color-muted, #7F736E);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.05em;
+  }
+}
+
 /* Fluid Background Animation */
 #fluid-bg {
   position: fixed;
