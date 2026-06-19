@@ -87,7 +87,7 @@ export default function Portfolio() {
     : null
 
   return (
-    <section id="portfolio" ref={ref} className="section-padding" style={{ background: 'transparent' }}>
+    <section id="portfolio" ref={ref} className="section-padding">
       <div className="container">
         <motion.div
           variants={staggerContainer}

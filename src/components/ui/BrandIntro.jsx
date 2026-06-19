@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 
-export default function BrandIntro() {
+export default function BrandIntro({ onComplete }) {
   const [visible, setVisible] = useState(true);
 
   const kControls = useAnimation();
@@ -49,7 +49,10 @@ export default function BrandIntro() {
       // Phase 4: fade overlay out
       await overlayControls.start({ opacity: 0, transition: { duration: 0.95, ease: [0.22, 1, 0.36, 1] } });
 
-      if (!cancelled) setVisible(false);
+      if (!cancelled) {
+        onComplete?.();
+        setVisible(false);
+      }
     })();
 
     return () => { cancelled = true; };
