@@ -85,7 +85,7 @@ export default function Hero() {
       style={{
         position: 'relative',
         height: '100vh',
-        minHeight: 'min(680px, 100svh)',
+        minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

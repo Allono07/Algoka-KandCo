@@ -1298,13 +1298,13 @@ main section {
   pointer-events: none;
 }
 
-/* All sections must be transparent */
-section,
+/* All sections must be transparent — except the hero */
+section:not(.hero-section),
 header,
 footer,
 main,
 .section,
-[class*="section"] {
+[class*="section"]:not(.hero-section) {
   background: transparent !important;
 }
 
@@ -1549,5 +1549,17 @@ main,
 @media (max-width: 768px) {
   .hero-mute-btn {
     display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Pause WebGL canvas */
+  #fluid-bg { display: none; }
+
+  /* Kill CSS animations */
+  .marquee-left,
+  .marquee-right,
+  .marquee-track {
+    animation: none !important;
   }
 }

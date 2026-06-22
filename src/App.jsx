@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import Lenis from 'lenis'
 import BrandIntro from './components/ui/BrandIntro'
 import Navbar from './components/layout/Navbar'
-import Footer from './components/layout/Footer'
 import Hero from './components/sections/Hero'
-import About from './components/sections/About'
-import WhyChoose from './components/sections/WhyChoose'
-import Services from './components/sections/Services'
-import Portfolio from './components/sections/Portfolio'
-import Process from './components/sections/Process'
-import ClientLogos from './components/sections/ClientLogos'
-import Team from './components/sections/Team'
-import Blog from './components/sections/Blog'
-import Contact from './components/sections/Contact'
 import WhatsAppButton from './components/ui/WhatsAppButton'
 import SEO from './components/ui/SEO'
 import { Toaster } from 'react-hot-toast'
+
+const Footer = lazy(() => import('./components/layout/Footer'))
+const About = lazy(() => import('./components/sections/About'))
+const WhyChoose = lazy(() => import('./components/sections/WhyChoose'))
+const Services = lazy(() => import('./components/sections/Services'))
+const Portfolio = lazy(() => import('./components/sections/Portfolio'))
+const Process = lazy(() => import('./components/sections/Process'))
+const ClientLogos = lazy(() => import('./components/sections/ClientLogos'))
+const Team = lazy(() => import('./components/sections/Team'))
+const Blog = lazy(() => import('./components/sections/Blog'))
+const Contact = lazy(() => import('./components/sections/Contact'))
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -42,7 +43,11 @@ export default function App() {
   useEffect(() => {
     if (isLoading) return undefined
 
-    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const lenis = new Lenis({
+      lerp: prefersReduced ? 0 : 0.1,
+      smoothWheel: !prefersReduced,
+    })
     function raf(time) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -58,17 +63,21 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Services />
-        <Portfolio />
-        <ClientLogos />
-        <About />
-        <Process />
-        <WhyChoose />
-        <Blog />
-        <Team />
-        <Contact />
+        <Suspense fallback={null}>
+          <Services />
+          <Portfolio />
+          <ClientLogos />
+          <About />
+          <Process />
+          <WhyChoose />
+          <Blog />
+          <Team />
+          <Contact />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
       <WhatsAppButton />
       <Toaster position="bottom-center" />
     </>
