@@ -101,10 +101,11 @@ main section {
   }
 }
 
-/* Replace the existing Artegra font-face block */
+/* Self-hosted fonts — no external requests */
 @font-face {
   font-family: 'Artegra Sans SC ExtraBold';
-  src: url('../artegra-sans-extra-bold/artegra-sans-extra-bold.ttf') format('truetype');
+  src: url('/fonts/artegra-sans-extra-bold.woff2') format('woff2'),
+       url('../artegra-sans-extra-bold/artegra-sans-extra-bold.ttf') format('truetype');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
