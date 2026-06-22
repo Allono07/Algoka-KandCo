@@ -1232,11 +1232,13 @@ main section {
 
 /* ─── Services Image Mobile Nav ─────────────────────── */
 .services-img-nav {
-  display: none; /* hidden on desktop */
+  display: none;
+  /* hidden on desktop */
 }
 
 .services-img-counter {
-  display: none; /* hidden on desktop */
+  display: none;
+  /* hidden on desktop */
 }
 
 @media (max-width: 1024px) {
@@ -1522,11 +1524,11 @@ main,
 /* Desktop style: edge-to-edge full width, capped height */
 @media (min-width: 769px) {
   .footer-video-wrap {
-    max-height: 560px;
+    max-height: 720px;
   }
 
   .footer-video-wrap .footer-video-element {
-    height: 560px;
+    height: 530px;
     object-fit: cover;
   }
 }
