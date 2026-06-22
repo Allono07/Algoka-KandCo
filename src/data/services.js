@@ -82,11 +82,5 @@ export const services = [
     title: 'Real Estate Marketing',
     desc: 'Developer branding, project launches, digital campaigns, walkthrough videos, and sales collateral.',
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80&auto=format&fit=crop',
-  },
-  {
-    number: '13',
-    title: 'Creative Design Services',
-    desc: 'Campaign creatives, print, OOH, packaging, presentations, motion graphics, and everything in between.',
-    image: productLaunchCampaignsImage,
-  },
+  }
 ];

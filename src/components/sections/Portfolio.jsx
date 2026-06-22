@@ -38,11 +38,20 @@ export default function Portfolio() {
     return cards
   }, [filteredPortfolio])
 
-  // Reset mobile index when filter changes
-  useEffect(() => { setMobileIndex(0) }, [activeFilter])
+  // Reset mobile index AND desktop scroll when filter changes
+  useEffect(() => {
+    setMobileIndex(0)
+    if (trackRef.current) {
+      trackRef.current.scrollTo({ left: 0, behavior: 'instant' })
+    }
+  }, [activeFilter])
 
   const scroll = dir => {
-    trackRef.current?.scrollBy({ left: dir * 320, behavior: 'smooth' })
+    if (!trackRef.current) return
+    const track = trackRef.current
+    // Each card is exactly 25% of the track's visible width (no padding offset)
+    const cardWidth = track.clientWidth / 4
+    track.scrollBy({ left: dir * cardWidth, behavior: 'smooth' })
   }
 
   const mobilePrev = () => setMobileIndex(i => (i - 1 + imageCards.length) % imageCards.length)
@@ -87,7 +96,7 @@ export default function Portfolio() {
     : null
 
   return (
-    <section id="portfolio" ref={ref} className="section-padding" style={{ background: 'transparent' }}>
+    <section id="portfolio" ref={ref} className="section-padding">
       <div className="container">
         <motion.div
           variants={staggerContainer}
@@ -255,20 +264,22 @@ export default function Portfolio() {
 
         {/* ── DESKTOP: horizontal scroll carousel ── */}
         {!isMobile && (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
           <button type="button" aria-label="Scroll portfolio left" onClick={() => scroll(-1)} style={arrowStyle('left')}>
             {'<'}
           </button>
+          {/* Track: clip to exactly 4 cards — no padding so no partial bleed */}
           <div
             ref={trackRef}
             className="portfolio-carousel-track"
             style={{
               display: 'flex',
-              gap: '16px',
+              gap: '0px',
               overflowX: 'auto',
               scrollSnapType: 'x mandatory',
               scrollbarWidth: 'none',
-              padding: '20px 52px',
+              msOverflowStyle: 'none',
+              padding: '20px 0',
             }}
           >
             <AnimatePresence mode="popLayout">
@@ -282,8 +293,9 @@ export default function Portfolio() {
                   transition={{ duration: 0.3 }}
                   className="portfolio-card-redesign"
                   style={{
-                    flex: '0 0 calc(25% - 12px)',
-                    minWidth: '240px',
+                    /* Exactly 25% of track width = 4 cards exactly fill the viewport */
+                    flex: '0 0 calc(25% - 4px)',
+                    margin: '0 2px',
                     scrollSnapAlign: 'start',
                     aspectRatio: '3 / 4',
                     overflow: 'hidden',
