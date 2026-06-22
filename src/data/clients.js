@@ -1,10 +1,10 @@
-import client1 from '../assets/client_logos/IMG_6300.png'
-import client2 from '../assets/client_logos/IMG_6358.png'
-import client3 from '../assets/client_logos/PHOTO-2026-06-08-13-40-23.png'
-import client4 from '../assets/client_logos/PHOTO-2026-06-10-14-36-25.png'
-import client5 from '../assets/client_logos/PHOTO-2026-06-10-14-37-34.png'
-import client6 from '../assets/client_logos/PHOTO-2026-06-10-14-41-32.png'
-import client7 from '../assets/client_logos/PHOTO-2026-06-10-16-05-21.png'
+import client1 from '../assets/client_logos/IMG_6300.webp'
+import client2 from '../assets/client_logos/IMG_6358.webp'
+import client3 from '../assets/client_logos/PHOTO-2026-06-08-13-40-23.webp'
+import client4 from '../assets/client_logos/PHOTO-2026-06-10-14-36-25.webp'
+import client5 from '../assets/client_logos/PHOTO-2026-06-10-14-37-34.webp'
+import client6 from '../assets/client_logos/PHOTO-2026-06-10-14-41-32.webp'
+import client7 from '../assets/client_logos/PHOTO-2026-06-10-16-05-21.webp'
 
 export const clients = [
   { name: 'Client 1', logo: client1 },

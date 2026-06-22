@@ -1,12 +1,12 @@
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer } from '../../utils/animations';
-import aboutImage from '../../assets/about/aboutus.jpeg';
-import reflectionImage from '../../assets/about/reflection.jpeg';
-import visionImage from '../../assets/about/vision.jpeg';
-import missionImage from '../../assets/about/mission.jpeg';
-import valuesImage from '../../assets/about/value.jpeg';
-import identityImage from '../../assets/about/identity.jpeg';
+import aboutImage from '../../assets/about/aboutus.webp';
+import reflectionImage from '../../assets/about/reflection.webp';
+import visionImage from '../../assets/about/vision.webp';
+import missionImage from '../../assets/about/mission.webp';
+import valuesImage from '../../assets/about/value.webp';
+import identityImage from '../../assets/about/identity.webp';
 
 const aboutBlocks = [
   {

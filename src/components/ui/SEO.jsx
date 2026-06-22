@@ -4,7 +4,7 @@ export default function SEO({
   title       = 'Kalp & Co — Creative & Marketing Agency | Bengaluru',
   description = 'Kalp & Co is a growth-focused creative and marketing agency in Bengaluru helping brands scale through strategy, branding, digital marketing, AI-led solutions, and performance campaigns.',
   url         = 'https://www.kalpandco.com',
-  image       = '/og-image.jpg',
+  image       = '/og-image.webp',
 }) {
   return (
     <Helmet>

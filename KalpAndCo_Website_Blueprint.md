@@ -128,13 +128,13 @@ kalp-and-co/
 ├── public/
 │   ├── favicon.ico
 │   ├── logo.svg                     ← Replace with actual logo
-│   └── og-image.jpg                 ← Social share preview
+│   └── og-image.webp                 ← Social share preview
 │
 ├── src/
 │   ├── assets/
 │   │   ├── images/
-│   │   │   ├── hero-placeholder.jpg
-│   │   │   ├── about-placeholder.jpg
+│   │   │   ├── hero-placeholder.webp
+│   │   │   ├── about-placeholder.webp
 │   │   │   ├── team/
 │   │   │   ├── clients/
 │   │   │   └── portfolio/
@@ -715,7 +715,7 @@ export default function About() {
             {/* Placeholder image — replace with team/office photo */}
             <div style={{ position: 'relative', aspectRatio: '4/5', marginBottom: '48px',
                           background: 'var(--color-surface)', overflow: 'hidden' }}>
-              <img src="/src/assets/images/about-placeholder.jpg" alt="Kalp & Co Team"
+              <img src="/src/assets/images/about-placeholder.webp" alt="Kalp & Co Team"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               {/* Accent border */}
               <div style={{ position: 'absolute', bottom: '-16px', right: '-16px',
@@ -877,7 +877,7 @@ export const portfolio = [
     category: 'Branding',
     tags:     ['Branding', 'Strategy'],
     result:   '340% brand recall increase',
-    image:    '/src/assets/images/portfolio/case-1.jpg',
+    image:    '/src/assets/images/portfolio/case-1.webp',
     color:    '#1A1A2E',
   },
   {
@@ -886,7 +886,7 @@ export const portfolio = [
     category: 'Performance Marketing',
     tags:     ['Performance Marketing', 'Social'],
     result:   '5x ROAS in 90 days',
-    image:    '/src/assets/images/portfolio/case-2.jpg',
+    image:    '/src/assets/images/portfolio/case-2.webp',
     color:    '#0D1B1E',
   },
   {
@@ -895,7 +895,7 @@ export const portfolio = [
     category: 'Real Estate Marketing',
     tags:     ['Real Estate Marketing', 'Campaigns'],
     result:   '₹50Cr inventory sold in 60 days',
-    image:    '/src/assets/images/portfolio/case-3.jpg',
+    image:    '/src/assets/images/portfolio/case-3.webp',
     color:    '#1C1C0A',
   },
   // Add more cases...
@@ -1177,19 +1177,19 @@ const testimonials = [
     quote:  "Kalp & Co didn't just rebrand us — they repositioned our entire business. The results were visible within the first quarter.",
     name:   'Rahul Sharma',
     role:   'Founder, Brand X',
-    avatar: '/src/assets/images/team/avatar-1.jpg',
+    avatar: '/src/assets/images/team/avatar-1.webp',
   },
   {
     quote:  "The performance marketing team at Kalp & Co delivered 5x ROAS in just 90 days. We've never seen results like this.",
     name:   'Priya Nair',
     role:   'Marketing Head, Startup Y',
-    avatar: '/src/assets/images/team/avatar-2.jpg',
+    avatar: '/src/assets/images/team/avatar-2.webp',
   },
   {
     quote:  "They understood real estate marketing inside out. Our project sold ₹50Cr of inventory in 60 days flat.",
     name:   'Anil Menon',
     role:   'Director, Real Estate Co',
-    avatar: '/src/assets/images/team/avatar-3.jpg',
+    avatar: '/src/assets/images/team/avatar-3.webp',
   },
 ]
 
@@ -1261,10 +1261,10 @@ import { motion } from 'framer-motion'
 import { staggerContainer, scaleIn, fadeUp } from '../../utils/animations'
 
 const team = [
-  { name: 'Team Member 1', role: 'Founder & Creative Director', img: '/src/assets/images/team/member-1.jpg', instagram: '#' },
-  { name: 'Team Member 2', role: 'Strategy Lead',               img: '/src/assets/images/team/member-2.jpg', instagram: '#' },
-  { name: 'Team Member 3', role: 'Head of Performance',         img: '/src/assets/images/team/member-3.jpg', instagram: '#' },
-  { name: 'Team Member 4', role: 'Creative Lead',               img: '/src/assets/images/team/member-4.jpg', instagram: '#' },
+  { name: 'Team Member 1', role: 'Founder & Creative Director', img: '/src/assets/images/team/member-1.webp', instagram: '#' },
+  { name: 'Team Member 2', role: 'Strategy Lead',               img: '/src/assets/images/team/member-2.webp', instagram: '#' },
+  { name: 'Team Member 3', role: 'Head of Performance',         img: '/src/assets/images/team/member-3.webp', instagram: '#' },
+  { name: 'Team Member 4', role: 'Creative Lead',               img: '/src/assets/images/team/member-4.webp', instagram: '#' },
 ]
 
 export default function Team() {
@@ -1334,21 +1334,21 @@ const posts = [
     title:    'Why Most Brand Launches Fail in the First 90 Days',
     date:     'June 2025',
     excerpt:  'The uncomfortable truth about why brands spend big and still miss — and how to avoid it.',
-    img:      '/src/assets/images/blog/post-1.jpg',
+    img:      '/src/assets/images/blog/post-1.webp',
   },
   {
     category: 'AI Marketing',
     title:    'How AI is Reshaping Performance Marketing in 2025',
     date:     'May 2025',
     excerpt:  'From automated bidding to AI-generated creatives — what actually works and what\'s hype.',
-    img:      '/src/assets/images/blog/post-2.jpg',
+    img:      '/src/assets/images/blog/post-2.webp',
   },
   {
     category: 'Branding',
     title:    'The 5 Brand Elements Most Startups Get Wrong',
     date:     'April 2025',
     excerpt:  'It\'s not just the logo. Here\'s what truly makes a brand stick in a competitive market.',
-    img:      '/src/assets/images/blog/post-3.jpg',
+    img:      '/src/assets/images/blog/post-3.webp',
   },
 ]
 
@@ -1860,7 +1860,7 @@ export default function SEO({
   title       = 'Kalp & Co — Creative & Marketing Agency | Bengaluru',
   description = 'Kalp & Co is a growth-focused creative and marketing agency in Bengaluru helping brands scale through strategy, branding, digital marketing, AI-led solutions, and performance campaigns.',
   url         = 'https://www.kalpandco.com',
-  image       = '/og-image.jpg',
+  image       = '/og-image.webp',
 }) {
   return (
     <Helmet>
@@ -1918,15 +1918,15 @@ The following assets need to be provided or sourced. Until then, use placeholder
 | Asset | Usage | Placeholder |
 |-------|-------|-------------|
 | `hero-reel.mp4` | Hero background video | Remove `<video>` tag and use a full-height dark gradient |
-| `about-placeholder.jpg` | About section image | Office / team candid |
-| `portfolio/case-1.jpg` through `case-N.jpg` | Portfolio cards | Campaign mockups / brand renders |
-| `team/member-1.jpg` through `member-N.jpg` | Team section | Headshots (square or 3:4 format) |
+| `about-placeholder.webp` | About section image | Office / team candid |
+| `portfolio/case-1.webp` through `case-N.webp` | Portfolio cards | Campaign mockups / brand renders |
+| `team/member-1.webp` through `member-N.webp` | Team section | Headshots (square or 3:4 format) |
 | `clients/client-1.svg` through `client-N.svg` | Client logo marquee | White SVG logos |
-| `blog/post-1.jpg` through `post-3.jpg` | Blog cards | Editorial / flat-lay images |
-| `team/avatar-1..3.jpg` | Testimonial avatars | Client headshots |
+| `blog/post-1.webp` through `post-3.webp` | Blog cards | Editorial / flat-lay images |
+| `team/avatar-1..3.webp` | Testimonial avatars | Client headshots |
 | `logo.svg` | Navbar + Footer logo | Artegra Sans SC ExtraBold wordmark |
 | `favicon.ico` | Browser tab | Square version of logo |
-| `og-image.jpg` | Social share preview | 1200×630px brand card |
+| `og-image.webp` | Social share preview | 1200×630px brand card |
 
 > **Font note:** Download or host `ArtegraSansSC-ExtraBold.woff2` and place in `src/assets/fonts/`. This font is used **only** for the wordmark "KALP&CO". All other typography uses system/Google fonts.
 

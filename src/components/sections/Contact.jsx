@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { fadeUp, staggerContainer } from '../../utils/animations'
-import contactImage from '../../assets/contact/contact.jpeg'
+import contactImage from '../../assets/contact/contact.webp'
 
 export default function Contact() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
