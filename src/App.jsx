@@ -21,25 +21,24 @@ const Contact = lazy(() => import('./components/sections/Contact'))
 export default function App() {
   const [isLoading, setIsLoading] = useState(true)
 
-  // Force the page to start at the very top on initial mount
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual'
     }
-    window.scrollTo(0, 0)
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [])
 
-  // Lock scroll while the intro is on screen
   useEffect(() => {
     if (isLoading) {
       document.body.style.overflow = 'hidden'
+      document.documentElement.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
-      window.scrollTo(0, 0)
+      document.documentElement.style.overflow = ''
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     }
   }, [isLoading])
 
-  // Initialize Lenis only AFTER the intro has finished
   useEffect(() => {
     if (isLoading) return undefined
 
@@ -63,24 +62,28 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Suspense fallback={null}>
-          <Services />
-          <Portfolio />
-          <ClientLogos />
-          <About />
-          <Process />
-          <WhyChoose />
-          <Blog />
-          <Team />
-          <Contact />
-        </Suspense>
+        {/* ← Only mount below-fold sections AFTER loading is done */}
+        {!isLoading && (
+          <Suspense fallback={null}>
+            <Services />
+            <Portfolio />
+            <ClientLogos />
+            <About />
+            <Process />
+            <WhyChoose />
+            <Blog />
+            <Team />
+            <Contact />
+          </Suspense>
+        )}
       </main>
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+      {!isLoading && (
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      )}
       <WhatsAppButton />
       <Toaster position="bottom-center" />
     </>
   )
-  
 }
