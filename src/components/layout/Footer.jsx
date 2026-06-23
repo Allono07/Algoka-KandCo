@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import footerVideo from '../../assets/video/footervideo.mp4'
+import footerVideo from '../../assets/video/footervideo.webm'
 
 const footerLinks = {
   Services: ['Branding', 'Social Media Marketing', 'Performance Marketing',
