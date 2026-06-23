@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import desktopVideo from '../../../Intro - video/laptop-video.mp4'
+import desktopVideo from '../../../Intro - video/laptop-video.webm'
 import mobileVideo from '../../../Intro - video/intro-mobile-samyak.webm'
 
 export default function Hero() {
