@@ -1,15 +1,15 @@
 // src/data/services.js
-import brandingImage from '../assets/services/branding.jpeg';
-import socialMediaMarketingImage from '../assets/services/socialmedia.jpeg';
-import performanceMarketingImage from '../assets/services/performance.jpeg';
-import websiteDesignDevelopmentImage from '../assets/services/webdesign.jpeg';
-import contentStrategyImage from '../assets/services/content.jpeg';
-import contentMarketingImage from '../assets/services/contentmarketing.jpeg';
-import productMarketingImage from '../assets/services/productmarketing.jpeg';
-import strategicPlanningImage from '../assets/services/strategicplanning.jpeg';
-import aiDrivenMarketingSolutionsImage from '../assets/services/aidriven.jpeg';
-import productLaunchCampaignsImage from '../assets/services/campaign.jpeg';
-// import talentBrandPartnershipsImage from '../assets/services/talent.jpeg';
+import brandingImage from '../assets/services/branding.webp';
+import socialMediaMarketingImage from '../assets/services/socialmedia.webp';
+import performanceMarketingImage from '../assets/services/performance.webp';
+import websiteDesignDevelopmentImage from '../assets/services/webdesign.webp';
+import contentStrategyImage from '../assets/services/content.webp';
+import contentMarketingImage from '../assets/services/contentmarketing.webp';
+import productMarketingImage from '../assets/services/productmarketing.webp';
+import strategicPlanningImage from '../assets/services/strategicplanning.webp';
+import aiDrivenMarketingSolutionsImage from '../assets/services/aidriven.webp';
+import productLaunchCampaignsImage from '../assets/services/campaign.webp';
+// import talentBrandPartnershipsImage from '../assets/services/talent.webp';
 export const services = [
   {
     number: '01',

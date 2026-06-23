@@ -1,19 +1,20 @@
 import { useInView } from 'react-intersection-observer'
-import { motion } from 'framer-motion'
+import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { fadeUp, staggerContainer } from '../../utils/animations'
 
 export default function WhyChoose() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
+    <LazyMotion features={domAnimation} strict>
     <section id="why-choose" ref={ref} className="section-padding about-why">
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
         >
-          <motion.div variants={fadeUp}>
+          <m.div variants={fadeUp}>
             <h4 className="why-heading">Why Choose Kalp & Co.</h4>
             <div className="why-grid">
               <div className="why-item">
@@ -45,9 +46,10 @@ export default function WhyChoose() {
                 <p className="why-desc">We leverage cutting-edge technologies to craft experiences of the future.</p>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
+    </LazyMotion>
   )
 }

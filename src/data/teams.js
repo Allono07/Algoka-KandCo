@@ -1,5 +1,5 @@
-import strategyLeadImage from '../assets/team/founderb.jpeg';
-import founder from '../assets/team/foundera.jpeg';
+import strategyLeadImage from '../assets/team/founderb.webp';
+import founder from '../assets/team/foundera.webp';
 
 // src/data/team.js
 export const team = [

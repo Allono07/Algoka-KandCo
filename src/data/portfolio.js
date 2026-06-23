@@ -1,9 +1,9 @@
 // Dynamically import all images from each category subfolder using Vite's glob
-const fbImages = import.meta.glob('../assets/portfolio/F&B/*.{jpg,jpeg,JPG,JPEG,png,PNG}', { eager: true, import: 'default' });
-const fmcgImages = import.meta.glob('../assets/portfolio/FMCG/*.{jpg,jpeg,JPG,JPEG,png,PNG}', { eager: true, import: 'default' });
-const jewelsImages = import.meta.glob('../assets/portfolio/Jewels/*.{jpg,jpeg,JPG,JPEG,png,PNG}', { eager: true, import: 'default' });
-const fashionImages = import.meta.glob('../assets/portfolio/fashion/*.{jpg,jpeg,JPG,JPEG,png,PNG}', { eager: true, import: 'default' });
-const interiorImages = import.meta.glob('../assets/portfolio/interior/*.{jpg,jpeg,JPG,JPEG,png,PNG}', { eager: true, import: 'default' });
+const fbImages = import.meta.glob('../assets/portfolio/F&B/*.{jpg,jpeg,JPG,JPEG,png,PNG,webp}', { eager: true, import: 'default' });
+const fmcgImages = import.meta.glob('../assets/portfolio/FMCG/*.{jpg,jpeg,JPG,JPEG,png,PNG,webp}', { eager: true, import: 'default' });
+const jewelsImages = import.meta.glob('../assets/portfolio/Jewels/*.{jpg,jpeg,JPG,JPEG,png,PNG,webp}', { eager: true, import: 'default' });
+const fashionImages = import.meta.glob('../assets/portfolio/fashion/*.{jpg,jpeg,JPG,JPEG,png,PNG,webp}', { eager: true, import: 'default' });
+const interiorImages = import.meta.glob('../assets/portfolio/interior/*.{jpg,jpeg,JPG,JPEG,png,PNG,webp}', { eager: true, import: 'default' });
 
 const toArray = (globResult) => Object.values(globResult);
 

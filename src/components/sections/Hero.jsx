@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import desktopVideo from '../../../Intro - video/laptop-video.mp4'
-import mobileVideo from '../../../Intro - video/intro-mobile-samyak.mp4'
+import desktopVideo from '../../../Intro - video/laptop-video.webm'
+import mobileVideo from '../../../Intro - video/intro-mobile-samyak.webm'
 
 export default function Hero() {
   const videoRef = useRef(null)
@@ -85,7 +85,7 @@ export default function Hero() {
       style={{
         position: 'relative',
         height: '100vh',
-        minHeight: 'min(680px, 100svh)',
+        minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

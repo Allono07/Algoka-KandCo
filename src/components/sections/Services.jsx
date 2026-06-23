@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { motion, AnimatePresence } from 'framer-motion'
+import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion'
 import { services } from '../../data/services'
 import { staggerContainer, fadeUp } from '../../utils/animations'
 
@@ -37,11 +37,12 @@ export default function Services() {
   const activeService = services[activeIndex]
 
   return (
+    <LazyMotion features={domAnimation} strict>
     <section id="services" ref={ref} className="section-padding services-section-redesign" style={{ background: 'transparent' }}>
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <motion.div variants={staggerContainer} initial="hidden" animate={inView ? 'visible' : 'hidden'}>
+        <m.div variants={staggerContainer} initial="hidden" animate={inView ? 'visible' : 'hidden'}>
           
-          <motion.div variants={fadeUp} style={{ textAlign: 'center', marginBottom: '64px' }}>
+          <m.div variants={fadeUp} style={{ textAlign: 'center', marginBottom: '64px' }}>
             <p style={{
               color: '#94847D',
               fontSize: '12px',
@@ -69,9 +70,9 @@ export default function Services() {
             }}>
               A comprehensive suite of creative and strategic solutions tailored to elevate your brand.
             </p>
-          </motion.div>
+          </m.div>
 
-          <motion.div variants={fadeUp} className="services-panel-grid">
+          <m.div variants={fadeUp} className="services-panel-grid">
             
             {/* Left Column: Tabs */}
             <div className="services-tabs" ref={tabsRef}>
@@ -99,7 +100,7 @@ export default function Services() {
             {/* Centre Column: Image */}
             <div className="services-image-col">
               <AnimatePresence mode="wait">
-                <motion.img
+                <m.img loading="lazy" decoding="async"
                   key={activeService.number}
                   src={activeService.image}
                   alt={activeService.title}
@@ -151,7 +152,7 @@ export default function Services() {
               padding: '24px'
             }}>
               <AnimatePresence mode="wait">
-                <motion.div
+                <m.div
                   key={activeService.number}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -214,13 +215,14 @@ export default function Services() {
                   >
                     EXPLORE {activeService.title} ↗
                   </a>
-                </motion.div>
+                </m.div>
               </AnimatePresence>
             </div>
 
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
+    </LazyMotion>
   )
 }

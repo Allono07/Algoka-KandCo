@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { motion, AnimatePresence } from 'framer-motion'
+import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion'
 import { portfolio } from '../../data/portfolio'
 import { fadeUp, staggerContainer } from '../../utils/animations'
 
@@ -96,15 +96,16 @@ export default function Portfolio() {
     : null
 
   return (
+    <LazyMotion features={domAnimation} strict>
     <section id="portfolio" ref={ref} className="section-padding">
       <div className="container">
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
           style={{ marginBottom: '56px', textAlign: 'center' }}
         >
-          <motion.span
+          <m.span
             variants={fadeUp}
             style={{
               display: 'block',
@@ -116,8 +117,8 @@ export default function Portfolio() {
             }}
           >
             {/* Selected Work */}
-          </motion.span>
-          <motion.h2
+          </m.span>
+          <m.h2
             variants={fadeUp}
             style={{
               fontFamily: 'Montserrat, sans-serif',
@@ -129,8 +130,8 @@ export default function Portfolio() {
             }}
           >
             Our Work
-          </motion.h2>
-          <motion.div
+          </m.h2>
+          <m.div
             variants={fadeUp}
             style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}
           >
@@ -160,8 +161,8 @@ export default function Portfolio() {
                 </button>
               )
             })}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         {/* ── MOBILE: single-photo slider ── */}
         {isMobile && imageCards.length > 0 && (
@@ -195,7 +196,7 @@ export default function Portfolio() {
 
             {/* Single image */}
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={mobileIndex}
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -213,12 +214,12 @@ export default function Portfolio() {
                   openLightbox(card.item.images, card.imgIdx, card.item.title)
                 }}
               >
-                <img
+                <img loading="lazy" decoding="async"
                   src={imageCards[mobileIndex].imgSrc}
                   alt={`${imageCards[mobileIndex].item.title} ${imageCards[mobileIndex].imgIdx + 1}`}
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
-              </motion.div>
+              </m.div>
             </AnimatePresence>
 
             {/* Next arrow */}
@@ -284,7 +285,7 @@ export default function Portfolio() {
           >
             <AnimatePresence mode="popLayout">
               {imageCards.map(({ imgSrc, imgIdx, item }) => (
-                <motion.div
+                <m.div
                   key={`${item.title}-${imgIdx}`}
                   layout
                   initial={{ opacity: 0, scale: 0.92 }}
@@ -306,12 +307,12 @@ export default function Portfolio() {
                   }}
                   onClick={() => openLightbox(item.images, imgIdx, item.title)}
                 >
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={imgSrc}
                     alt={`${item.title} ${imgIdx + 1}`}
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />
-                </motion.div>
+                </m.div>
               ))}
             </AnimatePresence>
           </div>
@@ -324,7 +325,7 @@ export default function Portfolio() {
         {/* Category description shown below carousel when a specific category is selected */}
         <AnimatePresence mode="wait">
           {activeItem && (
-            <motion.div
+            <m.div
               key={activeItem.category}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -354,7 +355,7 @@ export default function Portfolio() {
               }}>
                 {activeItem.desc}
               </p>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>
@@ -362,7 +363,7 @@ export default function Portfolio() {
       {/* Lightbox overlay */}
       <AnimatePresence>
         {lightbox.open && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -491,7 +492,7 @@ export default function Portfolio() {
             )}
 
             {/* Main image */}
-            <motion.img
+            <m.img loading="lazy" decoding="async"
               key={lightbox.index}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -508,9 +509,10 @@ export default function Portfolio() {
                 boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
               }}
             />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>
+    </LazyMotion>
   )
 }

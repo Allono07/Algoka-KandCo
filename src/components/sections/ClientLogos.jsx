@@ -10,7 +10,7 @@ export default function ClientLogos() {
       <div className="marquee-track">
         <div className="marquee-inner marquee-left">
           {clients.map((client, i) => (
-            <img 
+            <img loading="lazy" decoding="async" 
               key={`left-1-${i}`} 
               src={client.logo} 
               alt={client.name} 
@@ -19,7 +19,7 @@ export default function ClientLogos() {
           ))}
           {/* Duplicate set for seamless loop */}
           {clients.map((client, i) => (
-            <img 
+            <img loading="lazy" decoding="async" 
               key={`left-2-${i}`} 
               src={client.logo} 
               alt={client.name} 

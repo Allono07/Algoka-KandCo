@@ -1,5 +1,5 @@
 import { useInView } from 'react-intersection-observer';
-import { motion } from 'framer-motion';
+import { LazyMotion, domAnimation, m } from 'framer-motion';
 import { staggerContainer, fadeUp } from '../../utils/animations';
 
 const steps = [
@@ -34,15 +34,16 @@ export default function Process() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
 
   return (
+    <LazyMotion features={domAnimation} strict>
     <section id="process" ref={ref} className="section-padding" style={{ background: 'transparent' }}>
       <div className="container">
         {/* Header */}
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
         >
-          <motion.span
+          <m.span
             variants={fadeUp}
             style={{
               display: 'block',
@@ -57,9 +58,9 @@ export default function Process() {
             }}
           >
             {/* ★ How We Work */}
-          </motion.span>
+          </m.span>
 
-          <motion.h2
+          <m.h2
             variants={fadeUp}
             style={{
               fontFamily: 'Montserrat, sans-serif',
@@ -71,12 +72,12 @@ export default function Process() {
             }}
           >
             Our Process
-          </motion.h2>
+          </m.h2>
 
           {/* Steps grid */}
           <div className="grid md:grid-cols-5 gap-8">
             {steps.map((step, i) => (
-              <motion.div
+              <m.div
                 key={step.num}
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -94,7 +95,7 @@ export default function Process() {
                 </div>
 
                 {/* Accent line */}
-                <motion.div
+                <m.div
                   initial={{ scaleX: 0 }}
                   animate={inView ? { scaleX: 1 } : {}}
                   transition={{ delay: 0.3 + i * 0.15, duration: 0.6 }}
@@ -125,11 +126,12 @@ export default function Process() {
                   lineHeight: 1.6,
                   fontWeight: 300
                 }}>{step.desc}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
+    </LazyMotion>
   );
 }
