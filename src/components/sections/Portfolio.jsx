@@ -126,11 +126,39 @@ export default function Portfolio() {
               fontWeight: 800,
               lineHeight: 1,
               color: '#2D2926',
-              marginBottom: '32px',
+              marginBottom: '12px',
             }}
           >
             Our Work
           </m.h2>
+          <m.p
+            variants={fadeUp}
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              fontSize: '14px',
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+              textTransform: 'uppercase',
+              color: '#94847D',
+              margin: '0 auto 8px',
+              maxWidth: '700px',
+            }}
+          >
+            Every Brand Has A Story. We Build The Ones People Remember.
+          </m.p>
+          <m.p
+            variants={fadeUp}
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              fontSize: '16px',
+              color: '#7F736E',
+              maxWidth: '600px',
+              margin: '0 auto 32px',
+              lineHeight: 1.6,
+            }}
+          >
+            We create branding, websites and marketing campaigns that deliver measurable business growth.
+          </m.p>
           <m.div
             variants={fadeUp}
             style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}

@@ -12,25 +12,25 @@ const aboutBlocks = [
   {
     label: 'MISSION',
     heading: 'Our Mission',
-    body: 'To elevate brands through immersive campaigns, strategic planning, and creative solutions that convert and inspire — built around real business outcomes, not vanity metrics.',
+    body: 'Helping businesses become brands people trust through branding, creativity, technology and performance marketing.',
     img: missionImage,
   },
   {
     label: 'VALUES',
     heading: 'Our Values',
-    body: 'Driven by curiosity, rooted in strategic insight, and dedicated to delivering premium, high-impact results for every partner we work with.',
+    body: 'Strategy • Creativity • Excellence • Innovation • Integrity',
     img: valuesImage,
   },
   {
     label: 'VISION',
     heading: 'Our Vision',
-    body: 'To become the ultimate creative partner for growth-focused brands, blending strategy, technology, and design into one seamless engine for scale.',
+    body: 'To become India\'s most trusted luxury branding and digital growth partner.',
     img: visionImage,
   },
   {
     label: 'REFLECTION',
     heading: 'Our Reflection',
-    body: 'Every campaign we ship is a reflection of the brand behind it — we hold ourselves to a standard where craft, clarity, and impact are non-negotiable.',
+    body: 'Growth is never accidental. Great brands are built through clear strategy, consistent execution and long-term partnerships.',
     img: reflectionImage,
   },
 ];
@@ -52,7 +52,7 @@ export default function About() {
           <m.div variants={fadeUp} className="about-header-row">
             <h2 className="about-main-title">ABOUT US</h2>
             <p className="about-header-desc">
-              Kalp &amp; Co is a growth-focused creative and marketing agency helping brands build impact through strategy, branding, content, AI-powered solutions, and digital performance marketing.
+              KALP &amp; CO is a Bengaluru-based luxury branding, creative and digital marketing agency delivering branding, website development, SEO, performance marketing, AI solutions and business growth under one roof.
             </p>
           </m.div>
 
@@ -69,7 +69,7 @@ export default function About() {
             <div className="about-identity-text">
               <h3 className="about-identity-heading">IDENTITY</h3>
               <p className="about-identity-body">
-                We blend creativity, culture, and cutting-edge technology to craft brand identities that feel bold, modern, and unmistakably distinct — built for growth, not just looks. Every visual decision is rooted in strategy, ensuring brands stand out while staying true to who they are.
+                Strategy shapes everything we create. Every successful brand begins with research, clarity and purpose — we blend creativity, technology and strategic thinking to craft identities that feel bold, modern, and built to lead.
               </p>
             </div>
           </m.div>
