@@ -4,6 +4,7 @@ import BrandIntro from './components/ui/BrandIntro'
 import Navbar from './components/layout/Navbar'
 import Hero from './components/sections/Hero'
 import Services from './components/sections/Services'
+import IntroStatement from './components/sections/IntroStatement'
 import Portfolio from './components/sections/Portfolio'
 import WhatsAppButton from './components/ui/WhatsAppButton'
 import SEO from './components/ui/SEO'
@@ -14,7 +15,6 @@ const About       = lazy(() => import('./components/sections/About'))
 const Process     = lazy(() => import('./components/sections/Process'))
 const WhyChoose   = lazy(() => import('./components/sections/WhyChoose'))
 const Blog        = lazy(() => import('./components/sections/Blog'))
-const Team        = lazy(() => import('./components/sections/Team'))
 const Contact     = lazy(() => import('./components/sections/Contact'))
 const Footer      = lazy(() => import('./components/layout/Footer'))
 
@@ -55,6 +55,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <IntroStatement />
         <Services />
         <Portfolio />
         <Suspense fallback={null}>
@@ -63,7 +64,6 @@ export default function App() {
           <Process />
           <WhyChoose />
           <Blog />
-          <Team />
           <Contact />
         </Suspense>
       </main>

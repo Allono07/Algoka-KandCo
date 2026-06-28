@@ -780,12 +780,15 @@ main section {
 }
 
 .why-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 32px;
 }
 
 .why-item {
+  flex: 0 1 calc(25% - 24px);
+  min-width: 200px;
   text-align: center;
   padding: 32px 20px;
   border-radius: 16px;
@@ -829,14 +832,14 @@ main section {
 }
 
 @media (max-width: 1024px) {
-  .why-grid {
-    grid-template-columns: 1fr 1fr;
+  .why-item {
+    flex: 0 1 calc(50% - 16px);
   }
 }
 
 @media (max-width: 640px) {
-  .why-grid {
-    grid-template-columns: 1fr;
+  .why-item {
+    flex: 0 1 100%;
   }
 }
 

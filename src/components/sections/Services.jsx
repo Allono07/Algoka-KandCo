@@ -61,14 +61,26 @@ export default function Services() {
               What We Have to Offer
             </h2>
             <p style={{
-              color: '#7F736E',
-              fontSize: '16px',
-              marginTop: '16px',
+              color: '#94847D',
+              fontSize: '14px',
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+              textTransform: 'uppercase',
+              margin: '12px auto 0',
               maxWidth: '600px',
-              margin: '16px auto 0',
               fontFamily: 'Montserrat, sans-serif'
             }}>
-              A comprehensive suite of creative and strategic solutions tailored to elevate your brand.
+              How We Grow Brands
+            </p>
+            <p style={{
+              color: '#7F736E',
+              fontSize: '16px',
+              marginTop: '12px',
+              maxWidth: '600px',
+              margin: '12px auto 0',
+              fontFamily: 'Montserrat, sans-serif'
+            }}>
+              From strategic branding and website design to SEO, digital marketing, AI solutions, and performance campaigns, every service is designed to increase visibility, generate demand, and accelerate sustainable business growth.
             </p>
           </m.div>
 
@@ -213,7 +225,7 @@ export default function Services() {
                   onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
                   onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
                   >
-                    EXPLORE {activeService.title} ↗
+                    {activeService.cta ? `→ ${activeService.cta}` : `EXPLORE ${activeService.title} ↗`}
                   </a>
                 </m.div>
               </AnimatePresence>

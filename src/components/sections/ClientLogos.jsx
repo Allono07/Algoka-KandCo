@@ -5,6 +5,12 @@ export default function ClientLogos() {
     <section id="trusted-brands" className="trusted-brands">
       {/* <p className="section-label">★ TRUSTED BY</p> */}
       <h2>Brands We've Worked With</h2>
+      <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '14px', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', color: '#94847D', marginTop: '8px', marginBottom: '4px' }}>
+        Trusted By Businesses That Think Bigger.
+      </p>
+      <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '15px', color: '#7F736E', marginTop: '4px', marginBottom: '0' }}>
+        Partnering with hospitality, healthcare, retail, real estate, manufacturing, education and technology brands.
+      </p>
 
       {/* Single scroll line: scrolls left */}
       <div className="marquee-track">

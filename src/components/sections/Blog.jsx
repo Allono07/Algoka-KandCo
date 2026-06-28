@@ -2,8 +2,8 @@ import { useInView } from 'react-intersection-observer'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { staggerContainer, fadeUp, slideLeft } from '../../utils/animations'
 import { blog } from '../../data/blog'
-import studioImage1 from '../../assets/studio/studioback.webp'
-import studioImage2 from '../../assets/studio/studiofront.webp' 
+import studioImage1 from '../../assets/studio/kalpandco-studio.webp'
+import studioImage2 from '../../assets/studio/kalpandco-hall.webp'
 
 
 export default function Blog() {

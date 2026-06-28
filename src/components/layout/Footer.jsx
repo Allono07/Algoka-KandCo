@@ -100,7 +100,7 @@ export default function Footer() {
               fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.8,
               maxWidth: '280px', marginBottom: '32px'
             }}>
-              A growth-focused creative and marketing agency. Strategy. Branding. Digital. AI.
+              360° Growth. One Partner. Luxury Branding Agency • Digital Marketing Agency • Website Design • SEO Services • Performance Marketing • Social Media Marketing • AI Marketing Solutions
             </p>
             <p style={{ fontSize: '12px', color: 'var(--color-border)' }}>
               4th Floor, 33/1 Vittal Mallya Rd,<br />Bengaluru, Karnataka 560001
