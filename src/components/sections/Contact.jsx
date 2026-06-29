@@ -76,13 +76,36 @@ export default function Contact() {
             {/* Contact Details */}
             <div style={{ marginBottom: '48px' }}>
               {[
-                { label: 'Email',   value: 'contact@kalpandco.com',   href: 'mailto:contact@kalpandco.com', icon: '✉️' },
-                { label: 'Phone',   value: '+91 94822 12222',          href: 'tel:+919482212222', icon: '📞' },
-                { label: 'Address', value: '4th Floor, 33/1 Vittal Mallya Rd, Bengaluru 560001', href: '#', icon: '📍' },
+                {
+                  label: 'Email', value: 'contact@kalpandco.com', href: 'mailto:contact@kalpandco.com',
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2"/>
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                  )
+                },
+                {
+                  label: 'Phone', value: '+91 94822 12222', href: 'tel:+919482212222',
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.13 6.13l.95-.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.03z"/>
+                    </svg>
+                  )
+                },
+                {
+                  label: 'Address', value: '4th Floor, 33/1 Vittal Mallya Rd, Bengaluru 560001', href: '#',
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                  )
+                },
               ].map((item, i) => (
                 <motion.div key={i} variants={fadeUp}
-                  style={{ marginBottom: '16px', display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: '20px' }}>{item.icon}</span>
+                  style={{ marginBottom: '20px', display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                  <span style={{ color: '#94847D', marginTop: '1px', flexShrink: 0 }}>{item.icon}</span>
                   <div>
                     <a href={item.href}
                       style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '15px', color: '#2D2926', fontWeight: 400, textDecoration: 'none',
@@ -133,13 +156,13 @@ export default function Contact() {
             initial={{ opacity: 0, x: 60 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '24px', height: '100%' }}
           >
             <div style={{ width: '100%', height: '400px', borderRadius: '16px', overflow: 'hidden' }}>
               <img src={contactImage} alt="Studio Space" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
-            
-            <div style={{ width: '100%', height: '240px', borderRadius: '12px', overflow: 'hidden', border: '1px solid #C1B6AF' }}>
+
+            <div style={{ width: '100%', flex: 1, minHeight: '240px', borderRadius: '12px', overflow: 'hidden', border: '1px solid #C1B6AF' }}>
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.001696423075!2d77.5945627153676!3d12.971598690856006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae167a57a5cfa7%3A0xcf958bb4829370bb!2sVittal%20Mallya%20Rd%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1689000000000!5m2!1sen!2sin"
                 width="100%"
