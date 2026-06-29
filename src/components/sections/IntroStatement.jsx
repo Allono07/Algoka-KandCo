@@ -26,7 +26,7 @@ export default function IntroStatement() {
                 marginBottom: '24px',
               }}
             >
-              We Build Businesses That Lead.
+              We Build Businesses That Lead
             </m.h2>
 
             <m.p
